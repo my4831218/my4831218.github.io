@@ -53,7 +53,7 @@
 <li><p>Hexo blog Deployment</p>
 <ol>
 <li>npm install hexo-deployer-git –save</li>
-<li>config.yml 에서 #Deployment에서 type: git, repo : git blog주소, branch: main 작성</li>
+<li>config.yml 에서 #Deployment에서 수정 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">type: git</span><br><span class="line">repo : git blog주소</span><br><span class="line">branch: main</span><br></pre></td></tr></table></figure></li>
 </ol>
 </li>
 <li><p>Create Menu</p>
@@ -66,24 +66,7 @@
 <li><p>Add search function</p>
 <ol>
 <li>npm install hexo-generator-searchdb</li>
-<li>config.yml 제일 아래쪽에 다음 코드 추가<ul>
-<li><h1 id="Local-Search"><a href="#Local-Search" class="headerlink" title="Local Search"></a>Local Search</h1></li>
-<li><h1 id="search"><a href="#search" class="headerlink" title="search"></a>search</h1></li>
-<li>search:</li>
-<li><pre><code>path: search.xml
-</code></pre>
-</li>
-<li><pre><code>field: post
-</code></pre>
-</li>
-<li><pre><code>content: true
-</code></pre>
-</li>
-<li><pre><code>format: html
-</code></pre>
-</li>
-</ul>
-</li>
+<li>config.yml 제일 아래쪽에 다음 코드 추가 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Local Search </span><br><span class="line"># search </span><br><span class="line">search:</span><br><span class="line">    path: search.xml</span><br><span class="line">    field: post</span><br><span class="line">    content: true</span><br><span class="line">    format: html</span><br></pre></td></tr></table></figure></li>
 <li>theme-name의 config.yml에서 Local Search(약 740L) 에서 enable 값을 true, trigger 값을 manual로 수정</li>
 </ol>
 </li>
