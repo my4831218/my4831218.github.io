@@ -186,6 +186,115 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://my4831218.github.io/2022/04/02/Git-revert/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="my4831218">
+      <meta itemprop="description" content="Everything I learned today, including coding test study, exercise record, etc.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Skang's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/02/Git-revert/" class="post-title-link" itemprop="url">Git_revert</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-04-02 14:40:59 / Modified: 14:53:33" itemprop="dateCreated datePublished" datetime="2022-04-02T14:40:59+09:00">2022-04-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="Git-revert"><a href="#Git-revert" class="headerlink" title="Git revert"></a>Git revert</h3><ul>
+<li>Rename<ul>
+<li>파일의 이름을 바꿀때 사용</li>
+<li>a.md를 b.md로 mv명령어로  이름을 바꾼다면 git에서는 a.md가 삭제되고 b.md를 untracked로 인식</li>
+<li>git mv 명령어를 사용하면 git에서도 제대로 인식</li>
+</ul>
+</li>
+<li>Undoing (commit 하지 않은 작업 취소)<ul>
+<li>자주 사용하는 명령어로 변경사항을 취소하기 위한 명령</li>
+<li>git restore name -&gt; name의 변경사항이 취소 (원상복구)</li>
+<li>git restore . -&gt; 현재 디렉토리 아래의 모든 파일 복구</li>
+</ul>
+</li>
+<li>Unstaging (add로 staging 한 작업 되돌림)<ul>
+<li>명령에 reset이 들어가있어 팀 전체에 영향을 줄 수 있어 왠만하면 사용 자제</li>
+<li>git reset HEAD name : add한 작업 취소</li>
+</ul>
+</li>
+<li>Edit latest commit (commit massage 수정)<ul>
+<li>git commit –amend (직전 commit 다시 열어서 수정)</li>
+<li>rebase 명령으로 직전 말고도 commit 수정가능</li>
+<li>commit을 대충 할수도 있기 때문에 사용을 자제</li>
+</ul>
+</li>
+<li>Revert (commit을 되돌릴 때 사용)<ul>
+<li>git revert –no-commit HEAD~n.. -&gt; n개의 commit을 되돌리고 되돌리는 commit massage 작성</li>
+<li>–no-commit 안붙이면 n개 취소할 때 n개의 commit 작성해야됨</li>
+</ul>
+</li>
+</ul>
+<h3 id="Git-Team-practice"><a href="#Git-Team-practice" class="headerlink" title="Git Team practice"></a>Git Team practice</h3><ol>
+<li>팀장이 repo 생성, git clone 후 git flow init</li>
+<li>팀원이 팀장의 repo를 fork, fork한 URL로 git clone</li>
+<li>팀원은 issue를 작성하고 git flow init 으로 develop으로 가면 팀장과 같은 상태가됨</li>
+<li>git flow feature start name 으로 기능별로 작업하고 add, commit</li>
+<li>git flow feature finish name 으로 feature 브렌치 작업 종료하고 git push -u origin develop</li>
+<li>fork한 페이지로 가서 pull request</li>
+<li>팀장이 작업 내용을 확인해보고 merge</li>
+<li>git remote add upstream 팀장repo URL 으로 upstream 주소 추가</li>
+<li>git pull upstream develop</li>
+<li>어느정도 작업내용이 쌓이면 팀장이 git flow release로 테스트하고 정상적이라면 main으로 release</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://my4831218.github.io/2022/04/01/GitBlog/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -209,17 +318,23 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-04-01 16:10:08 / Modified: 17:02:03" itemprop="dateCreated datePublished" datetime="2022-04-01T16:10:08+09:00">2022-04-01</time>
+              <time title="Created: 2022-04-01 16:10:08" itemprop="dateCreated datePublished" datetime="2022-04-01T16:10:08+09:00">2022-04-01</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-04-02 14:57:42" itemprop="dateModified" datetime="2022-04-02T14:57:42+09:00">2022-04-02</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/TIL/" itemprop="url" rel="index"><span itemprop="name">TIL</span></a>
+                  <a href="/categories/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a>
                 </span>
             </span>
 
@@ -318,17 +433,23 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-04-01 16:04:26 / Modified: 16:09:52" itemprop="dateCreated datePublished" datetime="2022-04-01T16:04:26+09:00">2022-04-01</time>
+              <time title="Created: 2022-04-01 16:04:26" itemprop="dateCreated datePublished" datetime="2022-04-01T16:04:26+09:00">2022-04-01</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-04-02 14:54:52" itemprop="dateModified" datetime="2022-04-02T14:54:52+09:00">2022-04-02</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/TIL/" itemprop="url" rel="index"><span itemprop="name">TIL</span></a>
+                  <a href="/categories/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a>
                 </span>
             </span>
 
@@ -392,17 +513,23 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-04-01 15:50:43 / Modified: 16:03:14" itemprop="dateCreated datePublished" datetime="2022-04-01T15:50:43+09:00">2022-04-01</time>
+              <time title="Created: 2022-04-01 15:50:43" itemprop="dateCreated datePublished" datetime="2022-04-01T15:50:43+09:00">2022-04-01</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-04-02 14:54:41" itemprop="dateModified" datetime="2022-04-02T14:54:41+09:00">2022-04-02</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/TIL/" itemprop="url" rel="index"><span itemprop="name">TIL</span></a>
+                  <a href="/categories/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a>
                 </span>
             </span>
 
@@ -493,17 +620,23 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-04-01 15:38:40 / Modified: 15:49:21" itemprop="dateCreated datePublished" datetime="2022-04-01T15:38:40+09:00">2022-04-01</time>
+              <time title="Created: 2022-04-01 15:38:40" itemprop="dateCreated datePublished" datetime="2022-04-01T15:38:40+09:00">2022-04-01</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-04-02 14:55:08" itemprop="dateModified" datetime="2022-04-02T14:55:08+09:00">2022-04-02</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/TIL/" itemprop="url" rel="index"><span itemprop="name">TIL</span></a>
+                  <a href="/categories/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a>
                 </span>
             </span>
 
@@ -586,17 +719,23 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-04-01 15:31:00 / Modified: 15:37:14" itemprop="dateCreated datePublished" datetime="2022-04-01T15:31:00+09:00">2022-04-01</time>
+              <time title="Created: 2022-04-01 15:31:00" itemprop="dateCreated datePublished" datetime="2022-04-01T15:31:00+09:00">2022-04-01</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-04-02 14:53:52" itemprop="dateModified" datetime="2022-04-02T14:53:52+09:00">2022-04-02</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/TIL/" itemprop="url" rel="index"><span itemprop="name">TIL</span></a>
+                  <a href="/categories/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a>
                 </span>
             </span>
 
@@ -713,7 +852,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -726,7 +865,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">1</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
