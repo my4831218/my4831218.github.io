@@ -1,38 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Git</title>
-    <url>/2022/04/01/Git/</url>
-    <content><![CDATA[<h1 id="Git-버전관리시스템"><a href="#Git-버전관리시스템" class="headerlink" title="Git : 버전관리시스템"></a>Git : 버전관리시스템</h1><ul>
-<li>특징<ul>
-<li>직관적, 빠르고 단순</li>
-<li>분산형 저장소 지원</li>
-<li>비선형 개발 가능</li>
-</ul>
-</li>
-<li>장점<ul>
-<li>하나의 파일에 n개의 버전 가능</li>
-<li>수정 내용은 commit단위로 관리, 배포 가능, 원하는 시점으로 checkout 가능</li>
-<li>기능 추가는 branch로 개발하여 테스트 가능, 성공적으로 개발되면 merge해서 반영</li>
-<li>인터넷 없이도 개발 가능</li>
-</ul>
-</li>
-<li>구조<ul>
-<li>Blob : 수정사항, 코드 내용</li>
-<li>Tree : Blob이나 subtree의 메타데이터(디렉토리 위치, 속성, 이름 등)</li>
-<li>Commit : 실제파일?</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>git</category>
-      </categories>
-      <tags>
-        <tag>TIL</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Git_revert</title>
     <url>/2022/04/02/Git-revert/</url>
     <content><![CDATA[<h3 id="Git-revert"><a href="#Git-revert" class="headerlink" title="Git revert"></a>Git revert</h3><ul>
@@ -77,6 +45,38 @@
 <li>git pull upstream develop</li>
 <li>어느정도 작업내용이 쌓이면 팀장이 git flow release로 테스트하고 정상적이라면 main으로 release</li>
 </ol>
+]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>TIL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Git</title>
+    <url>/2022/04/01/Git/</url>
+    <content><![CDATA[<h1 id="Git-버전관리시스템"><a href="#Git-버전관리시스템" class="headerlink" title="Git : 버전관리시스템"></a>Git : 버전관리시스템</h1><ul>
+<li>특징<ul>
+<li>직관적, 빠르고 단순</li>
+<li>분산형 저장소 지원</li>
+<li>비선형 개발 가능</li>
+</ul>
+</li>
+<li>장점<ul>
+<li>하나의 파일에 n개의 버전 가능</li>
+<li>수정 내용은 commit단위로 관리, 배포 가능, 원하는 시점으로 checkout 가능</li>
+<li>기능 추가는 branch로 개발하여 테스트 가능, 성공적으로 개발되면 merge해서 반영</li>
+<li>인터넷 없이도 개발 가능</li>
+</ul>
+</li>
+<li>구조<ul>
+<li>Blob : 수정사항, 코드 내용</li>
+<li>Tree : Blob이나 subtree의 메타데이터(디렉토리 위치, 속성, 이름 등)</li>
+<li>Commit : 실제파일?</li>
+</ul>
+</li>
+</ul>
 ]]></content>
       <categories>
         <category>git</category>
@@ -221,24 +221,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Gitflow2</title>
-    <url>/2022/04/01/Gitflow2/</url>
-    <content><![CDATA[<h1 id="Using-git-flow-with-external-programs"><a href="#Using-git-flow-with-external-programs" class="headerlink" title="Using git flow with external programs"></a>Using git flow with external programs</h1><ol>
-<li>git flow init</li>
-<li>git flow feature start name</li>
-<li>코딩 프로그램에서 코딩 및 컴파일, 저장 (local 저장소와 파일저장위치 동일하게)</li>
-<li>add, commit(log 작성)</li>
-<li>git flow feature finish</li>
-</ol>
-]]></content>
-      <categories>
-        <category>git</category>
-      </categories>
-      <tags>
-        <tag>TIL</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Java_day1</title>
     <url>/2022/04/05/Java-day1/</url>
     <content><![CDATA[<h3 id="JAVA-특징"><a href="#JAVA-특징" class="headerlink" title="JAVA 특징"></a>JAVA 특징</h3><ul>
@@ -272,6 +254,24 @@
 ]]></content>
       <categories>
         <category>Java</category>
+      </categories>
+      <tags>
+        <tag>TIL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Gitflow2</title>
+    <url>/2022/04/01/Gitflow2/</url>
+    <content><![CDATA[<h1 id="Using-git-flow-with-external-programs"><a href="#Using-git-flow-with-external-programs" class="headerlink" title="Using git flow with external programs"></a>Using git flow with external programs</h1><ol>
+<li>git flow init</li>
+<li>git flow feature start name</li>
+<li>코딩 프로그램에서 코딩 및 컴파일, 저장 (local 저장소와 파일저장위치 동일하게)</li>
+<li>add, commit(log 작성)</li>
+<li>git flow feature finish</li>
+</ol>
+]]></content>
+      <categories>
+        <category>git</category>
       </categories>
       <tags>
         <tag>TIL</tag>
@@ -328,6 +328,70 @@
       <categories>
         <category>Java</category>
       </categories>
+      <tags>
+        <tag>TIL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java-day3</title>
+    <url>/2022/04/06/Java-day3/</url>
+    <content><![CDATA[<h3 id="인스턴스-생성과-힙-메모리"><a href="#인스턴스-생성과-힙-메모리" class="headerlink" title="인스턴스 생성과 힙 메모리"></a>인스턴스 생성과 힙 메모리</h3><h6 id="인스턴스-instance"><a href="#인스턴스-instance" class="headerlink" title="인스턴스 (instance)"></a>인스턴스 (instance)</h6><ul>
+<li>클래스는 객체의 속성을 정의, 기능을 구현하여 만들어 놓은 코드 상태</li>
+<li>실제 클래스 기반으로 생성된 객체(인스턴스)는 각각 다른 멤버 변수 값 가짐</li>
+<li>new 키워드를 사용하여 인스턴스 생성</li>
+</ul>
+<h6 id="힙-메모리-heap-memory"><a href="#힙-메모리-heap-memory" class="headerlink" title="힙 메모리 (heap memory)"></a>힙 메모리 (heap memory)</h6><ul>
+<li>생성된 인스턴스는 동적 메모리 (heap memory) 에 할당됨</li>
+<li>C나 C++ 언어에서는 사용한 동적 메모리를 프로그래머가 해제 시켜야 하지만 자바에서는 Gabage Collector가 주기적으로 사용하지 않는 메모리 해제</li>
+<li>하나의 클래스로 부터 여러개의 인스턴스가 생성되고 각각 다른 메모리 주소를 가지게 됨</li>
+</ul>
+<hr>
+<h3 id="생성자-constructor"><a href="#생성자-constructor" class="headerlink" title="생성자 (constructor)"></a>생성자 (constructor)</h3><h6 id="생성자"><a href="#생성자" class="headerlink" title="생성자"></a>생성자</h6><ul>
+<li>오직 객체를 생성하기 위해 new와 함께 호출 className instanceName &#x3D; new className(); 에서 className()이 생성자</li>
+<li>객체가 생성될 때 변수나 상수를 초기화 하거나 다른 초기화 기능을 수행하는 메소드 호출</li>
+<li>반환값이 없고 클래스 이름과 동일</li>
+<li>대부분 생성자는 외부 접근이 가능하지만 필요하다면 private으로 선언할수도 있다.</li>
+<li>this 는 변수나 메소드 앞에 사용되며 this 사용시 매개변수가 아닌 멤버 변수를 의미</li>
+<li>맴버변수들의 값을 모두 default로 초기화</li>
+</ul>
+<h6 id="기본-생성자-default-constructor"><a href="#기본-생성자-default-constructor" class="headerlink" title="기본 생성자 (default constructor)"></a>기본 생성자 (default constructor)</h6><ul>
+<li>클래스에 반드시 하나이상 존재</li>
+<li>생성자를 구현하지 않아도 new 키워드와 함께 생성자를 호출 가능</li>
+<li>클래스 생성자 하나도 없는 경우 컴파일러가 생성자 코드 넣어준다 (public className(){})</li>
+<li>매개변수, 구현부가 없다</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class Student &#123;</span><br><span class="line"></span><br><span class="line">	public int studentNumber;</span><br><span class="line">	public String studentName;</span><br><span class="line">	public int grade;</span><br><span class="line">	</span><br><span class="line">	//default 생성자</span><br><span class="line">	public Student() &#123;&#125;</span><br><span class="line"></span><br><span class="line">	//이 아래의 Student는 모두 오버라이</span><br><span class="line">	//생성자를 만들면서 매개변수의 값을 같이 받겠다</span><br><span class="line">	//Alt + Shift + s 에서 Generate constructor using field 하면 자동생성</span><br><span class="line">	public Student(int studentNumber, String studentName, int grade) &#123;</span><br><span class="line">		this.studentNumber = studentNumber;</span><br><span class="line">		this.studentName = studentName;</span><br><span class="line">		this.grade = grade;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public Student(int studentNumber, String studentName) &#123;</span><br><span class="line">		this.studentNumber = studentNumber;</span><br><span class="line">		this.studentName = studentName;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public Student(int studentNumber, String studentName, int grade) &#123;</span><br><span class="line">		//this() -&gt; 클래스 내부의 다른 생성자를 다시 호출</span><br><span class="line">		this(studentNumber, studentName);</span><br><span class="line">		this.grade = grade;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public String showStudentInfo() &#123;</span><br><span class="line">		return studentName + &quot;학생의 학번은 &quot; + studentNumber + &quot;이고, &quot; + grade + &quot;학년 입니다.&quot;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class StudentTest &#123;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line">		//Student studentLee = new Student();</span><br><span class="line">		// 인스턴스를 만들면서 생성자에 맴버변수 값을 받아서 저장</span><br><span class="line">		Student studentLee = new Student(12345, &quot;Lee&quot;, 3);</span><br><span class="line"></span><br><span class="line">		// 생성자 오버로딩으로 이렇게도 인스턴스를 생성하고 멤버변수 값을 받을 수 있다.</span><br><span class="line">		Student studentChoi = new Student();</span><br><span class="line">		studentChoi.studentNumber = 12345678;</span><br><span class="line">		studentChoi.studentName = &quot;Choi&quot;;</span><br><span class="line">		studentChoi.grade = 3;</span><br><span class="line"></span><br><span class="line">		String data = studentLee.showStudentInfo();</span><br><span class="line">		System.out.println(data);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="접근-제어자"><a href="#접근-제어자" class="headerlink" title="접근 제어자"></a>접근 제어자</h6><ul>
+<li>Public<ul>
+<li>다른 패키지에서 사용  가능</li>
+<li>다른 어떤 클래스에서도 public class는 사용 가능</li>
+</ul>
+</li>
+<li>Private<ul>
+<li>private이 붙은 변수나 메소드는 해당 클래스에서만 접근이 가능</li>
+<li>다른 클래스에서 접근이 불가능</li>
+</ul>
+</li>
+<li>Default<ul>
+<li>접근 제어자를 별도로 설정하지 않는다면 해당 패키지 내에서만 접근이 가능</li>
+<li>**동일 패키지**, 다른 클래스에서 접근 가능</li>
+</ul>
+</li>
+<li>Protected<ul>
+<li>이 제어자가 붙은 변수, 메소드는 동일 패키지의 클래스 또는 해당 클래스를 상속받은 다른 패키지의 클래스에서만 접근이 가능 (상속 → import packageName.ClassName;)</li>
+</ul>
+</li>
+</ul>
+<h6 id="패키지-package"><a href="#패키지-package" class="headerlink" title="패키지 (package)"></a>패키지 (package)</h6><ul>
+<li>소문자로만 구성</li>
+<li>여러 디렉토리로 구성되면 . 을 이용해 구분 (package school. high)</li>
+<li>주석을 제외하고 클래스 파일의 가장 첫 줄에 위치</li>
+<li>import packageName.ClassName; 다른 패키지의 클래스 사용하려면 있어야됨</li>
+</ul>
+]]></content>
       <tags>
         <tag>TIL</tag>
       </tags>

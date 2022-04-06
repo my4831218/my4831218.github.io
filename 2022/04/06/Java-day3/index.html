@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"my4831218.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="인스턴스 생성과 힙 메모리인스턴스 (instance) 클래스는 객체의 속성을 정의, 기능을 구현하여 만들어 놓은 코드 상태 실제 클래스 기반으로 생성된 객체(인스턴스)는 각각 다른 멤버 변수 값 가짐 new 키워드를 사용하여 인스턴스 생성  힙 메모리 (heap memory) 생성된 인스턴스는 동적 메모리 (heap memory) 에 할당됨 C나 C++ 언">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java-day3">
+<meta property="og:url" content="http://my4831218.github.io/2022/04/06/Java-day3/index.html">
+<meta property="og:site_name" content="Skang&#39;s blog">
+<meta property="og:description" content="인스턴스 생성과 힙 메모리인스턴스 (instance) 클래스는 객체의 속성을 정의, 기능을 구현하여 만들어 놓은 코드 상태 실제 클래스 기반으로 생성된 객체(인스턴스)는 각각 다른 멤버 변수 값 가짐 new 키워드를 사용하여 인스턴스 생성  힙 메모리 (heap memory) 생성된 인스턴스는 동적 메모리 (heap memory) 에 할당됨 C나 C++ 언">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-04-06T13:13:46.000Z">
+<meta property="article:modified_time" content="2022-04-06T13:27:09.910Z">
+<meta property="article:author" content="my4831218">
+<meta property="article:tag" content="TIL">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://my4831218.github.io/2022/04/06/Java-day3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Java-day3 | Skang's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Skang's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Skang github blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://my4831218.github.io/2022/04/06/Java-day3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="my4831218">
+      <meta itemprop="description" content="Everything I learned today, including coding test study, exercise record, etc.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Skang's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java-day3
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-04-06 22:13:46 / Modified: 22:27:09" itemprop="dateCreated datePublished" datetime="2022-04-06T22:13:46+09:00">2022-04-06</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="인스턴스-생성과-힙-메모리"><a href="#인스턴스-생성과-힙-메모리" class="headerlink" title="인스턴스 생성과 힙 메모리"></a>인스턴스 생성과 힙 메모리</h3><h6 id="인스턴스-instance"><a href="#인스턴스-instance" class="headerlink" title="인스턴스 (instance)"></a>인스턴스 (instance)</h6><ul>
+<li>클래스는 객체의 속성을 정의, 기능을 구현하여 만들어 놓은 코드 상태</li>
+<li>실제 클래스 기반으로 생성된 객체(인스턴스)는 각각 다른 멤버 변수 값 가짐</li>
+<li>new 키워드를 사용하여 인스턴스 생성</li>
+</ul>
+<h6 id="힙-메모리-heap-memory"><a href="#힙-메모리-heap-memory" class="headerlink" title="힙 메모리 (heap memory)"></a>힙 메모리 (heap memory)</h6><ul>
+<li>생성된 인스턴스는 동적 메모리 (heap memory) 에 할당됨</li>
+<li>C나 C++ 언어에서는 사용한 동적 메모리를 프로그래머가 해제 시켜야 하지만 자바에서는 Gabage Collector가 주기적으로 사용하지 않는 메모리 해제</li>
+<li>하나의 클래스로 부터 여러개의 인스턴스가 생성되고 각각 다른 메모리 주소를 가지게 됨</li>
+</ul>
+<hr>
+<h3 id="생성자-constructor"><a href="#생성자-constructor" class="headerlink" title="생성자 (constructor)"></a>생성자 (constructor)</h3><h6 id="생성자"><a href="#생성자" class="headerlink" title="생성자"></a>생성자</h6><ul>
+<li>오직 객체를 생성하기 위해 new와 함께 호출 className instanceName &#x3D; new className(); 에서 className()이 생성자</li>
+<li>객체가 생성될 때 변수나 상수를 초기화 하거나 다른 초기화 기능을 수행하는 메소드 호출</li>
+<li>반환값이 없고 클래스 이름과 동일</li>
+<li>대부분 생성자는 외부 접근이 가능하지만 필요하다면 private으로 선언할수도 있다.</li>
+<li>this 는 변수나 메소드 앞에 사용되며 this 사용시 매개변수가 아닌 멤버 변수를 의미</li>
+<li>맴버변수들의 값을 모두 default로 초기화</li>
+</ul>
+<h6 id="기본-생성자-default-constructor"><a href="#기본-생성자-default-constructor" class="headerlink" title="기본 생성자 (default constructor)"></a>기본 생성자 (default constructor)</h6><ul>
+<li>클래스에 반드시 하나이상 존재</li>
+<li>생성자를 구현하지 않아도 new 키워드와 함께 생성자를 호출 가능</li>
+<li>클래스 생성자 하나도 없는 경우 컴파일러가 생성자 코드 넣어준다 (public className(){})</li>
+<li>매개변수, 구현부가 없다</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">public class Student &#123;</span><br><span class="line"></span><br><span class="line">	public int studentNumber;</span><br><span class="line">	public String studentName;</span><br><span class="line">	public int grade;</span><br><span class="line">	</span><br><span class="line">	//default 생성자</span><br><span class="line">	public Student() &#123;&#125;</span><br><span class="line"></span><br><span class="line">	//이 아래의 Student는 모두 오버라이</span><br><span class="line">	//생성자를 만들면서 매개변수의 값을 같이 받겠다</span><br><span class="line">	//Alt + Shift + s 에서 Generate constructor using field 하면 자동생성</span><br><span class="line">	public Student(int studentNumber, String studentName, int grade) &#123;</span><br><span class="line">		this.studentNumber = studentNumber;</span><br><span class="line">		this.studentName = studentName;</span><br><span class="line">		this.grade = grade;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public Student(int studentNumber, String studentName) &#123;</span><br><span class="line">		this.studentNumber = studentNumber;</span><br><span class="line">		this.studentName = studentName;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public Student(int studentNumber, String studentName, int grade) &#123;</span><br><span class="line">		//this() -&gt; 클래스 내부의 다른 생성자를 다시 호출</span><br><span class="line">		this(studentNumber, studentName);</span><br><span class="line">		this.grade = grade;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public String showStudentInfo() &#123;</span><br><span class="line">		return studentName + &quot;학생의 학번은 &quot; + studentNumber + &quot;이고, &quot; + grade + &quot;학년 입니다.&quot;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public class StudentTest &#123;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line">		//Student studentLee = new Student();</span><br><span class="line">		// 인스턴스를 만들면서 생성자에 맴버변수 값을 받아서 저장</span><br><span class="line">		Student studentLee = new Student(12345, &quot;Lee&quot;, 3);</span><br><span class="line"></span><br><span class="line">		// 생성자 오버로딩으로 이렇게도 인스턴스를 생성하고 멤버변수 값을 받을 수 있다.</span><br><span class="line">		Student studentChoi = new Student();</span><br><span class="line">		studentChoi.studentNumber = 12345678;</span><br><span class="line">		studentChoi.studentName = &quot;Choi&quot;;</span><br><span class="line">		studentChoi.grade = 3;</span><br><span class="line"></span><br><span class="line">		String data = studentLee.showStudentInfo();</span><br><span class="line">		System.out.println(data);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="접근-제어자"><a href="#접근-제어자" class="headerlink" title="접근 제어자"></a>접근 제어자</h6><ul>
+<li>Public<ul>
+<li>다른 패키지에서 사용  가능</li>
+<li>다른 어떤 클래스에서도 public class는 사용 가능</li>
+</ul>
+</li>
+<li>Private<ul>
+<li>private이 붙은 변수나 메소드는 해당 클래스에서만 접근이 가능</li>
+<li>다른 클래스에서 접근이 불가능</li>
+</ul>
+</li>
+<li>Default<ul>
+<li>접근 제어자를 별도로 설정하지 않는다면 해당 패키지 내에서만 접근이 가능</li>
+<li>**동일 패키지**, 다른 클래스에서 접근 가능</li>
+</ul>
+</li>
+<li>Protected<ul>
+<li>이 제어자가 붙은 변수, 메소드는 동일 패키지의 클래스 또는 해당 클래스를 상속받은 다른 패키지의 클래스에서만 접근이 가능 (상속 → import packageName.ClassName;)</li>
+</ul>
+</li>
+</ul>
+<h6 id="패키지-package"><a href="#패키지-package" class="headerlink" title="패키지 (package)"></a>패키지 (package)</h6><ul>
+<li>소문자로만 구성</li>
+<li>여러 디렉토리로 구성되면 . 을 이용해 구분 (package school. high)</li>
+<li>주석을 제외하고 클래스 파일의 가장 첫 줄에 위치</li>
+<li>import packageName.ClassName; 다른 패키지의 클래스 사용하려면 있어야됨</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/TIL/" rel="tag"># TIL</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/04/05/Java-day2/" rel="prev" title="Java-day2">
+      <i class="fa fa-chevron-left"></i> Java-day2
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4-%EC%83%9D%EC%84%B1%EA%B3%BC-%ED%9E%99-%EB%A9%94%EB%AA%A8%EB%A6%AC"><span class="nav-number">1.</span> <span class="nav-text">인스턴스 생성과 힙 메모리</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4-instance"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">인스턴스 (instance)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%ED%9E%99-%EB%A9%94%EB%AA%A8%EB%A6%AC-heap-memory"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">힙 메모리 (heap memory)</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EC%83%9D%EC%84%B1%EC%9E%90-constructor"><span class="nav-number">2.</span> <span class="nav-text">생성자 (constructor)</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%EC%83%9D%EC%84%B1%EC%9E%90"><span class="nav-number">2.0.0.1.</span> <span class="nav-text">생성자</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%EA%B8%B0%EB%B3%B8-%EC%83%9D%EC%84%B1%EC%9E%90-default-constructor"><span class="nav-number">2.0.0.2.</span> <span class="nav-text">기본 생성자 (default constructor)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%EC%A0%91%EA%B7%BC-%EC%A0%9C%EC%96%B4%EC%9E%90"><span class="nav-number">2.0.0.3.</span> <span class="nav-text">접근 제어자</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%ED%8C%A8%ED%82%A4%EC%A7%80-package"><span class="nav-number">2.0.0.4.</span> <span class="nav-text">패키지 (package)</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">my4831218</p>
+  <div class="site-description" itemprop="description">Everything I learned today, including coding test study, exercise record, etc.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">my4831218</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
