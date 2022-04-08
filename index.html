@@ -186,6 +186,128 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://my4831218.github.io/2022/04/08/Data-structures-day2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="my4831218">
+      <meta itemprop="description" content="Everything I learned today, including coding test study, exercise record, etc.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Skang's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/08/Data-structures-day2/" class="post-title-link" itemprop="url">Data-structures-day2</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-04-08 21:53:00 / Modified: 22:18:33" itemprop="dateCreated datePublished" datetime="2022-04-08T21:53:00+09:00">2022-04-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Data-structures/" itemprop="url" rel="index"><span itemprop="name">Data-structures</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Linked-List"><a href="#Linked-List" class="headerlink" title="Linked List"></a>Linked List</h1><h3 id="노드-삽입"><a href="#노드-삽입" class="headerlink" title="노드 삽입"></a>노드 삽입</h3><ul>
+<li>삽입할 위치 search (노드1찾기)</li>
+<li>새로운 노드2 생성</li>
+<li>노드2의 포인터에 노드3 주소 저장</li>
+<li>노드1의 포인터에 노드2 주소 저장<br><img src="/./img/insert.png" alt="Insert Node"><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">def insert(self, data, search_data):</span><br><span class="line">        if self.head == None:</span><br><span class="line">            print(&quot;노드가 없습니다&quot;)</span><br><span class="line">            return</span><br><span class="line"></span><br><span class="line">        if self.head.data == search_data: # 1</span><br><span class="line">            temp = head</span><br><span class="line">            node = head # 2</span><br><span class="line">            node.data = data # 2</span><br><span class="line">            node.next = temp # 3</span><br><span class="line"></span><br><span class="line">        else:</span><br><span class="line">            node = self.head</span><br><span class="line">            while node.next: # 1</span><br><span class="line">                if node.next.data = search_data: # 1</span><br><span class="line">                    new = Node(data) # 2</span><br><span class="line">                    new.next = node.next.next # 3</span><br><span class="line">                    node.next = new # 4</span><br><span class="line">		    return</span><br><span class="line">                else:</span><br><span class="line">                    node = node.next</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="노드-삭제"><a href="#노드-삭제" class="headerlink" title="노드 삭제"></a>노드 삭제</h3><ul>
+<li>삭제할 위치를 search (노드2 찾기)</li>
+<li>index - 1 위치의 노드1 포인터에 노드3의 주소 저장</li>
+<li>노드2 삭제<br><img src="/./img/remove.png" alt="Delete Node"><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">def delete(self.data):</span><br><span class="line">        if self.head == &quot;:</span><br><span class="line">            print(&quot;해당 값을 가진 노드 없습니다&quot;)</span><br><span class="line">            return</span><br><span class="line"></span><br><span class="line">        if self.head.data == data: # 1</span><br><span class="line">            temp = self.head</span><br><span class="line">            self.head = self.head.next</span><br><span class="line">        else:</span><br><span class="line">            node = self.head</span><br><span class="line">            while node.next: # 1</span><br><span class="line">                if node.next.data = data:</span><br><span class="line">                    temp = node.next</span><br><span class="line">                    node.next = node.next.next # 2</span><br><span class="line">                    del temp # 3</span><br><span class="line">		    return</span><br><span class="line">		else:</span><br><span class="line">		    node = node.next</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Double-Linked-List"><a href="#Double-Linked-List" class="headerlink" title="Double Linked List"></a>Double Linked List</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">def insert(self.data, search_data):</span><br><span class="line">        if self.head == None:</span><br><span class="line">            self.head = Node(data)</span><br><span class="line">            return True</span><br><span class="line">        else:</span><br><span class="line">            node = self.head</span><br><span class="line">            while node.data != search_data:</span><br><span class="line">                node = node.next</span><br><span class="line">                if node == None:</span><br><span class="line">                    return False</span><br><span class="line">            new = Node(data)</span><br><span class="line">            new.next = node.next</span><br><span class="line">            new.prev = node</span><br><span class="line">            node.next.prev = new</span><br><span class="line">            node.next = new</span><br><span class="line">            return True</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def delete(self.data, search_data):</span><br><span class="line">        if self.head == None:</span><br><span class="line">            print(&quot;노드가 존재하지 않습니다&quot;)</span><br><span class="line">            return False</span><br><span class="line">        else:</span><br><span class="line">            node = self.head</span><br><span class="line">            while node.data != search_data:</span><br><span class="line">                node = node.next</span><br><span class="line">                if node == None:</span><br><span class="line">                    return False</span><br><span class="line">            node.next.next.prev = node</span><br><span class="line">            node.next =  node.next.next</span><br><span class="line">            return True</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="시간-복잡도"><a href="#시간-복잡도" class="headerlink" title="시간 복잡도"></a>시간 복잡도</h1><ul>
+<li>알고리즘 성능 평가는 두가지<ul>
+<li>시간 복잡도 : 실행 속도</li>
+<li>공간 복잡도 : 알고리즘 사용 메모리 크기</li>
+</ul>
+</li>
+<li>시간 복잡도 평가 방법<ul>
+<li>최선 실행 시간 : 최상의 경우실행시간</li>
+<li>평균 실행 시간 : 평균 실행 시간</li>
+<li>최악 실행 시간 : 가장 오래 걸리는 시간을 기준</li>
+</ul>
+</li>
+<li>최악 실행 시간을 사용 -&gt; Big O</li>
+</ul>
+<hr>
+<h1 id="Hash-Table"><a href="#Hash-Table" class="headerlink" title="Hash Table"></a>Hash Table</h1><ul>
+<li>Hash 란 임의 값을 고정 길이로 변환한것</li>
+<li>Key에 데이터(value)를 매핑할 수 있는 데이터 구조</li>
+<li>해쉬 함수를 통해 배열에 키에 대한 데이터를 저장할 수 있는 주소(index)를 계산</li>
+<li>key를 통해 바로 데이터가 저장된 주소(index)를 알 수 있어 저장 및 탐색 속도가 획기적으로 빠르다</li>
+<li>미리 해쉬 함수가 생성할 수 있는 주소에 대한 공간을 배열로 할당, 키에 따른 데이터 저장 및 탐색을 지원 (메모리 공간과 탐색 시간을 맞바꾸는 기법으로도 불림)</li>
+<li>Python에서는 별도 구현 X, 딕셔너리 타입 사용</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">def insert(self.data, search_data):</span><br><span class="line">        if self.head == None:</span><br><span class="line">            self.head = Node(data)</span><br><span class="line">            return True</span><br><span class="line">        else:</span><br><span class="line">            node = self.head</span><br><span class="line">            while node.data != search_data:</span><br><span class="line">                node = node.next</span><br><span class="line">                if node == None:</span><br><span class="line">                    return False</span><br><span class="line">            new = Node(data)</span><br><span class="line">            new.next = node.next</span><br><span class="line">            new.prev = node</span><br><span class="line">            node.next.prev = new</span><br><span class="line">            node.next = new</span><br><span class="line">            return True</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def delete(self.data, search_data):</span><br><span class="line">        if self.head == None:</span><br><span class="line">            print(&quot;노드가 존재하지 않습니다&quot;)</span><br><span class="line">            return False</span><br><span class="line">        else:</span><br><span class="line">            node = self.head</span><br><span class="line">            while node.data != search_data:</span><br><span class="line">                node = node.next</span><br><span class="line">                if node == None:</span><br><span class="line">                    return False</span><br><span class="line">            node.next.next.prev = node</span><br><span class="line">            node.next =  node.next.next</span><br><span class="line">            return True</span><br></pre></td></tr></table></figure>
+<h3 id="동작-방식"><a href="#동작-방식" class="headerlink" title="동작 방식"></a>동작 방식</h3><ol>
+<li>Key(1)를 Hash fucntion(2)에 입력하면 주소(index number) 출력</li>
+<li>출력된 주소(index number)를 (3)에서 찾아 필요한 데이터(4) 찾을 수 있다.<br><img src="/./img/Hash_table.png" alt="Hash Table 작동"></li>
+</ol>
+<h6 id="장점"><a href="#장점" class="headerlink" title="장점"></a>장점</h6><ul>
+<li>데이터 R &#x2F; W 속도가 빠르다</li>
+<li>해쉬는 키에 대한 데이터가 있는지 (중복) 확인이 쉽다</li>
+</ul>
+<h6 id="단점"><a href="#단점" class="headerlink" title="단점"></a>단점</h6><ul>
+<li>일반적으로 저장공간이 기존보다 더 많이 필요하다</li>
+<li>여러 키에 해당하는 주소가 동일할 경우 충돌을 해결하기 위한 별도의 자료구조가 필요하다</li>
+</ul>
+<h6 id="사용"><a href="#사용" class="headerlink" title="사용"></a>사용</h6><ul>
+<li>검색이 많이 필요할 때</li>
+<li>저장, 삭제, 읽기가 자주 쓰일 때</li>
+<li>캐쉬 구현시 (중복 확인이 쉬워서)</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://my4831218.github.io/2022/04/08/Data-structures-day1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1125,105 +1247,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://my4831218.github.io/2022/04/01/Github/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="my4831218">
-      <meta itemprop="description" content="Everything I learned today, including coding test study, exercise record, etc.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Skang's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/04/01/Github/" class="post-title-link" itemprop="url">Github</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-04-01 15:38:40" itemprop="dateCreated datePublished" datetime="2022-04-01T15:38:40+09:00">2022-04-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-02 14:55:08" itemprop="dateModified" datetime="2022-04-02T14:55:08+09:00">2022-04-02</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="How-to-use-github"><a href="#How-to-use-github" class="headerlink" title="How to use github?"></a>How to use github?</h3><ol>
-<li>원격저장소(github) 에서 repo 생성</li>
-<li>repo의 URL을 복사하고 git bash로 돌아와 git clone URL 명령 입력</li>
-</ol>
-<h3 id="Process-of-saving-to-github"><a href="#Process-of-saving-to-github" class="headerlink" title="Process of saving to github"></a>Process of saving to github</h3><ol>
-<li>git clone으로 연동된 디렉토리에서 작업</li>
-<li>git add file name 으로 staging</li>
-<li>git commit으로 commit message 작성</li>
-<li>git push origin main</li>
-</ol>
-<h1 id="Commit"><a href="#Commit" class="headerlink" title="Commit"></a>Commit</h1><ul>
-<li>commit은 동작 가능한 최소 기능단위로 자주 진행</li>
-<li>모두가 이해 가능한 log 작성</li>
-<li>제목은 축약, 내용은 문장형으로 작성</li>
-<li>제목과 내용은 한줄 띄워 분리</li>
-<li>prefix 반드시 사용<ul>
-<li>feat : 기능 개발</li>
-<li>fix : 오류 개선, 버그패치</li>
-<li>docs : 문서화 작업</li>
-<li>test : test관련</li>
-<li>conf : 환경설정</li>
-<li>build : 빌드관련</li>
-<li>ci : Continuous Integration 관련</li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1293,7 +1316,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-count">12</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
