@@ -1,6 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Data-structures-day1</title>
+    <url>/2022/04/08/Data-structures-day1/</url>
+    <content><![CDATA[<h3 id="Queue"><a href="#Queue" class="headerlink" title="Queue"></a>Queue</h3><ul>
+<li>줄을 서는 행위같은 개념을 추상화한 데이터 구조</li>
+<li>가장 먼저 넣은 데이터를 제일 먼저 처리하는 구조 (FIFO)</li>
+<li>사용되는 메소드<ul>
+<li>Enqueue : 큐에 데이터 입력</li>
+<li>Dequeue : 큐에 데이터 제거</li>
+</ul>
+</li>
+<li>Python 에서 Queue 기능을 제공하는 메소드를 사용하여 큐 구현 가능 (import queue)</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 제공되는 메소드를 사용한 큐 구현</span><br><span class="line">impotr queue</span><br><span class="line">data_queue = queue.Queue()</span><br><span class="line"></span><br><span class="line">data_queue.put(&quot;funcoding&quot;)</span><br><span class="line">data_queue.put(1)</span><br><span class="line">data_queue.size() # print 2</span><br><span class="line">data_queue.get() # print &#x27;funcoding&#x27;</span><br><span class="line">data_queue.qsize() # print 0</span><br><span class="line">data_queue.get() # print 1</span><br><span class="line"></span><br><span class="line"># 우선순위 큐 생성</span><br><span class="line">data_pqueue = queue.PriorityQueue()</span><br><span class="line"></span><br><span class="line">data_queue.put((n, data)) # n은 우선순위</span><br><span class="line">data_queue.put((n, data)) # 3개중 가장 우선순위가 낮은것부터</span><br><span class="line">data_queue.put((n, data)) # queue에 처리</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 제공되는 메소드 없이 직접 구현한 큐</span><br><span class="line">queue_list = list()</span><br><span class="line"></span><br><span class="line">def enqueue(data):</span><br><span class="line">	queue_list.append(data)</span><br><span class="line">def dequeue():</span><br><span class="line">	data = queue_list[0]</span><br><span class="line">	del queue_list[0]</span><br><span class="line"></span><br><span class="line">	return data</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="Stack"><a href="#Stack" class="headerlink" title="Stack"></a>Stack</h3><ul>
+<li>마지막에 들어온 데이터를 제일 먼저 처리하는 추상적인 데이터 구조</li>
+<li>사용되는 메소드<ul>
+<li>push : 스택에 데이터 입력</li>
+<li>pop : 스택에 데이터 제거</li>
+</ul>
+</li>
+<li>장점<ul>
+<li>구조가 단순해서 구현이 쉽고 데이터 R&#x2F;W 속도가 빠르다</li>
+</ul>
+</li>
+<li>단점<ul>
+<li>데이터 갯수를 미리 정해야 해서 메모리 낭비가 발생할 수 있다.</li>
+</ul>
+</li>
+<li>Python 에서 리스트 기능을 제공하는 메소드를 사용하여 스택을 구현할 수 있다. (append(push), pop) 메소드 제공</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 제공 메소드 사용 스택 구현</span><br><span class="line">data_stack = list()</span><br><span class="line">data_stack.append(1)</span><br><span class="line">data_stack.append(2)</span><br><span class="line"></span><br><span class="line">data_stack # [1, 2] print</span><br><span class="line"></span><br><span class="line">data_stack.pop() # 2 print</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 제공 메소드 없이 직접 스택 구현</span><br><span class="line">stack_list = list()</span><br><span class="line"></span><br><span class="line">def push(data):</span><br><span class="line">	stack_list.append(data)</span><br><span class="line">def pop():</span><br><span class="line">	data = stack_list[-1]</span><br><span class="line">	del stack_list[-1]</span><br><span class="line">	return data</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="Linked-List"><a href="#Linked-List" class="headerlink" title="Linked List"></a>Linked List</h3><ul>
+<li>원소와 다음 원소의 메모리 주소를 가르키는 포인터로 이루어진 데이터 구조</li>
+<li>처음을 의미하는 head, 마지막을 의미하는 tail이 있을수 있다.</li>
+<li>장점<ul>
+<li>미리 메모리 공간을 할당하지 않아도 됨</li>
+</ul>
+</li>
+<li>단점<ul>
+<li>원소 외에 포인터를 가지기 때문에 저장공간 효율이 높지 않다</li>
+<li>특정 정보를 찾을 때 속도가 느리다</li>
+<li>중간 데이터를 삭제하면 앞 뒤 연결을 재구성해야 하는 부가적 작업 필요</li>
+</ul>
+</li>
+<li>사용자 수가 20만명으로 예상되는 웹 페이지의 회원 정보를 배열로 관리할 때 25만개의 배열을 미리 할당해야 하는데 사용자가 10만명밖에 되지 않거나 25만명을 초과할 때 문제가 생길 수 있다, 하지만 Linked List를 사용하면 회원 한명이 가입할 때마다 노드를 하나씩 생성하므로 메모리를 정확하게 사용할 수 있다.</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 메소드 사용하여 구현</span><br><span class="line">class Node:</span><br><span class="line">	def __init__(self, data):</span><br><span class="line">		self.data = data</span><br><span class="line">		self.next = None</span><br><span class="line"></span><br><span class="line"># def __init__(self, data, next=None):</span><br><span class="line">#			self.data = data</span><br><span class="line">#			self.next = next</span><br><span class="line"></span><br><span class="line">	def add(data):</span><br><span class="line">		node = head</span><br><span class="line">		# 마지막 노드 찾는 코드</span><br><span class="line">		while node.next:</span><br><span class="line">			node = node.next</span><br><span class="line">		node.next = Node(data)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 직접 구현</span><br><span class="line">class Node:</span><br><span class="line">	def __init__(self, data, next=None):</span><br><span class="line">		self.data = data</span><br><span class="line">		self.next = next</span><br><span class="line"></span><br><span class="line">class NodeMgmt:</span><br><span class="line">	def __init__(self, data):</span><br><span class="line">		self.head = Node(data)</span><br><span class="line"></span><br><span class="line">	def add(self, data):</span><br><span class="line">		if self.head ==&quot;:</span><br><span class="line">			self.head = Node(data)</span><br><span class="line">		else:</span><br><span class="line">			node = self.head</span><br><span class="line">			while node.next:</span><br><span class="line">				node = node.next</span><br><span class="line">			node.next = Node(data)</span><br><span class="line"></span><br><span class="line">	def desc(self):</span><br><span class="line">		node = self.head</span><br><span class="line">		while node:</span><br><span class="line">			print(node.data)</span><br><span class="line">			node = node.next</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Data-structures</category>
+      </categories>
+      <tags>
+        <tag>TIL</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Git_revert</title>
     <url>/2022/04/02/Git-revert/</url>
     <content><![CDATA[<h3 id="Git-revert"><a href="#Git-revert" class="headerlink" title="Git revert"></a>Git revert</h3><ul>
@@ -54,38 +118,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Git</title>
-    <url>/2022/04/01/Git/</url>
-    <content><![CDATA[<h1 id="Git-버전관리시스템"><a href="#Git-버전관리시스템" class="headerlink" title="Git : 버전관리시스템"></a>Git : 버전관리시스템</h1><ul>
-<li>특징<ul>
-<li>직관적, 빠르고 단순</li>
-<li>분산형 저장소 지원</li>
-<li>비선형 개발 가능</li>
-</ul>
-</li>
-<li>장점<ul>
-<li>하나의 파일에 n개의 버전 가능</li>
-<li>수정 내용은 commit단위로 관리, 배포 가능, 원하는 시점으로 checkout 가능</li>
-<li>기능 추가는 branch로 개발하여 테스트 가능, 성공적으로 개발되면 merge해서 반영</li>
-<li>인터넷 없이도 개발 가능</li>
-</ul>
-</li>
-<li>구조<ul>
-<li>Blob : 수정사항, 코드 내용</li>
-<li>Tree : Blob이나 subtree의 메타데이터(디렉토리 위치, 속성, 이름 등)</li>
-<li>Commit : 실제파일?</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>git</category>
-      </categories>
-      <tags>
-        <tag>TIL</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>GitBlog</title>
     <url>/2022/04/01/GitBlog/</url>
     <content><![CDATA[<h3 id="Github-Blog"><a href="#Github-Blog" class="headerlink" title="Github Blog"></a>Github Blog</h3><p>repo : username.github.io 만들면 서버를 제공하는 페이지 제공<br>꾸미기 위해 Node.js &amp; npm hexo-cli -g 다운로드</p>
@@ -130,6 +162,38 @@
 <li>hexo server (localhost update)</li>
 <li>hexo clean &amp;&amp; hexo deploy (github blog update)</li>
 </ol>
+]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>TIL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Git</title>
+    <url>/2022/04/01/Git/</url>
+    <content><![CDATA[<h1 id="Git-버전관리시스템"><a href="#Git-버전관리시스템" class="headerlink" title="Git : 버전관리시스템"></a>Git : 버전관리시스템</h1><ul>
+<li>특징<ul>
+<li>직관적, 빠르고 단순</li>
+<li>분산형 저장소 지원</li>
+<li>비선형 개발 가능</li>
+</ul>
+</li>
+<li>장점<ul>
+<li>하나의 파일에 n개의 버전 가능</li>
+<li>수정 내용은 commit단위로 관리, 배포 가능, 원하는 시점으로 checkout 가능</li>
+<li>기능 추가는 branch로 개발하여 테스트 가능, 성공적으로 개발되면 merge해서 반영</li>
+<li>인터넷 없이도 개발 가능</li>
+</ul>
+</li>
+<li>구조<ul>
+<li>Blob : 수정사항, 코드 내용</li>
+<li>Tree : Blob이나 subtree의 메타데이터(디렉토리 위치, 속성, 이름 등)</li>
+<li>Commit : 실제파일?</li>
+</ul>
+</li>
+</ul>
 ]]></content>
       <categories>
         <category>git</category>
@@ -221,6 +285,24 @@
       </tags>
   </entry>
   <entry>
+    <title>Gitflow2</title>
+    <url>/2022/04/01/Gitflow2/</url>
+    <content><![CDATA[<h1 id="Using-git-flow-with-external-programs"><a href="#Using-git-flow-with-external-programs" class="headerlink" title="Using git flow with external programs"></a>Using git flow with external programs</h1><ol>
+<li>git flow init</li>
+<li>git flow feature start name</li>
+<li>코딩 프로그램에서 코딩 및 컴파일, 저장 (local 저장소와 파일저장위치 동일하게)</li>
+<li>add, commit(log 작성)</li>
+<li>git flow feature finish</li>
+</ol>
+]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>TIL</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java_day1</title>
     <url>/2022/04/05/Java-day1/</url>
     <content><![CDATA[<h3 id="JAVA-특징"><a href="#JAVA-특징" class="headerlink" title="JAVA 특징"></a>JAVA 특징</h3><ul>
@@ -254,24 +336,6 @@
 ]]></content>
       <categories>
         <category>Java</category>
-      </categories>
-      <tags>
-        <tag>TIL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Gitflow2</title>
-    <url>/2022/04/01/Gitflow2/</url>
-    <content><![CDATA[<h1 id="Using-git-flow-with-external-programs"><a href="#Using-git-flow-with-external-programs" class="headerlink" title="Using git flow with external programs"></a>Using git flow with external programs</h1><ol>
-<li>git flow init</li>
-<li>git flow feature start name</li>
-<li>코딩 프로그램에서 코딩 및 컴파일, 저장 (local 저장소와 파일저장위치 동일하게)</li>
-<li>add, commit(log 작성)</li>
-<li>git flow feature finish</li>
-</ol>
-]]></content>
-      <categories>
-        <category>git</category>
       </categories>
       <tags>
         <tag>TIL</tag>
@@ -392,6 +456,42 @@
 <li>import packageName.ClassName; 다른 패키지의 클래스 사용하려면 있어야됨</li>
 </ul>
 ]]></content>
+      <tags>
+        <tag>TIL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java-day4</title>
+    <url>/2022/04/08/Java-day4/</url>
+    <content><![CDATA[<h1 id="참조-자료형-변수"><a href="#참조-자료형-변수" class="headerlink" title="참조 자료형 변수"></a>참조 자료형 변수</h1><hr>
+<h3 id="참조-자료형"><a href="#참조-자료형" class="headerlink" title="참조 자료형"></a>참조 자료형</h3><ul>
+<li>클래스형 변수 선언</li>
+<li>기본 자료형은 메모리 크기가 정해져 있지만 참조 자료형은 클래스에 따라 다르다</li>
+<li>참조 자료형 사용시 해당 변수에 대해 생성해야 한다.</li>
+<li>멤버 변수로 클래스를 가지는 자료형 사용 가능</li>
+<li>아래 코드를 참고</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">package ch09;</span><br><span class="line"></span><br><span class="line">public class Student &#123;</span><br><span class="line">	</span><br><span class="line">	int studentID;</span><br><span class="line">	String studentName;</span><br><span class="line">	</span><br><span class="line">	Subject korea;</span><br><span class="line">	Subject math;</span><br><span class="line">	</span><br><span class="line">	public Student(int id, String name) &#123;</span><br><span class="line">		studentID = id;</span><br><span class="line">		studentName = name;</span><br><span class="line">		</span><br><span class="line">		korea = new Subject();</span><br><span class="line">		math = new Subject();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public void setKoreaSubject(String name, int score) &#123;</span><br><span class="line">		korea.subjectName = name;</span><br><span class="line">		korea.score = score;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public void setMathSubject(String name, int score) &#123;</span><br><span class="line">		math.subjectName = name;</span><br><span class="line">		math.score = score;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public void showStudentSocre() &#123;</span><br><span class="line">		int total = korea.score + math.score;</span><br><span class="line">		System.out.println(studentName +  &quot; 학생의 총점은 &quot; + total + &quot;점 입니다.&quot; );</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">package ch09;</span><br><span class="line"></span><br><span class="line">public class Subject &#123;</span><br><span class="line">	String subjectName;</span><br><span class="line">	int score;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">package ch09;</span><br><span class="line"></span><br><span class="line">public class StudentTest &#123;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line">		Student studentLee = new Student(100, &quot;Lee&quot;);</span><br><span class="line">		studentLee.setKoreaSubject(&quot;국어&quot;, 100);</span><br><span class="line">		studentLee.setMathSubject(&quot;수학&quot;, 95);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		Student studentKim = new Student(101, &quot;Kim&quot;);</span><br><span class="line">		studentKim.setKoreaSubject(&quot;국어&quot;, 80);</span><br><span class="line">		studentKim.setMathSubject(&quot;수학&quot;, 99);</span><br><span class="line"></span><br><span class="line">		studentLee.showStudentSocre();</span><br><span class="line">		studentKim.showStudentSocre();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="캡슐화"><a href="#캡슐화" class="headerlink" title="캡슐화"></a>캡슐화</h3><ul>
+<li>정보 은닉을 활용한 캡슐화</li>
+<li>꼭 필요한 정보와 기능만 외부 접근을 허용</li>
+<li>대부분 멤버 변수와 메소드를 감추고 외부 통합 인터페이스만 제공하여 일관된 기능 구현</li>
+<li>각 메소드나, 멤버 변수를 접근함으로 발생하는 오류 최소화</li>
+<li>public 클래스에서 모든 멤버 변수와 메소드를 private으로 선언 후에 public 메소드로 private 메소드를 사용하는 기능을 구현하면 외부에서 private 메소드는 사용하지 못하지만 public 메소드를 이용하여 기능사용 가능</li>
+<li>아래 코드를 보면 getReport 메소드로 private으로 선언되어 접근이 불가능한 메소드를 외부 클래스에서 사용함</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class MakeReport &#123;</span><br><span class="line"></span><br><span class="line">	StringBuffer buffer = new StringBuffer();</span><br><span class="line"></span><br><span class="line">	private String line = &quot;===========================================\n&quot;;</span><br><span class="line">	private String title = &quot;  이름\t   주소 \t\t  전화번호  \n&quot;;</span><br><span class="line">	private void makeHeader()</span><br><span class="line">	&#123;</span><br><span class="line">		buffer.append(line);</span><br><span class="line">		buffer.append(title);</span><br><span class="line">		buffer.append(line);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	private void generateBody()</span><br><span class="line">	&#123;</span><br><span class="line">		buffer.append(&quot;James \t&quot;);</span><br><span class="line">		buffer.append(&quot;Seoul Korea \t&quot;);</span><br><span class="line">		buffer.append(&quot;010-2222-3333\n&quot;);</span><br><span class="line"></span><br><span class="line">		buffer.append(&quot;Tomas \t&quot;);</span><br><span class="line">		buffer.append(&quot;NewYork US \t&quot;);</span><br><span class="line">		buffer.append(&quot;010-7777-0987\n&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	private void makeFooter()</span><br><span class="line">	&#123;</span><br><span class="line"></span><br><span class="line">		buffer.append(line);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public String getReport()</span><br><span class="line">	&#123;</span><br><span class="line">		makeHeader();</span><br><span class="line">		generateBody();</span><br><span class="line">		makeFooter();</span><br><span class="line">		return buffer.toString();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class TestReprt &#123;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line">		MakeReport report = new MakeReport();</span><br><span class="line">		String builder = report.getReport();</span><br><span class="line"></span><br><span class="line">		System.out.println(builder);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
       <tags>
         <tag>TIL</tag>
       </tags>
