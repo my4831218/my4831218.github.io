@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"my4831218.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="This 자신의 메모리의 주소값을 가르킴 (인스턴스) 생성자에서 다른 생성자 호출시 사용  Object collabration 객체 지향 프로그램에선 객체 간 협력이 이뤄진다. 협력을 위해 필요한 massge를 전송, 이를 처리하는 기능구현이 필요 매개 변수로 객체가 전달되는 경우가 발생 예시 (고객이 가게에 주문, 가게는 배달부에게 배달요청, 배달부는 고">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java-day5">
+<meta property="og:url" content="http://my4831218.github.io/2022/04/11/Java-day5/index.html">
+<meta property="og:site_name" content="Skang&#39;s blog">
+<meta property="og:description" content="This 자신의 메모리의 주소값을 가르킴 (인스턴스) 생성자에서 다른 생성자 호출시 사용  Object collabration 객체 지향 프로그램에선 객체 간 협력이 이뤄진다. 협력을 위해 필요한 massge를 전송, 이를 처리하는 기능구현이 필요 매개 변수로 객체가 전달되는 경우가 발생 예시 (고객이 가게에 주문, 가게는 배달부에게 배달요청, 배달부는 고">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://my4831218.github.io/img/Object_collaboration.png">
+<meta property="og:image" content="http://my4831218.github.io/img/extends.png">
+<meta property="article:published_time" content="2022-04-11T14:21:03.000Z">
+<meta property="article:modified_time" content="2022-04-11T14:35:31.496Z">
+<meta property="article:author" content="my4831218">
+<meta property="article:tag" content="TIL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://my4831218.github.io/img/Object_collaboration.png">
+
+<link rel="canonical" href="http://my4831218.github.io/2022/04/11/Java-day5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Java-day5 | Skang's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Skang's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Skang github blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://my4831218.github.io/2022/04/11/Java-day5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="my4831218">
+      <meta itemprop="description" content="Everything I learned today, including coding test study, exercise record, etc.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Skang's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java-day5
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-04-11 23:21:03 / Modified: 23:35:31" itemprop="dateCreated datePublished" datetime="2022-04-11T23:21:03+09:00">2022-04-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="This"><a href="#This" class="headerlink" title="This"></a>This</h3><ul>
+<li>자신의 메모리의 주소값을 가르킴 (인스턴스)</li>
+<li>생성자에서 다른 생성자 호출시 사용</li>
+</ul>
+<h3 id="Object-collabration"><a href="#Object-collabration" class="headerlink" title="Object collabration"></a>Object collabration</h3><ul>
+<li>객체 지향 프로그램에선 객체 간 협력이 이뤄진다.</li>
+<li>협력을 위해 필요한 massge를 전송, 이를 처리하는 기능구현이 필요</li>
+<li>매개 변수로 객체가 전달되는 경우가 발생</li>
+<li>예시 (고객이 가게에 주문, 가게는 배달부에게 배달요청, 배달부는 고객에게 배달)<br><img src="/./img/Object_collaboration.png" alt="Object Collaboration"></li>
+</ul>
+<h3 id="Example-object-collaboration-programming"><a href="#Example-object-collaboration-programming" class="headerlink" title="Example object collaboration programming"></a>Example object collaboration programming</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">package ch14;</span><br><span class="line"></span><br><span class="line">public class Client &#123;</span><br><span class="line">	String clientName;</span><br><span class="line">	int money;</span><br><span class="line"></span><br><span class="line">	public Client(String clientName, int money) &#123;</span><br><span class="line">		this.clientName = clientName;</span><br><span class="line">		this.money = money;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void orderStore(Store store) &#123;</span><br><span class="line">		store.orderStore(7000);</span><br><span class="line">		this.money -= 7000;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void takeFood(Deliver deliver) &#123;</span><br><span class="line">		deliver.takeFood(3000);</span><br><span class="line">		this.money -= 3000;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void showInfo() &#123;</span><br><span class="line">		System.out.println(clientName + &quot;의 남은 돈은 &quot; + money + &quot;원 입니다.&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">package ch14;</span><br><span class="line"></span><br><span class="line">public class Deliver &#123;</span><br><span class="line">	String deliverName;</span><br><span class="line">	int deliverCount;</span><br><span class="line">	int money;</span><br><span class="line"></span><br><span class="line">	public Deliver(String deliverName) &#123;</span><br><span class="line">		this.deliverName = deliverName;</span><br><span class="line">		this.deliverCount = 0;</span><br><span class="line">		this.money = 0;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void takeFood(int money) &#123;</span><br><span class="line">		this.money += money;</span><br><span class="line">		deliverCount++;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void showDeliverInfo() &#123;</span><br><span class="line">		System.out.println(&quot;배달 수는 &quot; + deliverCount</span><br><span class="line">				 + &quot;번 이고 매출은 &quot;+ money + &quot;원 입니다&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">package ch14;</span><br><span class="line"></span><br><span class="line">public class Store &#123;</span><br><span class="line">	String storeName;</span><br><span class="line">	int orderCount;</span><br><span class="line">	int money;</span><br><span class="line"></span><br><span class="line">	public Store(String storeName) &#123;</span><br><span class="line">		this.storeName = storeName;</span><br><span class="line">		this.orderCount = 0;</span><br><span class="line">		this.money = 0;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void orderStore(int money) &#123;</span><br><span class="line">		this.money += money;</span><br><span class="line">		orderCount++;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void showStoreInfo() &#123;</span><br><span class="line"></span><br><span class="line">		System.out.println(storeName + &quot;의 주문 수는 &quot; + orderCount</span><br><span class="line">				 + &quot;번 이고 매출은 &quot;+ money + &quot;원 입니다&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">package ch14;</span><br><span class="line"></span><br><span class="line">public class Test &#123;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		Client choi = new Client(&quot;choi&quot;, 10000);</span><br><span class="line">		Store a = new Store(&quot;a&quot;);</span><br><span class="line">		Deliver b = new Deliver(&quot;b&quot;);</span><br><span class="line"></span><br><span class="line">		choi.orderStore(a);</span><br><span class="line">		choi.takeFood(b);</span><br><span class="line">		choi.showInfo();</span><br><span class="line">		a.showStoreInfo();</span><br><span class="line">		b.showDeliverInfo();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="Static-variable"><a href="#Static-variable" class="headerlink" title="Static variable"></a>Static variable</h3><ul>
+<li>공통으로 사용할 변수가 필요할 때 사용</li>
+<li>중복되면 안되는 값을 부여할때 사용</li>
+<li>인스턴스가 생성될 때가 아닌 프로그램이 로딩될 때 메모리 할당</li>
+<li>클래스 변수, 정적변수 라고도 함</li>
+<li>인스턴스와 관계없이 사용가능해서 클래스 이름으로 직접 참조</li>
+<li>생성자 메소드 안에 static 변수를 넣어 객체가 몇개 생성되는지 확인 가능</li>
+<li>static { ~~~ } → 클래스 파일이 로딩되면 바로 {} 안의 내용을 실행</li>
+</ul>
+<h3 id="Extends"><a href="#Extends" class="headerlink" title="Extends"></a>Extends</h3><ul>
+<li>Extends<ul>
+<li>class 자식클래스 extends 부모클래스 { } 형태.</li>
+<li>단어가 inheritance가 아닌 extends인 이유는 상속이 단순 소스를 물려받는 것만을 의미하지 않기 때문 -&gt; 상속은 자식 클래스에서 멤버변수나 메소드를 추가로 확장했을 때 의미O.</li>
+<li>멤버 변수로 name, score를 가지며 각 major, classNumber을 멤버로 가지는 2개의 class가 있을 때 name과 score가 겹치기 때문에 상속을 적용하여 Student class 에서 name, score를 다루고 Student 클래스를 상속받는 두개의 class를 만들어 사용.</li>
+<li>논리적으로 자식 클래스가 부모 클래스에 속하는 경우 사용, 그외에는 문법적으로 가능하지만 유지&#x2F;보수, 분석 쪽에서 좋지 못함</li>
+<li>단일 상속과 다중 상속도 존재하지만 자바에서는 단일 상속만 지원.</li>
+</ul>
+</li>
+<li>Extends and Overriding<ul>
+<li>부모의 멤버변수를 자식 클래스에서 오버라이딩 하면 부모 변수는 상속 X<ul>
+<li>부모 클래스의 멤버 변수가 name, score가 있을 때 자식 클래스에서 score, major로 멤버변수를 정의하면 부모의 변수는 상속되지 않는다.</li>
+</ul>
+</li>
+<li>부모 클래스의 메소드를 자식 클래스에서 오버라이딩하면 부모의 메소드는 상속 X</li>
+<li>오버로딩 &#x3D; 중복정의, 오버라이딩 &#x3D; 재정의<ul>
+<li>오버로딩은 한 클래스에서 동일한 이름의 메소드가 존재하는것, 이때 메소드 이름은 동일하지만 매개변수의 개수, 타입이 다름</li>
+<li>오버라이딩은 상속 구조에서 부모의 메소드, 멤버와 동일한 시그니처를 가진 메소드가 자식 클래스에서 재정의 되는것.</li>
+</ul>
+</li>
+<li>부모 클래스에서 private멤버변수, 메소드는 자식 클래스로 상속되지 않는다.</li>
+<li>메소드 오버라이딩에서 부모 클래스의 접근제한보다 범위가 확대되는 것은 상관없지만 축소되는것은 안된다. <ul>
+<li>부모가 public void sample 일때 자식은 private void sample로 오버라이딩 불가능</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Extends and Constructor<ul>
+<li>생성자 연속 호출<ul>
+<li>부모 클래스에서 1을 출력, 자식 클래스에서 2를 출력하고 main에서 자식 객체를 생성하면 1, 2 순서로 출력. → 자식 객체생성시 부모 클래스 생성자 먼저 실행</li>
+<li>부모의 멤버 변수가 자식으로 상속 전에 반드시 초기화 되야하기 때문에 부모 생성자가 반드시 먼저 호출 되는것</li>
+</ul>
+</li>
+<li>super() constructor<ul>
+<li>생성자에서 다른 생성자 호출하는 this() 처럼 부모 생성자를 super()로 호출</li>
+<li>상속관계에서 별도의 언급이 없다면 부모의 기본 생성자가 자동 호출</li>
+<li>부모 클래스에 기본 생성자가 없으면 반드시 super() 사용해 특정 생성자 명시적 호출이 필요</li>
+<li>반드시 첫 번째 줄에 작성</li>
+</ul>
+</li>
+<li>super. —&gt; 부모 클래스의 멤버 변수나 메소드 참조에 사용 (this.과 유사)</li>
+</ul>
+</li>
+<li>final<ul>
+<li>멤버변수 앞에 final을 설정하면 그 멤버변수는 상수가 된다.</li>
+<li>메소드 앞에 final을 설정하면 해당 메소드는 오버라이딩 할 수 없다.</li>
+<li>class 앞에 final을 설정하면 상속을 금지한다. (public final class Name)</li>
+</ul>
+</li>
+</ul>
+<h3 id="Type-conversion-of-an-object"><a href="#Type-conversion-of-an-object" class="headerlink" title="Type conversion of an object"></a>Type conversion of an object</h3><ul>
+<li><p>묵시적 변환</p>
+<ul>
+<li>A는 하나의 멤버변수를, B는 두개의 멤버변수를 가지는데 아래 코드에서는 멤버변수를 하나 가진 A 타입의 변수에 멤버변수를 두개 가진 B타입의 변수를 저장했다. <ul>
+<li>멤버변수 1개짜리에 2개짜리를 저장했기 때문에 자신보다 더 많은 변수를 가진 객체를 참조하는 것을 묵시적 타입 변환이라 한다.</li>
+<li>묵시적 타입 변환으로 가능한 문법이지만 실제 사용할 수 있는 멤버변수는 참조변수가 선언된 클래스에 속한 변수만 사용 가능 (a.i는 사용이 불가능)</li>
+</ul>
+</li>
+<li>자식 객체는 부모 타입의 변수에 할당 가능</li>
+<li>반대로 2개 변수가진거에 1개짜리 주면 2개짜리 객체가 하나의 변수만 사용할 수 있기 때문에 데이터가 잘렸다고 표현하며 에러 발생<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class A &#123;</span><br><span class="line">	int j;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class B extends A&#123;</span><br><span class="line">	int i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class test &#123;</span><br><span class="line">	public static void main(String[] args)&#123;</span><br><span class="line">		B b = new B();</span><br><span class="line">		System.out.println(b.i);</span><br><span class="line">		System.out.println(b.j);</span><br><span class="line"></span><br><span class="line">		A a = b; // 이게 객체의 묵시적 타입 변환</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>묵시적 타입 변환 활용</p>
+<ul>
+<li>같은 부모 b를 상속받은 자식 c, d가 있을 때 c나 d는 서로의 타입에 할당할 수 없다.</li>
+<li>묵시적 타입 변환을 활용하면 다양한 타입의 객체를 배열 같은곳에 저장하고 사용할 수 있다. ex. A[] aList &#x3D; {new A(), new B(), new C(), new D()};<br><img src="/./img/extends.png" alt="sample"></li>
+</ul>
+</li>
+<li><p>명시적 변환</p>
+<ul>
+<li>묵시적 타입 변환을 했던 객체가 원래 자신의 타입으로 되돌리는 형태의 명시적 변환만 허용한다.</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/TIL/" rel="tag"># TIL</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/04/08/Data-structures-day2/" rel="prev" title="Data-structures-day2">
+      <i class="fa fa-chevron-left"></i> Data-structures-day2
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#This"><span class="nav-number">1.</span> <span class="nav-text">This</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-collabration"><span class="nav-number">2.</span> <span class="nav-text">Object collabration</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Example-object-collaboration-programming"><span class="nav-number">3.</span> <span class="nav-text">Example object collaboration programming</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Static-variable"><span class="nav-number">4.</span> <span class="nav-text">Static variable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Extends"><span class="nav-number">5.</span> <span class="nav-text">Extends</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Type-conversion-of-an-object"><span class="nav-number">6.</span> <span class="nav-text">Type conversion of an object</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">my4831218</p>
+  <div class="site-description" itemprop="description">Everything I learned today, including coding test study, exercise record, etc.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">my4831218</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
