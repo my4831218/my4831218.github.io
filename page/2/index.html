@@ -186,6 +186,230 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://my4831218.github.io/2022/04/02/Git-revert/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="my4831218">
+      <meta itemprop="description" content="Everything I learned today, including coding test study, exercise record, etc.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Skang's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/02/Git-revert/" class="post-title-link" itemprop="url">Git_revert</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-04-02 14:40:59 / Modified: 14:53:33" itemprop="dateCreated datePublished" datetime="2022-04-02T14:40:59+09:00">2022-04-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="Git-revert"><a href="#Git-revert" class="headerlink" title="Git revert"></a>Git revert</h3><ul>
+<li>Rename<ul>
+<li>파일의 이름을 바꿀때 사용</li>
+<li>a.md를 b.md로 mv명령어로  이름을 바꾼다면 git에서는 a.md가 삭제되고 b.md를 untracked로 인식</li>
+<li>git mv 명령어를 사용하면 git에서도 제대로 인식</li>
+</ul>
+</li>
+<li>Undoing (commit 하지 않은 작업 취소)<ul>
+<li>자주 사용하는 명령어로 변경사항을 취소하기 위한 명령</li>
+<li>git restore name -&gt; name의 변경사항이 취소 (원상복구)</li>
+<li>git restore . -&gt; 현재 디렉토리 아래의 모든 파일 복구</li>
+</ul>
+</li>
+<li>Unstaging (add로 staging 한 작업 되돌림)<ul>
+<li>명령에 reset이 들어가있어 팀 전체에 영향을 줄 수 있어 왠만하면 사용 자제</li>
+<li>git reset HEAD name : add한 작업 취소</li>
+</ul>
+</li>
+<li>Edit latest commit (commit massage 수정)<ul>
+<li>git commit –amend (직전 commit 다시 열어서 수정)</li>
+<li>rebase 명령으로 직전 말고도 commit 수정가능</li>
+<li>commit을 대충 할수도 있기 때문에 사용을 자제</li>
+</ul>
+</li>
+<li>Revert (commit을 되돌릴 때 사용)<ul>
+<li>git revert –no-commit HEAD~n.. -&gt; n개의 commit을 되돌리고 되돌리는 commit massage 작성</li>
+<li>–no-commit 안붙이면 n개 취소할 때 n개의 commit 작성해야됨</li>
+</ul>
+</li>
+</ul>
+<h3 id="Git-Team-practice"><a href="#Git-Team-practice" class="headerlink" title="Git Team practice"></a>Git Team practice</h3><ol>
+<li>팀장이 repo 생성, git clone 후 git flow init</li>
+<li>팀원이 팀장의 repo를 fork, fork한 URL로 git clone</li>
+<li>팀원은 issue를 작성하고 git flow init 으로 develop으로 가면 팀장과 같은 상태가됨</li>
+<li>git flow feature start name 으로 기능별로 작업하고 add, commit</li>
+<li>git flow feature finish name 으로 feature 브렌치 작업 종료하고 git push -u origin develop</li>
+<li>fork한 페이지로 가서 pull request</li>
+<li>팀장이 작업 내용을 확인해보고 merge</li>
+<li>git remote add upstream 팀장repo URL 으로 upstream 주소 추가</li>
+<li>git pull upstream develop</li>
+<li>어느정도 작업내용이 쌓이면 팀장이 git flow release로 테스트하고 정상적이라면 main으로 release</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://my4831218.github.io/2022/04/01/GitBlog/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="my4831218">
+      <meta itemprop="description" content="Everything I learned today, including coding test study, exercise record, etc.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Skang's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/01/GitBlog/" class="post-title-link" itemprop="url">GitBlog</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-04-01 16:10:08" itemprop="dateCreated datePublished" datetime="2022-04-01T16:10:08+09:00">2022-04-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-04-02 14:57:42" itemprop="dateModified" datetime="2022-04-02T14:57:42+09:00">2022-04-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="Github-Blog"><a href="#Github-Blog" class="headerlink" title="Github Blog"></a>Github Blog</h3><p>repo : username.github.io 만들면 서버를 제공하는 페이지 제공<br>꾸미기 위해 Node.js &amp; npm hexo-cli -g 다운로드</p>
+<h1 id="Init"><a href="#Init" class="headerlink" title="Init"></a>Init</h1><ol>
+<li><p>Hexo blog</p>
+<ol>
+<li>hexo init folder name</li>
+<li>vi config.yml : #Site 에서 title, subtitle, des, author 작성</li>
+</ol>
+</li>
+<li><p>Hexo blog theme (next)</p>
+<ol>
+<li>git clone {URL} : 원하는 theme의 repo 찾아서 다운, themes 디렉토리에 다운됬는지 확인</li>
+<li>config.yml에서 #Extensions에서 theme 에 다운된 theme이름 작성</li>
+<li>themes&#x2F;theme-name 디렉토리에서 config.yml 들어가서 #Schemes에서 Muse 주석처리, Gemini 주석제거</li>
+</ol>
+</li>
+<li><p>Hexo blog Deployment</p>
+<ol>
+<li>npm install hexo-deployer-git –save</li>
+<li>config.yml 에서 #Deployment에서 수정 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">type: git</span><br><span class="line">repo : git blog주소</span><br><span class="line">branch: main</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>Create Menu</p>
+<ol>
+<li>themes&#x2F;theme-name의 config.yml 파일에서 menu: 에서 tags와 categories의 주석처리 제거 (tags, categories 생성 예정)</li>
+<li>hexo new post 를 이용하여 categories, tage 페이지를 각각 생성, 각 index.md에서 date 밑에 type: “페이지이름” comments: false 추가</li>
+<li>post 작성시 상단 title, date 아래에 categories, tags 항목 작성하면 됨</li>
+</ol>
+</li>
+<li><p>Add search function</p>
+<ol>
+<li>npm install hexo-generator-searchdb</li>
+<li>config.yml 제일 아래쪽에 다음 코드 추가 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># Local Search </span><br><span class="line"># search </span><br><span class="line">search:</span><br><span class="line">    path: search.xml</span><br><span class="line">    field: post</span><br><span class="line">    content: true</span><br><span class="line">    format: html</span><br></pre></td></tr></table></figure></li>
+<li>theme-name의 config.yml에서 Local Search(약 740L) 에서 enable 값을 true, trigger 값을 manual로 수정</li>
+</ol>
+</li>
+</ol>
+<h3 id="New-post-amp-deploy"><a href="#New-post-amp-deploy" class="headerlink" title="New post &amp; deploy"></a>New post &amp; deploy</h3><ol>
+<li>hexo new post name</li>
+<li>hexo clean &amp;&amp; hexo generate</li>
+<li>hexo server (localhost update)</li>
+<li>hexo clean &amp;&amp; hexo deploy (github blog update)</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://my4831218.github.io/2022/04/01/Gitflow2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -631,14 +855,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">

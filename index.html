@@ -186,6 +186,339 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://my4831218.github.io/2022/04/13/Java-day7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="my4831218">
+      <meta itemprop="description" content="Everything I learned today, including coding test study, exercise record, etc.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Skang's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/13/Java-day7/" class="post-title-link" itemprop="url">Java-day7</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-04-13 23:26:25 / Modified: 23:47:39" itemprop="dateCreated datePublished" datetime="2022-04-13T23:26:25+09:00">2022-04-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JAVA/" itemprop="url" rel="index"><span itemprop="name">JAVA</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Static-Method"><a href="#Static-Method" class="headerlink" title="Static Method"></a>Static Method</h2><h3 id="desc"><a href="#desc" class="headerlink" title="desc"></a>desc</h3><ul>
+<li>외부에서 static 변수를 참조할 수 없기 때문에 method를 만들어 접근</li>
+<li>static method는 인스턴스 생성과 무관하게 클래스 이름으로 호출 가능</li>
+<li>인스턴스 생성 전에 호출될 수 있기 때문에 인스턴스 변수 사용 불가능</li>
+<li>프로그램이 메모리에 있는 동안 계속 존재하기 때문에 큰 메모리 할당은 좋지 않다</li>
+</ul>
+<h3 id="Singleton-pattern"><a href="#Singleton-pattern" class="headerlink" title="Singleton pattern"></a>Singleton pattern</h3><ul>
+<li>프로그램에서 인스턴스가 단 한 개만 생성되야 하는 경우 사용하는 디자인 패턴</li>
+<li>static 변수, method를 활용하여 구현</li>
+<li>외부 접근이 불가능한 private static로 instance 생성, 외부에서 사용을 위한 public static getInstance 메소드<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public class Company &#123;</span><br><span class="line">	// 외부에서 인스턴스를 생성하지 못하도록 안쪽에서 생성</span><br><span class="line">	private static Company instance = new Company();</span><br><span class="line"></span><br><span class="line">	private Company() &#123;</span><br><span class="line">	&#125;</span><br><span class="line">	// 외부에서 접근하기 위한 메소드</span><br><span class="line">	public static Company getInstance() &#123;</span><br><span class="line">		return instance;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Singleton-pattern-실습"><a href="#Singleton-pattern-실습" class="headerlink" title="Singleton pattern 실습"></a>Singleton pattern 실습</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">package singleton;</span><br><span class="line"></span><br><span class="line">public class Car &#123;</span><br><span class="line">	public static int serialNum = 10001;</span><br><span class="line">	int carNum;</span><br><span class="line"></span><br><span class="line">	public Car() &#123;</span><br><span class="line">		carNum = serialNum;</span><br><span class="line">		serialNum++;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public int getCarNum() &#123;</span><br><span class="line">		return carNum;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">package singleton;</span><br><span class="line"></span><br><span class="line">public class CarFactory &#123;</span><br><span class="line">	private static CarFactory instance = new CarFactory();</span><br><span class="line"></span><br><span class="line">	private CarFactory() &#123;&#125;</span><br><span class="line"></span><br><span class="line">	public static CarFactory getInstance() &#123;</span><br><span class="line">		return instance;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public Car createCar() &#123;</span><br><span class="line">		Car car = new Car();</span><br><span class="line">		return car;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">package singleton;</span><br><span class="line"></span><br><span class="line">public class CarFactoryTest &#123;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		CarFactory factory = CarFactory.getInstance();</span><br><span class="line">		Car mySonata = factory.createCar();</span><br><span class="line">		Car yourSonata = factory.createCar();</span><br><span class="line"></span><br><span class="line">		System.out.println(mySonata.getCarNum());     //10001 출력</span><br><span class="line">		System.out.println(yourSonata.getCarNum());   //10002 출력</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Memory"><a href="#Memory" class="headerlink" title="Memory"></a>Memory</h3><table>
+<thead>
+<tr>
+<th>변수 유형</th>
+<th>선언 위치</th>
+<th>사용 범위</th>
+<th>생성메모리</th>
+<th>생성과 소멸</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>지역 변수(local)</td>
+<td>함수 내부</td>
+<td>함수 내부에서만</td>
+<td>스택</td>
+<td>함수 호출될때 생성, 함수 종료 시 소멸</td>
+</tr>
+<tr>
+<td>멤버 변수(instance)</td>
+<td>클래스 멤버 변수</td>
+<td>클래스 내부, private이 아닐 때 참조변수로 다른 클래스에서 사용</td>
+<td>힙</td>
+<td>인스턴스 생성시 힙에 생성, 가비지 콜렉터가 메모리 수거할 때 소멸</td>
+</tr>
+<tr>
+<td>static 변수</td>
+<td>static 사용 클래스 내부</td>
+<td>클래스 내부, private이 아닐 때 클래스이름으로 다른 클래스에서 사용</td>
+<td>데이터</td>
+<td>프로그램 처음 시작할 때 상수와 함께 데이터 영역에 생성, 프로그램 끝나고 메모리 해제할 때 소멸</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h2><h3 id="Object-Array"><a href="#Object-Array" class="headerlink" title="Object Array"></a>Object Array</h3><ul>
+<li>객체의 주소가 들어갈 메모리가 할당됨, 각 객체는 따로 생성, 저장</li>
+<li>System.arrayCopy(복사할 array, 복사array 시작점, 붙여넣을 array, 붙여넣을 array의 위치, 복사할 길이) 자바에서 제공되는 배열 복사 메소드로 복사 가능 (얕은복사)<ul>
+<li>얕은 복사 : 객제 추소만 복사되어 한쪽 배열 요소를 수정하면 같이 수정됨</li>
+</ul>
+</li>
+<li>깊은 복사 : 각각의 객체를 생성해서 그 객체의 값을 복사하여 배열이 서로 다른 객체를 가르킴</li>
+</ul>
+<h3 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h3><ul>
+<li>기존 배열은 배열의 길이를 정하고 요소의 개수가 배열보다 커지면 배열을 재할당하고 복사해야함</li>
+<li>배열의 요소를 추가, 삭제하면 다른 요소의 이동 구현</li>
+<li>객체 배열을 좀더 효율적 관리를 위해 자바에서 제공하는 클래스</li>
+<li>많은 메소드가 최적 알고리즘으로 구현되어 각 메소드의 사용 방법만 익히면 됨</li>
+</ul>
+<h3 id="ArrayList-method"><a href="#ArrayList-method" class="headerlink" title="ArrayList method"></a>ArrayList method</h3><ul>
+<li>boolean add(E e) : 배열에 요소를 추가 (E는 자료형)</li>
+<li>int size() : 배열에 추가된 전체 요소 개수 반환</li>
+<li>E get(int index) : index 위치에 있는 요소 값 반환</li>
+<li>E remove(int index) : index위치에 요소 값 제거, 그 값을 반환</li>
+<li>boolean isEmpty() : 빈 배열인지 확인</li>
+</ul>
+<h3 id="ArrayList-실습"><a href="#ArrayList-실습" class="headerlink" title="ArrayList 실습"></a>ArrayList 실습</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">import java.util.ArrayList;</span><br><span class="line"></span><br><span class="line">public class Student &#123;</span><br><span class="line"></span><br><span class="line">	int studentID;</span><br><span class="line">	String studentName;</span><br><span class="line">	ArrayList&lt;Subject&gt; subjectList;</span><br><span class="line"></span><br><span class="line">	public Student(int studentID, String studentName)&#123;</span><br><span class="line">		this.studentID = studentID;</span><br><span class="line">		this.studentName = studentName;</span><br><span class="line"></span><br><span class="line">		subjectList = new ArrayList&lt;Subject&gt;();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void addSubject(String name, int score)&#123;</span><br><span class="line">		Subject subject = new Subject();</span><br><span class="line"></span><br><span class="line">		subject.setName(name);</span><br><span class="line">		subject.setScorePoint(score);</span><br><span class="line">		subjectList.add(subject);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void showStudentInfo()</span><br><span class="line">	&#123;</span><br><span class="line">		int total = 0;</span><br><span class="line"></span><br><span class="line">		for(Subject s : subjectList)&#123;</span><br><span class="line"></span><br><span class="line">			total += s.getScorePoint();</span><br><span class="line">			System.out.println(&quot;학생 &quot; + studentName + &quot;의 &quot; + s.getName() + &quot; 과목 성적은 &quot; +</span><br><span class="line">			        s.getScorePoint() + &quot;입니다.&quot;);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		System.out.println(&quot;학생 &quot; + studentName + &quot;의 총점은 &quot; + total + &quot; 입니다.&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public class Subject &#123;</span><br><span class="line"></span><br><span class="line">	private String name;</span><br><span class="line">	private int scorePoint;</span><br><span class="line"></span><br><span class="line">	public String getName() &#123;</span><br><span class="line">		return name;</span><br><span class="line">	&#125;</span><br><span class="line">	public void setName(String name) &#123;</span><br><span class="line">		this.name = name;</span><br><span class="line">	&#125;</span><br><span class="line">	public int getScorePoint() &#123;</span><br><span class="line">		return scorePoint;</span><br><span class="line">	&#125;</span><br><span class="line">	public void setScorePoint(int scorePoint) &#123;</span><br><span class="line">		this.scorePoint = scorePoint;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public class StudentTest &#123;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		Student studentLee = new Student(1001, &quot;Lee&quot;);</span><br><span class="line"></span><br><span class="line">		studentLee.addSubject(&quot;국어&quot;, 100);</span><br><span class="line">		studentLee.addSubject(&quot;수학&quot;, 50);</span><br><span class="line"></span><br><span class="line">		Student studentKim = new Student(1002, &quot;Kim&quot;);</span><br><span class="line"></span><br><span class="line">		studentKim.addSubject(&quot;국어&quot;, 70);</span><br><span class="line">		studentKim.addSubject(&quot;수학&quot;, 85);</span><br><span class="line">		studentKim.addSubject(&quot;영어&quot;, 100);</span><br><span class="line"></span><br><span class="line">		studentLee.showStudentInfo();</span><br><span class="line">		System.out.println(&quot;======================================&quot;);</span><br><span class="line">		studentKim.showStudentInfo();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="Exception-2"><a href="#Exception-2" class="headerlink" title="Exception 2"></a>Exception 2</h2><h3 id="throws"><a href="#throws" class="headerlink" title="throws"></a>throws</h3><ul>
+<li>throws를 이용하여 특정 메소드에서 발생된 예외를 메소드를 호출한 쪽으로 던질 수 있다.</li>
+<li>메소드마다 throws를 작성하면 한곳으로 예외를 몰수 있다. (예를들면 main으로 몰아 예외를 일괄처리)</li>
+<li>, 를 사용해서 한번에 여러개의 예외를 던질 수 있다</li>
+<li>Exception을 throws 하면 예상치 못한 예외까지 포함해서 한번에 예외를 처리한다.<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">void main(String[] args) &#123;</span><br><span class="line">	try &#123;</span><br><span class="line">		int a = 9;</span><br><span class="line">		int b = 0;</span><br><span class="line">	&#125; catch (ArithmeticException e) &#123;</span><br><span class="line">		println(&quot;2번째 숫자는 0이 아닌 수 입력하세요&quot;)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">// 메소드 안에서 발생한 예외 객체를 main으로 던졌다.</span><br><span class="line">private static void testMethod(int a, int b) throws ArithmeticException &#123;</span><br><span class="line">	println(a / b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="throw-예약어"><a href="#throw-예약어" class="headerlink" title="throw 예약어"></a>throw 예약어</h3><ul>
+<li>throw 예약어를 사용하여 강제적으로 예외를 발생시켜 프로그램을 중단시킬수 있다.</li>
+<li>ex. If (test &lt; 0) { throw new IllegalArgumentException(); }</li>
+</ul>
+<h3 id="상속된-exception-method"><a href="#상속된-exception-method" class="headerlink" title="상속된 exception method"></a>상속된 exception method</h3><ul>
+<li>예외 객체를 생성할 때 인자를 입력하면 사용할 수 있다.<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">	if () &#123;</span><br><span class="line">		throw new IllegalArgumentException(&quot;음수불가능&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125; catch (IllegalArgumentException e) &#123;</span><br><span class="line">		System.out.println(e.getMessage()); // 음수불가능 출력</span><br><span class="line">		e.printStackTrace(); // 어떤 에러가 발생했는지 에러발생 메시지 출력</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="사용자-지정-예외"><a href="#사용자-지정-예외" class="headerlink" title="사용자 지정 예외"></a>사용자 지정 예외</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 1. Exception 클래스 상속</span><br><span class="line">// 2. RuntimeException 상속 중 하나를 선택</span><br><span class="line">// 일반적으로 2를 상속하여 컴파일을 통과하는 예외 생성</span><br><span class="line">public class NewException extends RuntimeException &#123;</span><br><span class="line">	public NewException(String message) &#123;</span><br><span class="line">		super(message);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="java-lang"><a href="#java-lang" class="headerlink" title="java.lang"></a>java.lang</h2><ul>
+<li>java 프로그램에 사용하는 필수 클래스를 모아놓은 패키지</li>
+<li>import로 선언하지 않아도 사용 가능</li>
+<li>최상위 클래스 Object 등 다양한 클래스 제공</li>
+</ul>
+<h3 id="Object-class"><a href="#Object-class" class="headerlink" title="Object class"></a>Object class</h3><ul>
+<li>class를 선언하면 자동으로 extends java.lang.Objecct가 추가되어 Object클래스를 상속한다.</li>
+<li>왜 상속하는가<ol>
+<li>java class로서 반드시 가져야할 공통 메소드를 object 클래스로부터 상속받기 때문에 상속</li>
+<li>모든 java 객체를 하나의 타입으로 묶어 다형성을 적용하기 위해 상속</li>
+</ol>
+</li>
+</ul>
+<h4 id="hashCode-Method"><a href="#hashCode-Method" class="headerlink" title="hashCode() Method"></a>hashCode() Method</h4><ul>
+<li>Object 클래스가 제공하는 메소드</li>
+<li>생성된 객체의 메모리 주소정보를 반환</li>
+<li>똑같은 멤버변수값을 가진 객체 a, b가 있을 때 a의 해시코드와 b의 해시코드 값은 다르다.</li>
+<li>하지만 두 객체를 같은 객체로 처리할 일이 생긴다면 멤버변수를 기준으로 해시 값을 생성해야 하기 때문에 hashCode() 메소드가 상속되지 않도록 오버라이딩 해야한다.</li>
+<li>그렇게 처리하면 a의 해시코드와 b의 해시코드 값이 같아진다.</li>
+</ul>
+<h4 id="euqals-Method"><a href="#euqals-Method" class="headerlink" title="euqals() Method"></a>euqals() Method</h4><ul>
+<li>객체의 주소가 아닌 내용을 비교하기 위한 메소드</li>
+<li>equals 메소드는 객체의 주소를 비교하는 &#x3D;&#x3D; 연산자와 동일하게 동작한다</li>
+<li>따라서 equlas 메소드가 객체의 내용을 비교할 수 있도록 오버라이딩 해야한다.</li>
+</ul>
+<h4 id="toString-Method"><a href="#toString-Method" class="headerlink" title="toString() Method"></a>toString() Method</h4><ul>
+<li>객체가 소유한 멤버변수에 할당된 값을 하나의 문자열로 구성하여 반환</li>
+<li>default는 클래스의 이름과 객체의 메모리 주소를 결합한 문자열 반환</li>
+<li>실제 객체가 가진 멤버변수의 값을 기반으로 객체 정보를 반환하도록 오버라이딩 해야됨</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public class Student &#123;</span><br><span class="line">	String name;</span><br><span class="line">	int score;</span><br><span class="line"></span><br><span class="line">	public Student() &#123;&#125;</span><br><span class="line">	/* Object 클래스에 속한 메소드들을 잘 제대로 사용하기 위해 메소드 오버라이딩</span><br><span class="line">	public int hashCode() &#123;</span><br><span class="line">		return Object.hash(name, score)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public boolean equlas(Object obj) &#123;</span><br><span class="line">		Student other = (Student) obj;</span><br><span class="line">		return name.equals(other.name) &amp;&amp; score == other.score;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public String toString() &#123;</span><br><span class="line">		return &quot;학생의 이름(name)은 &quot; + name + &quot;, 점수(score)는 &quot; + score + &quot;점&quot;;</span><br><span class="line">	&#125;</span><br><span class="line">	*/</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="String-class"><a href="#String-class" class="headerlink" title="String class"></a>String class</h3><ul>
+<li>charAt(int idx) : char idx에 위치한 문자 리턴</li>
+<li>length() : int 문자열 길이 반환</li>
+<li>startsWith(Strng prefix) : Boolean 특정 문자로 시작하는지 여부 반환</li>
+<li>substring(int beginIdx) : String 특정 인덱스 이후 문자열 반환</li>
+<li>substring(int start, int end) : String start 인덱스부터 다른 end 인덱스까지 문자열 반환</li>
+<li>split(String regex) : String[] 특정 문자열 구분자로 문자열을 분해하여 문자열 배열로 반환</li>
+</ul>
+<h3 id="StringBuffer-class"><a href="#StringBuffer-class" class="headerlink" title="StringBuffer class"></a>StringBuffer class</h3><ul>
+<li>고정길이인 String 객체는 한번 생성되면 변경되는 것이 아닌 새로운 문자열 객체를 만든다</li>
+<li>String a &#x3D; “1”  + “2” + “3” + “4”; —&gt; 문자열 1개가 변형되는것이 아니라 문자열 5개가 생성되는 것임.</li>
+<li>StringBuffer는 가변길이 문자열을 제공, StringBuffer a &#x3D; new StringBuffer(”test”); —&gt; a &#x3D; a.append(”add”); 하면 문자열 1개가 생성되고 그것이 변경되는것</li>
+</ul>
+<h3 id="Wrapper-class"><a href="#Wrapper-class" class="headerlink" title="Wrapper class"></a>Wrapper class</h3><ul>
+<li>기본타입의 데이터를 객체로 감싼다는 의미로 해석 —&gt; 기본타입을 감싸 클래스 형태로 포장<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">		Object[] objectList = new Object[8];</span><br><span class="line">		objectList[0] = Boolean.valueOf(false);</span><br><span class="line">		objectList[1] = Character.valueOf(&#x27;A&#x27;);</span><br><span class="line">		objectList[2] = Byte.valueOf((byte) 12);</span><br><span class="line">		objectList[3] = Short.valueOf((short) 68);</span><br><span class="line">		objectList[4] = Integer.valueOf(83);</span><br><span class="line">		objectList[5] = Long.valueOf(12000000000L);</span><br><span class="line">		objectList[6] = Float.valueOf(73.5F);</span><br><span class="line">		objectList[7] = Double.valueOf(73.5);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="java-util"><a href="#java-util" class="headerlink" title="java.util"></a>java.util</h2><h3 id="java-util-Random"><a href="#java-util-Random" class="headerlink" title="java.util.Random"></a>java.util.Random</h3><ul>
+<li>랜덤한 숫자 생성에 사용, nextint(n) 메소드는 랜덤한 정수 발생시킬 때 사용, 0~n-1 사의 랜덤한 정수 생성</li>
+</ul>
+<h3 id="java-util-Arrays"><a href="#java-util-Arrays" class="headerlink" title="java.util.Arrays"></a>java.util.Arrays</h3><ul>
+<li>배열에 저장된 데이터 정렬, 특정 배열 내용을 복사해 새로운 배열 객체 만들기에 사용</li>
+<li>sort(array) 정렬 메소드, copyOf(array, 복사할 원소수)</li>
+</ul>
+<h3 id="java-util-Data-java-util-Calendar"><a href="#java-util-Data-java-util-Calendar" class="headerlink" title="java.util.Data, java.util.Calendar"></a>java.util.Data, java.util.Calendar</h3><ul>
+<li>날짜 데이터, 정교한 날짜와 시간 정보가 필요할 때 사용</li>
+<li>Date date &#x3D; new Date(); —&gt; data.toString();  Fri Oct 08 17:38:53 KST 2021  형태로 출력</li>
+<li>Calendar currentDate &#x3D; Calendar.getInstance(); 매수 상세하게 출력(지역, 도시, 초단위 등등)</li>
+</ul>
+<h3 id="Collection"><a href="#Collection" class="headerlink" title="Collection"></a>Collection</h3><p>표시된곳은 interface, 나머지는 class<br><img src="/./img/collection.png" alt="표시된곳은 interface, 나머지는 class"></p>
+<h4 id="ArrayList-1"><a href="#ArrayList-1" class="headerlink" title="ArrayList"></a>ArrayList</h4><ul>
+<li>데이터 저장에 add() 메소드 사용, 데이터 꺼낼 때 get() 메소드 사용</li>
+<li>add() 매개변수 타입은 Object —&gt; ArrayList에 데이터 저장은 무조건 Object로 변환되어 저장 —&gt; ArrayList에는 자바의 모든 타입의 데이터 저장 가능 (묵시적 형변환)</li>
+<li>get() 메소드 인자는 인덱스 번호, 데이터 꺼낼 때 원래의 타입으로 변환해야 한다. (명시적 형변환)</li>
+<li>모든 종류의 데이터 저장이 가능하지만 실제로 프로그램에서 타입이 다른 데이터를 컬렉션에 저장하는 경우는 거의 없다.</li>
+<li>generic으로 실수로라도 다른 타입 데이터 저장하지 않도록 안전장치 같은 느낌</li>
+<li>ex. List<type> name &#x3D; new ArrayList<type>();<h4 id="ArrayList-method-1"><a href="#ArrayList-method-1" class="headerlink" title="ArrayList method"></a>ArrayList method</h4></li>
+<li>기본 생성자로 객체를 생성하면 10개의 데이터를 저장할 수 있고 추가되는 데이터에 따라 자동으로 공간이 10개씩 증가한다.</li>
+<li>원소를 삭제할 때 0~4까지 있을 때 1을 삭제하면 1 뒤를 쭉 앞으로 이동시켜 0,2,3,4가 된다.</li>
+<li>size() : int 등록된 객체 개수 반환</li>
+<li>add(Object obj) : boolean : 특정 객체 등록, 성공하면 t 실패하면 f 반환</li>
+<li>get(int index) : Object  index 위치에 있는 객체 반환</li>
+<li>remove(int index) : Object index 위치 객체 삭제, 삭제된 객체 반환</li>
+<li>remove(Object obj) : boolean 특정 객체 삭제, 성공 t 실패 f 반환</li>
+<li>contains(Object obj) : boolean 특정 객체 존재 확인, 있으면 t, 없으면 f<h4 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h4></li>
+<li>List와의 차이점은 데이터 순서가 정해져 있지 않다는 것과 데이터 중복을 허용하지 않는것</li>
+<li>하지만 같은 값을 가진 객체가 중복 저장이 된다 why? —&gt; 새로운 객체가 등록될 때 자신이 가진 객체들 중 같은 값을 가진 객체가 존재하는지 확인하는데 이때 equlas()와 hashCode() 메소드를 사용하기 때문에 두 메소드를 오버라이딩 해야한다.<h4 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h4></li>
+<li>검색이 빠르다</li>
+<li>저장에 put(object key, object value) 메소드, 검색에 get(object key) 메소드 사용</li>
+<li>HashMap에 사용하는 Key 데이터는 중복되지 않는 유일한 문자열이어야 한다<ul>
+<li>중복되면 value에 해당하는 객체를 덮어쓰기 한다.</li>
+</ul>
+</li>
+<li>key 목록이나 Value 목록만 별도로 추출하여 사용 가능</li>
+<li>keySet(); 메소드는 키 목록만 추출, values(); 메소드는 벨류목록만 추출</li>
+<li>HashTable과 개념과 사용방법이 동일</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://my4831218.github.io/2022/04/13/css-day1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="my4831218">
+      <meta itemprop="description" content="Everything I learned today, including coding test study, exercise record, etc.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Skang's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/13/css-day1/" class="post-title-link" itemprop="url">css-day1</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-04-13 23:22:21 / Modified: 23:25:11" itemprop="dateCreated datePublished" datetime="2022-04-13T23:22:21+09:00">2022-04-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CSS/" itemprop="url" rel="index"><span itemprop="name">CSS</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="기본-문법"><a href="#기본-문법" class="headerlink" title="기본 문법"></a>기본 문법</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">선택자(div) &#123;</span><br><span class="line">	color : /*글자 색*/</span><br><span class="line">	font-size : /*글자 크기*/</span><br><span class="line">	witdh : /*가로 너비*/</span><br><span class="line">	height: /*세로 너비*/</span><br><span class="line">	margin : /*바깥 여백*/</span><br><span class="line">	padding : /*안쪽 여백 상하좌우*/</span><br><span class="line">	position : /*부모 요소 기준*/</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="작성-방법"><a href="#작성-방법" class="headerlink" title="작성 방법"></a>작성 방법</h3><ul>
+<li>인라인 작성 방식<ul>
+<li>HTML의 태그에 직접 작성하는 방법으로 선택자 필요 X</li>
+<li>ex. <code>&lt;div style=”color : red;”&gt;직접 작성&lt;/div&gt;</code></li>
+<li>같은 div가 여러개 있을 때 일일이 div마다 작성해야하는 단점이 있어 유지&#x2F;보수에 단점이 생긴다.</li>
+</ul>
+</li>
+<li>HTML 내장 방식<ul>
+<li>head 태그 안쪽에 style 태그를 통해 설정<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;head&gt;</span><br><span class="line">	&lt;style&gt;</span><br><span class="line">		div &#123;</span><br><span class="line">			color: red;</span><br><span class="line">		&#125;</span><br><span class="line">	&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">/*head에 설정하면 body 안에 div들이 모두 변경*/</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>HTML 외부에서 불러오기<ul>
+<li>head 태그 안쪽에 link 태그를 통해 외부에서 문서를 가져오기</li>
+<li><code>&lt;link rel=”stylesheet” href=”경로.css”&gt;</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="선택자"><a href="#선택자" class="headerlink" title="선택자"></a>선택자</h3><ul>
+<li>tag로만 찾는것은 한계가 있기 때문에 class를 만들어 class 선택자로 찾기</li>
+<li>ex. <h1 class=”title”>제목</h1> —&gt; css에서 h1 변경하려면 .title로 선택자 사용</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://my4831218.github.io/2022/04/12/Java-day6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1114,230 +1447,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://my4831218.github.io/2022/04/02/Git-revert/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="my4831218">
-      <meta itemprop="description" content="Everything I learned today, including coding test study, exercise record, etc.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Skang's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/04/02/Git-revert/" class="post-title-link" itemprop="url">Git_revert</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-04-02 14:40:59 / Modified: 14:53:33" itemprop="dateCreated datePublished" datetime="2022-04-02T14:40:59+09:00">2022-04-02</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="Git-revert"><a href="#Git-revert" class="headerlink" title="Git revert"></a>Git revert</h3><ul>
-<li>Rename<ul>
-<li>파일의 이름을 바꿀때 사용</li>
-<li>a.md를 b.md로 mv명령어로  이름을 바꾼다면 git에서는 a.md가 삭제되고 b.md를 untracked로 인식</li>
-<li>git mv 명령어를 사용하면 git에서도 제대로 인식</li>
-</ul>
-</li>
-<li>Undoing (commit 하지 않은 작업 취소)<ul>
-<li>자주 사용하는 명령어로 변경사항을 취소하기 위한 명령</li>
-<li>git restore name -&gt; name의 변경사항이 취소 (원상복구)</li>
-<li>git restore . -&gt; 현재 디렉토리 아래의 모든 파일 복구</li>
-</ul>
-</li>
-<li>Unstaging (add로 staging 한 작업 되돌림)<ul>
-<li>명령에 reset이 들어가있어 팀 전체에 영향을 줄 수 있어 왠만하면 사용 자제</li>
-<li>git reset HEAD name : add한 작업 취소</li>
-</ul>
-</li>
-<li>Edit latest commit (commit massage 수정)<ul>
-<li>git commit –amend (직전 commit 다시 열어서 수정)</li>
-<li>rebase 명령으로 직전 말고도 commit 수정가능</li>
-<li>commit을 대충 할수도 있기 때문에 사용을 자제</li>
-</ul>
-</li>
-<li>Revert (commit을 되돌릴 때 사용)<ul>
-<li>git revert –no-commit HEAD~n.. -&gt; n개의 commit을 되돌리고 되돌리는 commit massage 작성</li>
-<li>–no-commit 안붙이면 n개 취소할 때 n개의 commit 작성해야됨</li>
-</ul>
-</li>
-</ul>
-<h3 id="Git-Team-practice"><a href="#Git-Team-practice" class="headerlink" title="Git Team practice"></a>Git Team practice</h3><ol>
-<li>팀장이 repo 생성, git clone 후 git flow init</li>
-<li>팀원이 팀장의 repo를 fork, fork한 URL로 git clone</li>
-<li>팀원은 issue를 작성하고 git flow init 으로 develop으로 가면 팀장과 같은 상태가됨</li>
-<li>git flow feature start name 으로 기능별로 작업하고 add, commit</li>
-<li>git flow feature finish name 으로 feature 브렌치 작업 종료하고 git push -u origin develop</li>
-<li>fork한 페이지로 가서 pull request</li>
-<li>팀장이 작업 내용을 확인해보고 merge</li>
-<li>git remote add upstream 팀장repo URL 으로 upstream 주소 추가</li>
-<li>git pull upstream develop</li>
-<li>어느정도 작업내용이 쌓이면 팀장이 git flow release로 테스트하고 정상적이라면 main으로 release</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://my4831218.github.io/2022/04/01/GitBlog/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="my4831218">
-      <meta itemprop="description" content="Everything I learned today, including coding test study, exercise record, etc.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Skang's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/04/01/GitBlog/" class="post-title-link" itemprop="url">GitBlog</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-04-01 16:10:08" itemprop="dateCreated datePublished" datetime="2022-04-01T16:10:08+09:00">2022-04-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-02 14:57:42" itemprop="dateModified" datetime="2022-04-02T14:57:42+09:00">2022-04-02</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="Github-Blog"><a href="#Github-Blog" class="headerlink" title="Github Blog"></a>Github Blog</h3><p>repo : username.github.io 만들면 서버를 제공하는 페이지 제공<br>꾸미기 위해 Node.js &amp; npm hexo-cli -g 다운로드</p>
-<h1 id="Init"><a href="#Init" class="headerlink" title="Init"></a>Init</h1><ol>
-<li><p>Hexo blog</p>
-<ol>
-<li>hexo init folder name</li>
-<li>vi config.yml : #Site 에서 title, subtitle, des, author 작성</li>
-</ol>
-</li>
-<li><p>Hexo blog theme (next)</p>
-<ol>
-<li>git clone {URL} : 원하는 theme의 repo 찾아서 다운, themes 디렉토리에 다운됬는지 확인</li>
-<li>config.yml에서 #Extensions에서 theme 에 다운된 theme이름 작성</li>
-<li>themes&#x2F;theme-name 디렉토리에서 config.yml 들어가서 #Schemes에서 Muse 주석처리, Gemini 주석제거</li>
-</ol>
-</li>
-<li><p>Hexo blog Deployment</p>
-<ol>
-<li>npm install hexo-deployer-git –save</li>
-<li>config.yml 에서 #Deployment에서 수정 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">type: git</span><br><span class="line">repo : git blog주소</span><br><span class="line">branch: main</span><br></pre></td></tr></table></figure></li>
-</ol>
-</li>
-<li><p>Create Menu</p>
-<ol>
-<li>themes&#x2F;theme-name의 config.yml 파일에서 menu: 에서 tags와 categories의 주석처리 제거 (tags, categories 생성 예정)</li>
-<li>hexo new post 를 이용하여 categories, tage 페이지를 각각 생성, 각 index.md에서 date 밑에 type: “페이지이름” comments: false 추가</li>
-<li>post 작성시 상단 title, date 아래에 categories, tags 항목 작성하면 됨</li>
-</ol>
-</li>
-<li><p>Add search function</p>
-<ol>
-<li>npm install hexo-generator-searchdb</li>
-<li>config.yml 제일 아래쪽에 다음 코드 추가 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># Local Search </span><br><span class="line"># search </span><br><span class="line">search:</span><br><span class="line">    path: search.xml</span><br><span class="line">    field: post</span><br><span class="line">    content: true</span><br><span class="line">    format: html</span><br></pre></td></tr></table></figure></li>
-<li>theme-name의 config.yml에서 Local Search(약 740L) 에서 enable 값을 true, trigger 값을 manual로 수정</li>
-</ol>
-</li>
-</ol>
-<h3 id="New-post-amp-deploy"><a href="#New-post-amp-deploy" class="headerlink" title="New post &amp; deploy"></a>New post &amp; deploy</h3><ol>
-<li>hexo new post name</li>
-<li>hexo clean &amp;&amp; hexo generate</li>
-<li>hexo server (localhost update)</li>
-<li>hexo clean &amp;&amp; hexo deploy (github blog update)</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1407,14 +1516,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">

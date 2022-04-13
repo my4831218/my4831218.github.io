@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"my4831218.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Static Methoddesc 외부에서 static 변수를 참조할 수 없기 때문에 method를 만들어 접근 static method는 인스턴스 생성과 무관하게 클래스 이름으로 호출 가능 인스턴스 생성 전에 호출될 수 있기 때문에 인스턴스 변수 사용 불가능 프로그램이 메모리에 있는 동안 계속 존재하기 때문에 큰 메모리 할당은 좋지 않다  Singleton">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java-day7">
+<meta property="og:url" content="http://my4831218.github.io/2022/04/13/Java-day7/index.html">
+<meta property="og:site_name" content="Skang&#39;s blog">
+<meta property="og:description" content="Static Methoddesc 외부에서 static 변수를 참조할 수 없기 때문에 method를 만들어 접근 static method는 인스턴스 생성과 무관하게 클래스 이름으로 호출 가능 인스턴스 생성 전에 호출될 수 있기 때문에 인스턴스 변수 사용 불가능 프로그램이 메모리에 있는 동안 계속 존재하기 때문에 큰 메모리 할당은 좋지 않다  Singleton">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://my4831218.github.io/img/collection.png">
+<meta property="article:published_time" content="2022-04-13T14:26:25.000Z">
+<meta property="article:modified_time" content="2022-04-13T14:47:39.560Z">
+<meta property="article:author" content="my4831218">
+<meta property="article:tag" content="TIL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://my4831218.github.io/img/collection.png">
+
+<link rel="canonical" href="http://my4831218.github.io/2022/04/13/Java-day7/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Java-day7 | Skang's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Skang's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Skang github blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://my4831218.github.io/2022/04/13/Java-day7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="my4831218">
+      <meta itemprop="description" content="Everything I learned today, including coding test study, exercise record, etc.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Skang's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java-day7
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-04-13 23:26:25 / Modified: 23:47:39" itemprop="dateCreated datePublished" datetime="2022-04-13T23:26:25+09:00">2022-04-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JAVA/" itemprop="url" rel="index"><span itemprop="name">JAVA</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Static-Method"><a href="#Static-Method" class="headerlink" title="Static Method"></a>Static Method</h2><h3 id="desc"><a href="#desc" class="headerlink" title="desc"></a>desc</h3><ul>
+<li>외부에서 static 변수를 참조할 수 없기 때문에 method를 만들어 접근</li>
+<li>static method는 인스턴스 생성과 무관하게 클래스 이름으로 호출 가능</li>
+<li>인스턴스 생성 전에 호출될 수 있기 때문에 인스턴스 변수 사용 불가능</li>
+<li>프로그램이 메모리에 있는 동안 계속 존재하기 때문에 큰 메모리 할당은 좋지 않다</li>
+</ul>
+<h3 id="Singleton-pattern"><a href="#Singleton-pattern" class="headerlink" title="Singleton pattern"></a>Singleton pattern</h3><ul>
+<li>프로그램에서 인스턴스가 단 한 개만 생성되야 하는 경우 사용하는 디자인 패턴</li>
+<li>static 변수, method를 활용하여 구현</li>
+<li>외부 접근이 불가능한 private static로 instance 생성, 외부에서 사용을 위한 public static getInstance 메소드<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public class Company &#123;</span><br><span class="line">	// 외부에서 인스턴스를 생성하지 못하도록 안쪽에서 생성</span><br><span class="line">	private static Company instance = new Company();</span><br><span class="line"></span><br><span class="line">	private Company() &#123;</span><br><span class="line">	&#125;</span><br><span class="line">	// 외부에서 접근하기 위한 메소드</span><br><span class="line">	public static Company getInstance() &#123;</span><br><span class="line">		return instance;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Singleton-pattern-실습"><a href="#Singleton-pattern-실습" class="headerlink" title="Singleton pattern 실습"></a>Singleton pattern 실습</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">package singleton;</span><br><span class="line"></span><br><span class="line">public class Car &#123;</span><br><span class="line">	public static int serialNum = 10001;</span><br><span class="line">	int carNum;</span><br><span class="line"></span><br><span class="line">	public Car() &#123;</span><br><span class="line">		carNum = serialNum;</span><br><span class="line">		serialNum++;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public int getCarNum() &#123;</span><br><span class="line">		return carNum;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">package singleton;</span><br><span class="line"></span><br><span class="line">public class CarFactory &#123;</span><br><span class="line">	private static CarFactory instance = new CarFactory();</span><br><span class="line"></span><br><span class="line">	private CarFactory() &#123;&#125;</span><br><span class="line"></span><br><span class="line">	public static CarFactory getInstance() &#123;</span><br><span class="line">		return instance;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public Car createCar() &#123;</span><br><span class="line">		Car car = new Car();</span><br><span class="line">		return car;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">package singleton;</span><br><span class="line"></span><br><span class="line">public class CarFactoryTest &#123;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		CarFactory factory = CarFactory.getInstance();</span><br><span class="line">		Car mySonata = factory.createCar();</span><br><span class="line">		Car yourSonata = factory.createCar();</span><br><span class="line"></span><br><span class="line">		System.out.println(mySonata.getCarNum());     //10001 출력</span><br><span class="line">		System.out.println(yourSonata.getCarNum());   //10002 출력</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Memory"><a href="#Memory" class="headerlink" title="Memory"></a>Memory</h3><table>
+<thead>
+<tr>
+<th>변수 유형</th>
+<th>선언 위치</th>
+<th>사용 범위</th>
+<th>생성메모리</th>
+<th>생성과 소멸</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>지역 변수(local)</td>
+<td>함수 내부</td>
+<td>함수 내부에서만</td>
+<td>스택</td>
+<td>함수 호출될때 생성, 함수 종료 시 소멸</td>
+</tr>
+<tr>
+<td>멤버 변수(instance)</td>
+<td>클래스 멤버 변수</td>
+<td>클래스 내부, private이 아닐 때 참조변수로 다른 클래스에서 사용</td>
+<td>힙</td>
+<td>인스턴스 생성시 힙에 생성, 가비지 콜렉터가 메모리 수거할 때 소멸</td>
+</tr>
+<tr>
+<td>static 변수</td>
+<td>static 사용 클래스 내부</td>
+<td>클래스 내부, private이 아닐 때 클래스이름으로 다른 클래스에서 사용</td>
+<td>데이터</td>
+<td>프로그램 처음 시작할 때 상수와 함께 데이터 영역에 생성, 프로그램 끝나고 메모리 해제할 때 소멸</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h2><h3 id="Object-Array"><a href="#Object-Array" class="headerlink" title="Object Array"></a>Object Array</h3><ul>
+<li>객체의 주소가 들어갈 메모리가 할당됨, 각 객체는 따로 생성, 저장</li>
+<li>System.arrayCopy(복사할 array, 복사array 시작점, 붙여넣을 array, 붙여넣을 array의 위치, 복사할 길이) 자바에서 제공되는 배열 복사 메소드로 복사 가능 (얕은복사)<ul>
+<li>얕은 복사 : 객제 추소만 복사되어 한쪽 배열 요소를 수정하면 같이 수정됨</li>
+</ul>
+</li>
+<li>깊은 복사 : 각각의 객체를 생성해서 그 객체의 값을 복사하여 배열이 서로 다른 객체를 가르킴</li>
+</ul>
+<h3 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h3><ul>
+<li>기존 배열은 배열의 길이를 정하고 요소의 개수가 배열보다 커지면 배열을 재할당하고 복사해야함</li>
+<li>배열의 요소를 추가, 삭제하면 다른 요소의 이동 구현</li>
+<li>객체 배열을 좀더 효율적 관리를 위해 자바에서 제공하는 클래스</li>
+<li>많은 메소드가 최적 알고리즘으로 구현되어 각 메소드의 사용 방법만 익히면 됨</li>
+</ul>
+<h3 id="ArrayList-method"><a href="#ArrayList-method" class="headerlink" title="ArrayList method"></a>ArrayList method</h3><ul>
+<li>boolean add(E e) : 배열에 요소를 추가 (E는 자료형)</li>
+<li>int size() : 배열에 추가된 전체 요소 개수 반환</li>
+<li>E get(int index) : index 위치에 있는 요소 값 반환</li>
+<li>E remove(int index) : index위치에 요소 값 제거, 그 값을 반환</li>
+<li>boolean isEmpty() : 빈 배열인지 확인</li>
+</ul>
+<h3 id="ArrayList-실습"><a href="#ArrayList-실습" class="headerlink" title="ArrayList 실습"></a>ArrayList 실습</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">import java.util.ArrayList;</span><br><span class="line"></span><br><span class="line">public class Student &#123;</span><br><span class="line"></span><br><span class="line">	int studentID;</span><br><span class="line">	String studentName;</span><br><span class="line">	ArrayList&lt;Subject&gt; subjectList;</span><br><span class="line"></span><br><span class="line">	public Student(int studentID, String studentName)&#123;</span><br><span class="line">		this.studentID = studentID;</span><br><span class="line">		this.studentName = studentName;</span><br><span class="line"></span><br><span class="line">		subjectList = new ArrayList&lt;Subject&gt;();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void addSubject(String name, int score)&#123;</span><br><span class="line">		Subject subject = new Subject();</span><br><span class="line"></span><br><span class="line">		subject.setName(name);</span><br><span class="line">		subject.setScorePoint(score);</span><br><span class="line">		subjectList.add(subject);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void showStudentInfo()</span><br><span class="line">	&#123;</span><br><span class="line">		int total = 0;</span><br><span class="line"></span><br><span class="line">		for(Subject s : subjectList)&#123;</span><br><span class="line"></span><br><span class="line">			total += s.getScorePoint();</span><br><span class="line">			System.out.println(&quot;학생 &quot; + studentName + &quot;의 &quot; + s.getName() + &quot; 과목 성적은 &quot; +</span><br><span class="line">			        s.getScorePoint() + &quot;입니다.&quot;);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		System.out.println(&quot;학생 &quot; + studentName + &quot;의 총점은 &quot; + total + &quot; 입니다.&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public class Subject &#123;</span><br><span class="line"></span><br><span class="line">	private String name;</span><br><span class="line">	private int scorePoint;</span><br><span class="line"></span><br><span class="line">	public String getName() &#123;</span><br><span class="line">		return name;</span><br><span class="line">	&#125;</span><br><span class="line">	public void setName(String name) &#123;</span><br><span class="line">		this.name = name;</span><br><span class="line">	&#125;</span><br><span class="line">	public int getScorePoint() &#123;</span><br><span class="line">		return scorePoint;</span><br><span class="line">	&#125;</span><br><span class="line">	public void setScorePoint(int scorePoint) &#123;</span><br><span class="line">		this.scorePoint = scorePoint;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public class StudentTest &#123;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		Student studentLee = new Student(1001, &quot;Lee&quot;);</span><br><span class="line"></span><br><span class="line">		studentLee.addSubject(&quot;국어&quot;, 100);</span><br><span class="line">		studentLee.addSubject(&quot;수학&quot;, 50);</span><br><span class="line"></span><br><span class="line">		Student studentKim = new Student(1002, &quot;Kim&quot;);</span><br><span class="line"></span><br><span class="line">		studentKim.addSubject(&quot;국어&quot;, 70);</span><br><span class="line">		studentKim.addSubject(&quot;수학&quot;, 85);</span><br><span class="line">		studentKim.addSubject(&quot;영어&quot;, 100);</span><br><span class="line"></span><br><span class="line">		studentLee.showStudentInfo();</span><br><span class="line">		System.out.println(&quot;======================================&quot;);</span><br><span class="line">		studentKim.showStudentInfo();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="Exception-2"><a href="#Exception-2" class="headerlink" title="Exception 2"></a>Exception 2</h2><h3 id="throws"><a href="#throws" class="headerlink" title="throws"></a>throws</h3><ul>
+<li>throws를 이용하여 특정 메소드에서 발생된 예외를 메소드를 호출한 쪽으로 던질 수 있다.</li>
+<li>메소드마다 throws를 작성하면 한곳으로 예외를 몰수 있다. (예를들면 main으로 몰아 예외를 일괄처리)</li>
+<li>, 를 사용해서 한번에 여러개의 예외를 던질 수 있다</li>
+<li>Exception을 throws 하면 예상치 못한 예외까지 포함해서 한번에 예외를 처리한다.<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">void main(String[] args) &#123;</span><br><span class="line">	try &#123;</span><br><span class="line">		int a = 9;</span><br><span class="line">		int b = 0;</span><br><span class="line">	&#125; catch (ArithmeticException e) &#123;</span><br><span class="line">		println(&quot;2번째 숫자는 0이 아닌 수 입력하세요&quot;)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">// 메소드 안에서 발생한 예외 객체를 main으로 던졌다.</span><br><span class="line">private static void testMethod(int a, int b) throws ArithmeticException &#123;</span><br><span class="line">	println(a / b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="throw-예약어"><a href="#throw-예약어" class="headerlink" title="throw 예약어"></a>throw 예약어</h3><ul>
+<li>throw 예약어를 사용하여 강제적으로 예외를 발생시켜 프로그램을 중단시킬수 있다.</li>
+<li>ex. If (test &lt; 0) { throw new IllegalArgumentException(); }</li>
+</ul>
+<h3 id="상속된-exception-method"><a href="#상속된-exception-method" class="headerlink" title="상속된 exception method"></a>상속된 exception method</h3><ul>
+<li>예외 객체를 생성할 때 인자를 입력하면 사용할 수 있다.<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">	if () &#123;</span><br><span class="line">		throw new IllegalArgumentException(&quot;음수불가능&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125; catch (IllegalArgumentException e) &#123;</span><br><span class="line">		System.out.println(e.getMessage()); // 음수불가능 출력</span><br><span class="line">		e.printStackTrace(); // 어떤 에러가 발생했는지 에러발생 메시지 출력</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="사용자-지정-예외"><a href="#사용자-지정-예외" class="headerlink" title="사용자 지정 예외"></a>사용자 지정 예외</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 1. Exception 클래스 상속</span><br><span class="line">// 2. RuntimeException 상속 중 하나를 선택</span><br><span class="line">// 일반적으로 2를 상속하여 컴파일을 통과하는 예외 생성</span><br><span class="line">public class NewException extends RuntimeException &#123;</span><br><span class="line">	public NewException(String message) &#123;</span><br><span class="line">		super(message);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="java-lang"><a href="#java-lang" class="headerlink" title="java.lang"></a>java.lang</h2><ul>
+<li>java 프로그램에 사용하는 필수 클래스를 모아놓은 패키지</li>
+<li>import로 선언하지 않아도 사용 가능</li>
+<li>최상위 클래스 Object 등 다양한 클래스 제공</li>
+</ul>
+<h3 id="Object-class"><a href="#Object-class" class="headerlink" title="Object class"></a>Object class</h3><ul>
+<li>class를 선언하면 자동으로 extends java.lang.Objecct가 추가되어 Object클래스를 상속한다.</li>
+<li>왜 상속하는가<ol>
+<li>java class로서 반드시 가져야할 공통 메소드를 object 클래스로부터 상속받기 때문에 상속</li>
+<li>모든 java 객체를 하나의 타입으로 묶어 다형성을 적용하기 위해 상속</li>
+</ol>
+</li>
+</ul>
+<h4 id="hashCode-Method"><a href="#hashCode-Method" class="headerlink" title="hashCode() Method"></a>hashCode() Method</h4><ul>
+<li>Object 클래스가 제공하는 메소드</li>
+<li>생성된 객체의 메모리 주소정보를 반환</li>
+<li>똑같은 멤버변수값을 가진 객체 a, b가 있을 때 a의 해시코드와 b의 해시코드 값은 다르다.</li>
+<li>하지만 두 객체를 같은 객체로 처리할 일이 생긴다면 멤버변수를 기준으로 해시 값을 생성해야 하기 때문에 hashCode() 메소드가 상속되지 않도록 오버라이딩 해야한다.</li>
+<li>그렇게 처리하면 a의 해시코드와 b의 해시코드 값이 같아진다.</li>
+</ul>
+<h4 id="euqals-Method"><a href="#euqals-Method" class="headerlink" title="euqals() Method"></a>euqals() Method</h4><ul>
+<li>객체의 주소가 아닌 내용을 비교하기 위한 메소드</li>
+<li>equals 메소드는 객체의 주소를 비교하는 &#x3D;&#x3D; 연산자와 동일하게 동작한다</li>
+<li>따라서 equlas 메소드가 객체의 내용을 비교할 수 있도록 오버라이딩 해야한다.</li>
+</ul>
+<h4 id="toString-Method"><a href="#toString-Method" class="headerlink" title="toString() Method"></a>toString() Method</h4><ul>
+<li>객체가 소유한 멤버변수에 할당된 값을 하나의 문자열로 구성하여 반환</li>
+<li>default는 클래스의 이름과 객체의 메모리 주소를 결합한 문자열 반환</li>
+<li>실제 객체가 가진 멤버변수의 값을 기반으로 객체 정보를 반환하도록 오버라이딩 해야됨</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public class Student &#123;</span><br><span class="line">	String name;</span><br><span class="line">	int score;</span><br><span class="line"></span><br><span class="line">	public Student() &#123;&#125;</span><br><span class="line">	/* Object 클래스에 속한 메소드들을 잘 제대로 사용하기 위해 메소드 오버라이딩</span><br><span class="line">	public int hashCode() &#123;</span><br><span class="line">		return Object.hash(name, score)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public boolean equlas(Object obj) &#123;</span><br><span class="line">		Student other = (Student) obj;</span><br><span class="line">		return name.equals(other.name) &amp;&amp; score == other.score;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public String toString() &#123;</span><br><span class="line">		return &quot;학생의 이름(name)은 &quot; + name + &quot;, 점수(score)는 &quot; + score + &quot;점&quot;;</span><br><span class="line">	&#125;</span><br><span class="line">	*/</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="String-class"><a href="#String-class" class="headerlink" title="String class"></a>String class</h3><ul>
+<li>charAt(int idx) : char idx에 위치한 문자 리턴</li>
+<li>length() : int 문자열 길이 반환</li>
+<li>startsWith(Strng prefix) : Boolean 특정 문자로 시작하는지 여부 반환</li>
+<li>substring(int beginIdx) : String 특정 인덱스 이후 문자열 반환</li>
+<li>substring(int start, int end) : String start 인덱스부터 다른 end 인덱스까지 문자열 반환</li>
+<li>split(String regex) : String[] 특정 문자열 구분자로 문자열을 분해하여 문자열 배열로 반환</li>
+</ul>
+<h3 id="StringBuffer-class"><a href="#StringBuffer-class" class="headerlink" title="StringBuffer class"></a>StringBuffer class</h3><ul>
+<li>고정길이인 String 객체는 한번 생성되면 변경되는 것이 아닌 새로운 문자열 객체를 만든다</li>
+<li>String a &#x3D; “1”  + “2” + “3” + “4”; —&gt; 문자열 1개가 변형되는것이 아니라 문자열 5개가 생성되는 것임.</li>
+<li>StringBuffer는 가변길이 문자열을 제공, StringBuffer a &#x3D; new StringBuffer(”test”); —&gt; a &#x3D; a.append(”add”); 하면 문자열 1개가 생성되고 그것이 변경되는것</li>
+</ul>
+<h3 id="Wrapper-class"><a href="#Wrapper-class" class="headerlink" title="Wrapper class"></a>Wrapper class</h3><ul>
+<li>기본타입의 데이터를 객체로 감싼다는 의미로 해석 —&gt; 기본타입을 감싸 클래스 형태로 포장<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">		Object[] objectList = new Object[8];</span><br><span class="line">		objectList[0] = Boolean.valueOf(false);</span><br><span class="line">		objectList[1] = Character.valueOf(&#x27;A&#x27;);</span><br><span class="line">		objectList[2] = Byte.valueOf((byte) 12);</span><br><span class="line">		objectList[3] = Short.valueOf((short) 68);</span><br><span class="line">		objectList[4] = Integer.valueOf(83);</span><br><span class="line">		objectList[5] = Long.valueOf(12000000000L);</span><br><span class="line">		objectList[6] = Float.valueOf(73.5F);</span><br><span class="line">		objectList[7] = Double.valueOf(73.5);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="java-util"><a href="#java-util" class="headerlink" title="java.util"></a>java.util</h2><h3 id="java-util-Random"><a href="#java-util-Random" class="headerlink" title="java.util.Random"></a>java.util.Random</h3><ul>
+<li>랜덤한 숫자 생성에 사용, nextint(n) 메소드는 랜덤한 정수 발생시킬 때 사용, 0~n-1 사의 랜덤한 정수 생성</li>
+</ul>
+<h3 id="java-util-Arrays"><a href="#java-util-Arrays" class="headerlink" title="java.util.Arrays"></a>java.util.Arrays</h3><ul>
+<li>배열에 저장된 데이터 정렬, 특정 배열 내용을 복사해 새로운 배열 객체 만들기에 사용</li>
+<li>sort(array) 정렬 메소드, copyOf(array, 복사할 원소수)</li>
+</ul>
+<h3 id="java-util-Data-java-util-Calendar"><a href="#java-util-Data-java-util-Calendar" class="headerlink" title="java.util.Data, java.util.Calendar"></a>java.util.Data, java.util.Calendar</h3><ul>
+<li>날짜 데이터, 정교한 날짜와 시간 정보가 필요할 때 사용</li>
+<li>Date date &#x3D; new Date(); —&gt; data.toString();  Fri Oct 08 17:38:53 KST 2021  형태로 출력</li>
+<li>Calendar currentDate &#x3D; Calendar.getInstance(); 매수 상세하게 출력(지역, 도시, 초단위 등등)</li>
+</ul>
+<h3 id="Collection"><a href="#Collection" class="headerlink" title="Collection"></a>Collection</h3><p>표시된곳은 interface, 나머지는 class<br><img src="/./img/collection.png" alt="표시된곳은 interface, 나머지는 class"></p>
+<h4 id="ArrayList-1"><a href="#ArrayList-1" class="headerlink" title="ArrayList"></a>ArrayList</h4><ul>
+<li>데이터 저장에 add() 메소드 사용, 데이터 꺼낼 때 get() 메소드 사용</li>
+<li>add() 매개변수 타입은 Object —&gt; ArrayList에 데이터 저장은 무조건 Object로 변환되어 저장 —&gt; ArrayList에는 자바의 모든 타입의 데이터 저장 가능 (묵시적 형변환)</li>
+<li>get() 메소드 인자는 인덱스 번호, 데이터 꺼낼 때 원래의 타입으로 변환해야 한다. (명시적 형변환)</li>
+<li>모든 종류의 데이터 저장이 가능하지만 실제로 프로그램에서 타입이 다른 데이터를 컬렉션에 저장하는 경우는 거의 없다.</li>
+<li>generic으로 실수로라도 다른 타입 데이터 저장하지 않도록 안전장치 같은 느낌</li>
+<li>ex. List<type> name &#x3D; new ArrayList<type>();<h4 id="ArrayList-method-1"><a href="#ArrayList-method-1" class="headerlink" title="ArrayList method"></a>ArrayList method</h4></li>
+<li>기본 생성자로 객체를 생성하면 10개의 데이터를 저장할 수 있고 추가되는 데이터에 따라 자동으로 공간이 10개씩 증가한다.</li>
+<li>원소를 삭제할 때 0~4까지 있을 때 1을 삭제하면 1 뒤를 쭉 앞으로 이동시켜 0,2,3,4가 된다.</li>
+<li>size() : int 등록된 객체 개수 반환</li>
+<li>add(Object obj) : boolean : 특정 객체 등록, 성공하면 t 실패하면 f 반환</li>
+<li>get(int index) : Object  index 위치에 있는 객체 반환</li>
+<li>remove(int index) : Object index 위치 객체 삭제, 삭제된 객체 반환</li>
+<li>remove(Object obj) : boolean 특정 객체 삭제, 성공 t 실패 f 반환</li>
+<li>contains(Object obj) : boolean 특정 객체 존재 확인, 있으면 t, 없으면 f<h4 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h4></li>
+<li>List와의 차이점은 데이터 순서가 정해져 있지 않다는 것과 데이터 중복을 허용하지 않는것</li>
+<li>하지만 같은 값을 가진 객체가 중복 저장이 된다 why? —&gt; 새로운 객체가 등록될 때 자신이 가진 객체들 중 같은 값을 가진 객체가 존재하는지 확인하는데 이때 equlas()와 hashCode() 메소드를 사용하기 때문에 두 메소드를 오버라이딩 해야한다.<h4 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h4></li>
+<li>검색이 빠르다</li>
+<li>저장에 put(object key, object value) 메소드, 검색에 get(object key) 메소드 사용</li>
+<li>HashMap에 사용하는 Key 데이터는 중복되지 않는 유일한 문자열이어야 한다<ul>
+<li>중복되면 value에 해당하는 객체를 덮어쓰기 한다.</li>
+</ul>
+</li>
+<li>key 목록이나 Value 목록만 별도로 추출하여 사용 가능</li>
+<li>keySet(); 메소드는 키 목록만 추출, values(); 메소드는 벨류목록만 추출</li>
+<li>HashTable과 개념과 사용방법이 동일</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/TIL/" rel="tag"># TIL</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/04/13/css-day1/" rel="prev" title="css-day1">
+      <i class="fa fa-chevron-left"></i> css-day1
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Static-Method"><span class="nav-number">1.</span> <span class="nav-text">Static Method</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#desc"><span class="nav-number">1.1.</span> <span class="nav-text">desc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Singleton-pattern"><span class="nav-number">1.2.</span> <span class="nav-text">Singleton pattern</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Singleton-pattern-%EC%8B%A4%EC%8A%B5"><span class="nav-number">1.3.</span> <span class="nav-text">Singleton pattern 실습</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Memory"><span class="nav-number">1.4.</span> <span class="nav-text">Memory</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Array"><span class="nav-number">2.</span> <span class="nav-text">Array</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-Array"><span class="nav-number">2.1.</span> <span class="nav-text">Object Array</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ArrayList"><span class="nav-number">2.2.</span> <span class="nav-text">ArrayList</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ArrayList-method"><span class="nav-number">2.3.</span> <span class="nav-text">ArrayList method</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ArrayList-%EC%8B%A4%EC%8A%B5"><span class="nav-number">2.4.</span> <span class="nav-text">ArrayList 실습</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Exception-2"><span class="nav-number">3.</span> <span class="nav-text">Exception 2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#throws"><span class="nav-number">3.1.</span> <span class="nav-text">throws</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#throw-%EC%98%88%EC%95%BD%EC%96%B4"><span class="nav-number">3.2.</span> <span class="nav-text">throw 예약어</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EC%83%81%EC%86%8D%EB%90%9C-exception-method"><span class="nav-number">3.3.</span> <span class="nav-text">상속된 exception method</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%A7%80%EC%A0%95-%EC%98%88%EC%99%B8"><span class="nav-number">3.4.</span> <span class="nav-text">사용자 지정 예외</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#java-lang"><span class="nav-number">4.</span> <span class="nav-text">java.lang</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-class"><span class="nav-number">4.1.</span> <span class="nav-text">Object class</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#hashCode-Method"><span class="nav-number">4.1.1.</span> <span class="nav-text">hashCode() Method</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#euqals-Method"><span class="nav-number">4.1.2.</span> <span class="nav-text">euqals() Method</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#toString-Method"><span class="nav-number">4.1.3.</span> <span class="nav-text">toString() Method</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String-class"><span class="nav-number">4.2.</span> <span class="nav-text">String class</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StringBuffer-class"><span class="nav-number">4.3.</span> <span class="nav-text">StringBuffer class</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Wrapper-class"><span class="nav-number">4.4.</span> <span class="nav-text">Wrapper class</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#java-util"><span class="nav-number">5.</span> <span class="nav-text">java.util</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#java-util-Random"><span class="nav-number">5.1.</span> <span class="nav-text">java.util.Random</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java-util-Arrays"><span class="nav-number">5.2.</span> <span class="nav-text">java.util.Arrays</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java-util-Data-java-util-Calendar"><span class="nav-number">5.3.</span> <span class="nav-text">java.util.Data, java.util.Calendar</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Collection"><span class="nav-number">5.4.</span> <span class="nav-text">Collection</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ArrayList-1"><span class="nav-number">5.4.1.</span> <span class="nav-text">ArrayList</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ArrayList-method-1"><span class="nav-number">5.4.2.</span> <span class="nav-text">ArrayList method</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Set"><span class="nav-number">5.4.3.</span> <span class="nav-text">Set</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HashMap"><span class="nav-number">5.4.4.</span> <span class="nav-text">HashMap</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">my4831218</p>
+  <div class="site-description" itemprop="description">Everything I learned today, including coding test study, exercise record, etc.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">my4831218</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
