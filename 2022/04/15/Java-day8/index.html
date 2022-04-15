@@ -20,20 +20,22 @@
     var CONFIG = {"hostname":"my4831218.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Using git flow with external programs git flow init git flow feature start name 코딩 프로그램에서 코딩 및 컴파일, 저장 (local 저장소와 파일저장위치 동일하게) add, commit(log 작성) git flow feature finish">
+  <meta name="description" content="instanceof 원래 인스턴스의 형이 맞는지 여부 체크, boolean타입으로 반환 if (A instanceof B)가 주로 사용, 상속받은 조상과 비교해도 True 반환  Template method 추상 메소드나 구현된 메소드를 활용해 코드의 흐름을 정의하는 메소드 final로 선언해 하위 클래스에서 재정의 불가능하게 만듦 프레임워크에 많이 샤용되">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Gitflow2">
-<meta property="og:url" content="http://my4831218.github.io/2022/04/01/Gitflow2/index.html">
+<meta property="og:title" content="Java-day8">
+<meta property="og:url" content="http://my4831218.github.io/2022/04/15/Java-day8/index.html">
 <meta property="og:site_name" content="Skang&#39;s blog">
-<meta property="og:description" content="Using git flow with external programs git flow init git flow feature start name 코딩 프로그램에서 코딩 및 컴파일, 저장 (local 저장소와 파일저장위치 동일하게) add, commit(log 작성) git flow feature finish">
+<meta property="og:description" content="instanceof 원래 인스턴스의 형이 맞는지 여부 체크, boolean타입으로 반환 if (A instanceof B)가 주로 사용, 상속받은 조상과 비교해도 True 반환  Template method 추상 메소드나 구현된 메소드를 활용해 코드의 흐름을 정의하는 메소드 final로 선언해 하위 클래스에서 재정의 불가능하게 만듦 프레임워크에 많이 샤용되">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-04-01T07:04:26.000Z">
-<meta property="article:modified_time" content="2022-04-02T05:54:52.595Z">
+<meta property="og:image" content="http://my4831218.github.io/img/interface.png">
+<meta property="article:published_time" content="2022-04-15T12:08:19.000Z">
+<meta property="article:modified_time" content="2022-04-15T12:38:06.210Z">
 <meta property="article:author" content="my4831218">
 <meta property="article:tag" content="TIL">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://my4831218.github.io/img/interface.png">
 
-<link rel="canonical" href="http://my4831218.github.io/2022/04/01/Gitflow2/">
+<link rel="canonical" href="http://my4831218.github.io/2022/04/15/Java-day8/">
 
 
 <script id="page-configurations">
@@ -46,7 +48,7 @@
   };
 </script>
 
-  <title>Gitflow2 | Skang's blog</title>
+  <title>Java-day8 | Skang's blog</title>
   
 
 
@@ -190,7 +192,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://my4831218.github.io/2022/04/01/Gitflow2/">
+    <link itemprop="mainEntityOfPage" href="http://my4831218.github.io/2022/04/15/Java-day8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -203,7 +205,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Gitflow2
+          Java-day8
         </h1>
 
         <div class="post-meta">
@@ -212,23 +214,17 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2022-04-01 16:04:26" itemprop="dateCreated datePublished" datetime="2022-04-01T16:04:26+09:00">2022-04-01</time>
+              <time title="Created: 2022-04-15 21:08:19 / Modified: 21:38:06" itemprop="dateCreated datePublished" datetime="2022-04-15T21:08:19+09:00">2022-04-15</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-02 14:54:52" itemprop="dateModified" datetime="2022-04-02T14:54:52+09:00">2022-04-02</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a>
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
                 </span>
             </span>
 
@@ -243,13 +239,39 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="Using-git-flow-with-external-programs"><a href="#Using-git-flow-with-external-programs" class="headerlink" title="Using git flow with external programs"></a>Using git flow with external programs</h1><ol>
-<li>git flow init</li>
-<li>git flow feature start name</li>
-<li>코딩 프로그램에서 코딩 및 컴파일, 저장 (local 저장소와 파일저장위치 동일하게)</li>
-<li>add, commit(log 작성)</li>
-<li>git flow feature finish</li>
-</ol>
+        <h3 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h3><ul>
+<li>원래 인스턴스의 형이 맞는지 여부 체크, boolean타입으로 반환</li>
+<li>if (A instanceof B)가 주로 사용, 상속받은 조상과 비교해도 True 반환</li>
+</ul>
+<h3 id="Template-method"><a href="#Template-method" class="headerlink" title="Template method"></a>Template method</h3><ul>
+<li>추상 메소드나 구현된 메소드를 활용해 코드의 흐름을 정의하는 메소드</li>
+<li>final로 선언해 하위 클래스에서 재정의 불가능하게 만듦</li>
+<li>프레임워크에 많이 샤용되는 설계 패턴</li>
+<li>추상 클래스로 선언된 상위 클래스에서 템플릿 메소드를 활용해 전체 흐름을 정의하고 하위 클래스에서 다르게 구현되야 하는 부분 추상 메소드로 선언해 하위 클래스에서 구현<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public abstract class Car &#123;</span><br><span class="line">	</span><br><span class="line">	public abstract void drive();</span><br><span class="line">	public abstract void stop();</span><br><span class="line">	</span><br><span class="line">	public void engineUp() &#123;</span><br><span class="line">		System.out.println(&quot;시동을 켭니다.&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public void engineDown() &#123;</span><br><span class="line">		System.out.println(&quot;시동을 끕니다.&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	// 시나리오 정의, Template Method</span><br><span class="line">	final public void run() &#123;</span><br><span class="line">		engineUp();</span><br><span class="line">		drive();</span><br><span class="line">		stop();</span><br><span class="line">		engineDown();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="tip"><a href="#tip" class="headerlink" title="tip"></a>tip</h3><ul>
+<li>Define class를 만들어 public static final로 자주쓰는 상수들을 만들어두면 Define. 으로 접근하여 쉽게 사용이 가능</li>
+</ul>
+<h3 id="Interface-예시"><a href="#Interface-예시" class="headerlink" title="Interface 예시"></a>Interface 예시</h3><ul>
+<li>여러가지 DB 제품이 지원될 수 있는 객체 구현</li>
+<li>이미지의 if (인터페이스) 에 제공되야할 메소드를 선언</li>
+<li>1, 2, 3에 각각 implements 하고 메소드 오버라이딩으로 기능 구현<br><img src="/./img/interface.png" alt="interface example"></li>
+</ul>
+<h3 id="Class"><a href="#Class" class="headerlink" title="Class"></a>Class</h3><ul>
+<li>Java에서 모든 클래스와 인터페이스는 컴파일 후 class파일이 생성</li>
+<li>Class 클래스는 컴파일된 class파일 로드, 객체를 동적으로 로드하고 정보를 가져오는 메서드 제공</li>
+<li>Class.forName(”클래스 이름”) 메소드로 클래스를 동적으로 로드, 클래스 이름으로 직접 가져오거나 생성된 인스턴스에서 가져올 수 있다.<ul>
+<li>Class test &#x3D; Class.forName(”java.lang.String”);</li>
+<li>Class test &#x3D; String.class();</li>
+<li>String test &#x3D; new String(), ClassName test1 &#x3D; s.getClassName(); (-&gt; )<br>  getClass로 가져오려면 인스턴스가 만들어진 상태여야 한다.<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Person person = new Person(&quot;James&quot;);</span><br><span class="line">		System.out.println(person);</span><br><span class="line">		</span><br><span class="line">		Class c1 = Class.forName(&quot;ch04.Person&quot;);</span><br><span class="line">		Person person1 = (Person)c1.newInstance(); //</span><br><span class="line">		System.out.println(person1);</span><br><span class="line">		</span><br><span class="line">/*</span><br><span class="line">		Class[] parameterTypes = &#123;String.class&#125;;</span><br><span class="line">		Constructor cons = c1.getConstructor(parameterTypes);</span><br><span class="line">		</span><br><span class="line">		Object[] initargs = &#123;&quot;김유신&quot;&#125;;</span><br><span class="line">		Person personLee = (Person)cons.newInstance(initargs);</span><br><span class="line">		System.out.println(personLee);</span><br><span class="line">*/</span><br><span class="line">// Person kim2 = new Person(&quot;Kim&quot;); 5줄의 코드가 이 한줄을 의미함</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h3 id="동적-로딩"><a href="#동적-로딩" class="headerlink" title="동적 로딩"></a>동적 로딩</h3><ul>
+<li>컴파일 시 데이터 타입이 binding 되는 것이 아닌 실행중에 데이터 타입을 binding 하는 방법</li>
+<li>프로그래밍 시 문자열 변수로 처리, 런타임 시 원하는 클래스를 로딩하여 binding하는 장점이 있다</li>
+<li>컴파일 시 타입이 정해지지 않아 동적 로딩시 오류가 발생하면 프로그램에 심각한 장애가 발생할수도 있다.</li>
+</ul>
 
     </div>
 
@@ -268,13 +290,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/04/01/Gitflow/" rel="prev" title="Gitflow">
-      <i class="fa fa-chevron-left"></i> Gitflow
+    <a href="/2022/04/14/Data-structures-day3/" rel="prev" title="Data-structures-day3">
+      <i class="fa fa-chevron-left"></i> Data-structures-day3
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/04/01/GitBlog/" rel="next" title="GitBlog">
-      GitBlog <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -333,7 +352,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Using-git-flow-with-external-programs"><span class="nav-number">1.</span> <span class="nav-text">Using git flow with external programs</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#instanceof"><span class="nav-number">1.</span> <span class="nav-text">instanceof</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Template-method"><span class="nav-number">2.</span> <span class="nav-text">Template method</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tip"><span class="nav-number">3.</span> <span class="nav-text">tip</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Interface-%EC%98%88%EC%8B%9C"><span class="nav-number">4.</span> <span class="nav-text">Interface 예시</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Class"><span class="nav-number">5.</span> <span class="nav-text">Class</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EB%8F%99%EC%A0%81-%EB%A1%9C%EB%94%A9"><span class="nav-number">6.</span> <span class="nav-text">동적 로딩</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
