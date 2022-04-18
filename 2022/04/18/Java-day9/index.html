@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"my4831218.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Array jdk Class : Array List, Vector 사용insert1234567891011121314151617181920public void insertElement(int position, int num) &amp;#123;		int i;				if(count &gt;&#x3D; ARRAY_SIZE) &amp;#123;  &#x2F;&#x2F;꽉 찬 경우			System.out.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java-day9">
+<meta property="og:url" content="http://my4831218.github.io/2022/04/18/Java-day9/index.html">
+<meta property="og:site_name" content="Skang&#39;s blog">
+<meta property="og:description" content="Array jdk Class : Array List, Vector 사용insert1234567891011121314151617181920public void insertElement(int position, int num) &amp;#123;		int i;				if(count &gt;&#x3D; ARRAY_SIZE) &amp;#123;  &#x2F;&#x2F;꽉 찬 경우			System.out.">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-04-18T12:15:46.000Z">
+<meta property="article:modified_time" content="2022-04-18T12:40:40.750Z">
+<meta property="article:author" content="my4831218">
+<meta property="article:tag" content="TIL">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://my4831218.github.io/2022/04/18/Java-day9/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Java-day9 | Skang's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Skang's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Skang github blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://my4831218.github.io/2022/04/18/Java-day9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="my4831218">
+      <meta itemprop="description" content="Everything I learned today, including coding test study, exercise record, etc.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Skang's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java-day9
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-04-18 21:15:46 / Modified: 21:40:40" itemprop="dateCreated datePublished" datetime="2022-04-18T21:15:46+09:00">2022-04-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/Data-structures/" itemprop="url" rel="index"><span itemprop="name">Data structures</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h2><ul>
+<li>jdk Class : Array List, Vector 사용<h3 id="insert"><a href="#insert" class="headerlink" title="insert"></a>insert</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public void insertElement(int position, int num) &#123;</span><br><span class="line">		int i;</span><br><span class="line">		</span><br><span class="line">		if(count &gt;= ARRAY_SIZE) &#123;  //꽉 찬 경우</span><br><span class="line">			System.out.println(&quot;not enough memory&quot;);</span><br><span class="line">			return;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		if(position &lt; 0 || position &gt; count ) &#123;  //index error</span><br><span class="line">			System.out.println(&quot;insert Error&quot;);</span><br><span class="line">			return;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		for( i = count-1; i &gt;= position ; i--) &#123;</span><br><span class="line">			intArr[i+1]  = intArr[i];        // 하나씩 이동</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		intArr[position] = num;</span><br><span class="line">		count++;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="remove"><a href="#remove" class="headerlink" title="remove"></a>remove</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public int removeElement(int position) &#123;</span><br><span class="line">		int ret = ERROR_NUM;</span><br><span class="line">		</span><br><span class="line">		if( isEmpty() ) &#123;</span><br><span class="line">			System.out.println(&quot;There is no element&quot;);</span><br><span class="line">			return ret;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		if(position &lt; 0 || position &gt;= count ) &#123;  //index error</span><br><span class="line">			System.out.println(&quot;remove Error&quot;);</span><br><span class="line">			return ret;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		ret = intArr[position];</span><br><span class="line">		</span><br><span class="line">		for(int i = position; i&lt;count -1; i++ ) &#123;</span><br><span class="line">			intArr[i] = intArr[i+1];</span><br><span class="line">		&#125;</span><br><span class="line">		count--;</span><br><span class="line">		return ret;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Linked-List"><a href="#Linked-List" class="headerlink" title="Linked List"></a>Linked List</h2></li>
+<li>jdk Class: LinkedList<h3 id="Add"><a href="#Add" class="headerlink" title="Add"></a>Add</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public MyListNode addElement( String data ) &#123;</span><br><span class="line">		</span><br><span class="line">		MyListNode newNode;</span><br><span class="line">		if(head == null) &#123;  //맨 처음일때</span><br><span class="line">			newNode = new MyListNode(data);</span><br><span class="line">			head = newNode;</span><br><span class="line">		&#125;</span><br><span class="line">		else &#123;</span><br><span class="line">			newNode = new MyListNode(data);</span><br><span class="line">			MyListNode temp = head;</span><br><span class="line">			while(temp.next != null)  //맨 뒤로 가서  </span><br><span class="line">				temp = temp.next;</span><br><span class="line">			temp.next = newNode;</span><br><span class="line">		&#125;</span><br><span class="line">		count++;</span><br><span class="line">		return newNode;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="insert-1"><a href="#insert-1" class="headerlink" title="insert"></a>insert</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">public MyListNode insertElement(int position, String data ) &#123;</span><br><span class="line">		int i;</span><br><span class="line">		MyListNode tempNode = head;</span><br><span class="line">		MyListNode newNode = new MyListNode(data);</span><br><span class="line">		</span><br><span class="line">		if(position &lt; 0 || position &gt; count ) &#123;</span><br><span class="line">			System.out.println(&quot;추가 할 위치 오류 입니다. 현재 리스트의 개수는 &quot; + count +&quot;개 입니다.&quot;);</span><br><span class="line">			return null;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		if(position == 0) &#123;  //맨 앞으로 들어가는 경우</span><br><span class="line">			newNode.next = head;</span><br><span class="line">			head = newNode;</span><br><span class="line">		&#125;</span><br><span class="line">		else &#123;</span><br><span class="line">			MyListNode preNode = null;	</span><br><span class="line">			for(i=0; i&lt;position; i++) &#123;</span><br><span class="line">				preNode = tempNode;</span><br><span class="line">				tempNode = tempNode.next;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			newNode.next = preNode.next;</span><br><span class="line">			preNode.next = newNode;</span><br><span class="line">		&#125;</span><br><span class="line">		count++;</span><br><span class="line">		return newNode;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="remove-1"><a href="#remove-1" class="headerlink" title="remove"></a>remove</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public MyListNode removeElement(int position) &#123;</span><br><span class="line">		int i;</span><br><span class="line">		MyListNode tempNode = head;</span><br><span class="line">		</span><br><span class="line">		if(position &gt;= count ) &#123;</span><br><span class="line">			System.out.println(&quot;삭제 할 위치 오류입니다. 현재 리스트의 개수는 &quot; + count +&quot;개 입니다.&quot;);</span><br><span class="line">			return null;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		if(position == 0) &#123;  //맨 앞을 삭제하는</span><br><span class="line">			head = tempNode.next;</span><br><span class="line">		&#125;</span><br><span class="line">		else&#123;</span><br><span class="line">			MyListNode preNode = null;	</span><br><span class="line">			for(i=0; i&lt;position; i++) &#123;</span><br><span class="line">				preNode = tempNode;</span><br><span class="line">				tempNode = tempNode.next;</span><br><span class="line">			&#125;</span><br><span class="line">			preNode.next = tempNode.next;</span><br><span class="line">		&#125;</span><br><span class="line">		count--;</span><br><span class="line">		System.out.println(position + &quot;번째 항목 삭제되었습니다.&quot;);</span><br><span class="line">		</span><br><span class="line">		return tempNode;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Stack"><a href="#Stack" class="headerlink" title="Stack"></a>Stack</h2><h3 id="push"><a href="#push" class="headerlink" title="push"></a>push</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public void push(int data) &#123;</span><br><span class="line">		if(isFull())&#123;</span><br><span class="line">			System.out.println(&quot;stack is full&quot;);</span><br><span class="line">			return;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		arrayStack.addElement(data);</span><br><span class="line">		top++;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="pop"><a href="#pop" class="headerlink" title="pop"></a>pop</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public int pop() &#123;</span><br><span class="line">		if (top == 0)&#123;</span><br><span class="line">			System.out.println(&quot;stack is empty&quot;);</span><br><span class="line">			return MyArray.ERROR_NUM;</span><br><span class="line">		&#125;</span><br><span class="line">		return arrayStack.removeElement(--top);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Queue"><a href="#Queue" class="headerlink" title="Queue"></a>Queue</h2><h3 id="Enqueue"><a href="#Enqueue" class="headerlink" title="Enqueue"></a>Enqueue</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public void enQueue(String data) &#123;</span><br><span class="line">		MyListNode newNode;</span><br><span class="line">		if(isEmpty()) &#123; //처음 항목</span><br><span class="line">			newNode = addElement(data);</span><br><span class="line">			front = newNode;</span><br><span class="line">			rear = newNode;</span><br><span class="line">		&#125;</span><br><span class="line">		else &#123;</span><br><span class="line">			newNode = addElement(data);</span><br><span class="line">			rear = newNode;</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(newNode.getData() + &quot; added&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Dequeue"><a href="#Dequeue" class="headerlink" title="Dequeue"></a>Dequeue</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public String deQueue() &#123;</span><br><span class="line">		if(isEmpty()) &#123;</span><br><span class="line">			System.out.println(&quot;Queue is Empty&quot;);</span><br><span class="line">			return null;</span><br><span class="line">		&#125;</span><br><span class="line">		String data = front.getData();</span><br><span class="line">		front = front.next;</span><br><span class="line">		if( front == null ) &#123;  // 마지막 항목</span><br><span class="line">			rear = null;</span><br><span class="line">		&#125;</span><br><span class="line">		return data;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="Generic"><a href="#Generic" class="headerlink" title="Generic"></a>Generic</h2><ul>
+<li>실제 사용되는 자료형의 변환은 컴파일러에 의해 검증되기 때문에 안정적인 프로그래밍 방식</li>
+<li>컬렉션 프레임워크에서 많이 사용</li>
+<li>T extends로 아무 클래스가 못 들어가게 Tv 클래스를 상속받은 클래스로 한정</li>
+<li>똑같은 멤버변수와 메소드를 가진 삼성 TV와 LG TV가 있을 때<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">public class GenericTV&lt;T extends Tv&gt; &#123;</span><br><span class="line">	private T brend;</span><br><span class="line"></span><br><span class="line">	// E : element, K: key, V : value 등 여러 알파벳을 의미에 따라 사용 가능</span><br><span class="line">	public void setBrend(T brend) &#123;</span><br><span class="line">		this.brend = brend;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public T getBrend() &#123;</span><br><span class="line">		return brend;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public String toString() &#123;</span><br><span class="line">		return brend.toString();</span><br><span class="line">	&#125;</span><br><span class="line">&#125; </span><br><span class="line">public abstract class Tv &#123;</span><br><span class="line">	public abstract void doPrinting();</span><br><span class="line">&#125;</span><br><span class="line">public class LgTV extends Tv&#123;</span><br><span class="line">	public String toString() &#123;</span><br><span class="line">		return &quot;브랜드는 LG 입니다&quot;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class SamsungTV extends Tv&#123;</span><br><span class="line">	public String toString() &#123;</span><br><span class="line">		return &quot;브랜드는 Samsung 입니다&quot;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// &lt;&gt; 사용하지 않아도 되지만 extends로 제한을 둿다면 상속받은 클래스만 사용가능</span><br><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">	GenericTV&lt;LgTV&gt; lgTV = new GenericTV&lt;LgTV&gt;();</span><br><span class="line">	lgTV.setBrend(new LgTV());</span><br><span class="line">	System.out.println(lgTV);</span><br><span class="line"></span><br><span class="line">	GenericTV&lt;SamsungTV&gt; samsungTV = new GenericTV&lt;Samsung&gt;();</span><br><span class="line">	samsungTV.setBrend(new SamsungTV());</span><br><span class="line">	System.out.println(samsungTV);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="Iterator"><a href="#Iterator" class="headerlink" title="Iterator"></a>Iterator</h2><ul>
+<li>저장된 요소들 순회<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Iterator&lt;Class&gt; ir = arrayList.iterator();</span><br><span class="line"></span><br><span class="line">while(ir.hasnext()) &#123;</span><br><span class="line">	Class classId = it.next();</span><br><span class="line">	int tempId = Class.getClassId();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="Inner-Class"><a href="#Inner-Class" class="headerlink" title="Inner Class"></a>Inner Class</h2><ul>
+<li>클래스 내부에 선언한 클래스, 외부 클래스와 밀접한 연관이 있는 경우가 많고 다른 클래스에서 사용할 일이 거의 없는 경우 선언하여 사용</li>
+</ul>
+<h3 id="Instance-inner-class"><a href="#Instance-inner-class" class="headerlink" title="Instance inner class"></a>Instance inner class</h3><ul>
+<li>내부적으로 사용할 클래스 선언으로 private선언 권장</li>
+<li>외부 클래스 생성 후에 생성됨<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Class OutClass &#123;</span><br><span class="line">	public OutClass() &#123;</span><br><span class="line">		inClass = new InClass();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	class InClass &#123; // static 변수 선언시 에러, static 메소드 선언시 에러</span><br><span class="line">		void inTest() &#123;&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	puvlic void usingClass() &#123;</span><br><span class="line">		inClass.inTest();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">main() &#123;</span><br><span class="line">	// 외부 클래스에서 내부 클래스의 메소드 호출이 가능</span><br><span class="line">	OutClass outClass = new OutClass();</span><br><span class="line">	outClass.usingClass();</span><br><span class="line">	// 외부 클래스를 이용해 내부 클래스를 생성하여 메소드 호출</span><br><span class="line">	OutClass.InClass inClass = OutClass.new.InClass();</span><br><span class="line">	inClass.inTest();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Static-inner-class"><a href="#Static-inner-class" class="headerlink" title="Static inner class"></a>Static inner class</h3></li>
+<li>외부 클래스 생성과 무관하게 사용</li>
+<li>일반 메소드는 외부 클래스의 변수를 제외하고 모든 변수 사용, static 메소드는 외부, 내부의 static 변수만 사용 가능<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">static class InStaticClass &#123;</span><br><span class="line">	// static 변수, 메소드 사용 가능</span><br><span class="line">	void inTest() &#123;</span><br><span class="line">		// 일반 메소드는 외부 클래스 변수 사용 불가능</span><br><span class="line">	&#125;</span><br><span class="line">	static void inTest2() &#123;</span><br><span class="line">		// static 메소드는 외부, 내부 클래스 변수 사용 불가능</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">main() &#123;</span><br><span class="line">	OutClass.InstaticClass sInClass = new OutClass.InStaticClass();</span><br><span class="line">	sInClass.inTest(); // 내부 클래스 일반 메소드 호출</span><br><span class="line">	OutClass.InStaticClass.inTest2(); // 내부 클래스 스태틱 메소드 호출</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Local-inner-class"><a href="#Local-inner-class" class="headerlink" title="Local inner class"></a>Local inner class</h3><ul>
+<li>지역 변수와 같이 메소드 내부에서 정의해서 사용</li>
+<li>메서드 호출이 끝나면 메소드에 사용된 지역변수의 유효성이 사라짐</li>
+<li>메소드 호출 이후에도 사용해야 할 경우도 있을 수 있어 지역 내부 클래스에서 사용하는 메소드의 지역 변수나 매개 변수는 final로 선언<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Class Out &#123;</span><br><span class="line">	Test methodTest(int i) &#123;</span><br><span class="line">		// Mytest 클래스를 사용하려면 직접 생성 XX</span><br><span class="line">		// methodTest 메소드 호출하여 생성객체 반환받아야됨</span><br><span class="line">		class MyTest implements Test &#123;</span><br><span class="line">			public void run() &#123;</span><br><span class="line">				// 지역변수는 상수로 바뀜</span><br><span class="line">				// 매개 변수도 상수로 바뀜</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		return new MyTest();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">main() &#123;</span><br><span class="line">	Out out = new Out();</span><br><span class="line">	Test test = out.methodTest(10);</span><br><span class="line">	test.run;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Anonymous-inner-class"><a href="#Anonymous-inner-class" class="headerlink" title="Anonymous inner class"></a>Anonymous inner class</h3><ul>
+<li>클래스 이름을 생략하고 주로 인터페이스나 추상 클래스를 구현하여 반환</li>
+<li>인터페이스나 추상 클래스 자료형의 변수에 직접 대입해 클래스 생성 or 내부 클래스의 메소드 내부에서 생성해 반환</li>
+<li>widget의 이벤트 핸들러에 활용<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Class Outet &#123;</span><br><span class="line">	Runnable getRunnable(int i) &#123;</span><br><span class="line">		return new Runnable() &#123;</span><br><span class="line">			public void run(); // 1</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	Runnable a = new Runnable() &#123;</span><br><span class="line">		public void run() &#123;&#125; //2</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">main() &#123;</span><br><span class="line">	Outet out = new Outet();</span><br><span class="line">	Runnable runnerble = out.getRunnable(1);</span><br><span class="line">	runnerble.run(); // run() 1을 사용</span><br><span class="line">	out.runner.run(); // run() 2를 사용</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="람다식"><a href="#람다식" class="headerlink" title="람다식"></a>람다식</h2><ul>
+<li>함수형 인터페이스를 사용</li>
+<li>익명 함수와 매개 변수만으로 구현되므로 인터페이스에서 단 하나의 메소드만 선언</li>
+<li>함수형 인터페이스는 내부에 여러개 메소드 선언시 에러<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public interface Mynumber &#123;</span><br><span class="line">	int getMax(int n1, int n2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">main() &#123;</span><br><span class="line">	// 람다식을 인터페이스 자료형 max 변수에 대입</span><br><span class="line">	Mynumber max = (x, y) -&gt; (x &gt;= y) ? x : y;</span><br><span class="line">	System.out.print(max.getMax(10, 20)); // 인터페이스 자료형 변수로 메소드 호출</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="Stream"><a href="#Stream" class="headerlink" title="Stream"></a>Stream</h2><ul>
+<li>자료의 대상과 관계없이 동일한 연산 수행</li>
+<li>한번 생성하고 사용한 스트림은 재사용 X</li>
+<li>기존 자료를 변경하지 않는다</li>
+<li>중간 연산과 최종 연산으로 구분</li>
+<li>중간연산<ul>
+<li>filter() 조건에 맞는 원소 추출, map() 조건에 맞는 원소 변환, sorted()</li>
+</ul>
+</li>
+<li>최종연산<ul>
+<li>forEach() 원소를 하나씩 꺼냄, count() 원소 개수. sum() 원소들의 합</li>
+</ul>
+</li>
+<li>중간연산에서 스트림에 자료가 들어가고 최종 연산하면서 스트림의 자료를 소모하는 구조인것 같다</li>
+<li>ex. Arrays.stream(배열이름).method(), 배열이름.stream().중간연산().최종연산()</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/TIL/" rel="tag"># TIL</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/04/15/Java-day8/" rel="prev" title="Java-day8">
+      <i class="fa fa-chevron-left"></i> Java-day8
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Array"><span class="nav-number">1.</span> <span class="nav-text">Array</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#insert"><span class="nav-number">1.1.</span> <span class="nav-text">insert</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#remove"><span class="nav-number">1.2.</span> <span class="nav-text">remove</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linked-List"><span class="nav-number">2.</span> <span class="nav-text">Linked List</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Add"><span class="nav-number">2.1.</span> <span class="nav-text">Add</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#insert-1"><span class="nav-number">2.2.</span> <span class="nav-text">insert</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#remove-1"><span class="nav-number">2.3.</span> <span class="nav-text">remove</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stack"><span class="nav-number">3.</span> <span class="nav-text">Stack</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#push"><span class="nav-number">3.1.</span> <span class="nav-text">push</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pop"><span class="nav-number">3.2.</span> <span class="nav-text">pop</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Queue"><span class="nav-number">4.</span> <span class="nav-text">Queue</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Enqueue"><span class="nav-number">4.1.</span> <span class="nav-text">Enqueue</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dequeue"><span class="nav-number">4.2.</span> <span class="nav-text">Dequeue</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Generic"><span class="nav-number">5.</span> <span class="nav-text">Generic</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Iterator"><span class="nav-number">6.</span> <span class="nav-text">Iterator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Inner-Class"><span class="nav-number">7.</span> <span class="nav-text">Inner Class</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Instance-inner-class"><span class="nav-number">7.1.</span> <span class="nav-text">Instance inner class</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Static-inner-class"><span class="nav-number">7.2.</span> <span class="nav-text">Static inner class</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Local-inner-class"><span class="nav-number">7.3.</span> <span class="nav-text">Local inner class</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Anonymous-inner-class"><span class="nav-number">7.4.</span> <span class="nav-text">Anonymous inner class</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EB%9E%8C%EB%8B%A4%EC%8B%9D"><span class="nav-number">8.</span> <span class="nav-text">람다식</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stream"><span class="nav-number">9.</span> <span class="nav-text">Stream</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">my4831218</p>
+  <div class="site-description" itemprop="description">Everything I learned today, including coding test study, exercise record, etc.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">my4831218</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
