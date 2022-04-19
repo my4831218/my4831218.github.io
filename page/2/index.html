@@ -186,7 +186,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://my4831218.github.io/2022/04/06/Java-day3/">
+    <link itemprop="mainEntityOfPage" href="http://my4831218.github.io/2022/04/08/Java/Java-day4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -200,7 +200,99 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/04/06/Java-day3/" class="post-title-link" itemprop="url">Java-day3</a>
+            <a href="/2022/04/08/Java/Java-day4/" class="post-title-link" itemprop="url">Java-day4</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-04-08 14:01:34 / Modified: 14:06:37" itemprop="dateCreated datePublished" datetime="2022-04-08T14:01:34+09:00">2022-04-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="참조-자료형-변수"><a href="#참조-자료형-변수" class="headerlink" title="참조 자료형 변수"></a>참조 자료형 변수</h1><hr>
+<h3 id="참조-자료형"><a href="#참조-자료형" class="headerlink" title="참조 자료형"></a>참조 자료형</h3><ul>
+<li>클래스형 변수 선언</li>
+<li>기본 자료형은 메모리 크기가 정해져 있지만 참조 자료형은 클래스에 따라 다르다</li>
+<li>참조 자료형 사용시 해당 변수에 대해 생성해야 한다.</li>
+<li>멤버 변수로 클래스를 가지는 자료형 사용 가능</li>
+<li>아래 코드를 참고</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">package ch09;</span><br><span class="line"></span><br><span class="line">public class Student &#123;</span><br><span class="line">	</span><br><span class="line">	int studentID;</span><br><span class="line">	String studentName;</span><br><span class="line">	</span><br><span class="line">	Subject korea;</span><br><span class="line">	Subject math;</span><br><span class="line">	</span><br><span class="line">	public Student(int id, String name) &#123;</span><br><span class="line">		studentID = id;</span><br><span class="line">		studentName = name;</span><br><span class="line">		</span><br><span class="line">		korea = new Subject();</span><br><span class="line">		math = new Subject();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public void setKoreaSubject(String name, int score) &#123;</span><br><span class="line">		korea.subjectName = name;</span><br><span class="line">		korea.score = score;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public void setMathSubject(String name, int score) &#123;</span><br><span class="line">		math.subjectName = name;</span><br><span class="line">		math.score = score;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public void showStudentSocre() &#123;</span><br><span class="line">		int total = korea.score + math.score;</span><br><span class="line">		System.out.println(studentName +  &quot; 학생의 총점은 &quot; + total + &quot;점 입니다.&quot; );</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">package ch09;</span><br><span class="line"></span><br><span class="line">public class Subject &#123;</span><br><span class="line">	String subjectName;</span><br><span class="line">	int score;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">package ch09;</span><br><span class="line"></span><br><span class="line">public class StudentTest &#123;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line">		Student studentLee = new Student(100, &quot;Lee&quot;);</span><br><span class="line">		studentLee.setKoreaSubject(&quot;국어&quot;, 100);</span><br><span class="line">		studentLee.setMathSubject(&quot;수학&quot;, 95);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		Student studentKim = new Student(101, &quot;Kim&quot;);</span><br><span class="line">		studentKim.setKoreaSubject(&quot;국어&quot;, 80);</span><br><span class="line">		studentKim.setMathSubject(&quot;수학&quot;, 99);</span><br><span class="line"></span><br><span class="line">		studentLee.showStudentSocre();</span><br><span class="line">		studentKim.showStudentSocre();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="캡슐화"><a href="#캡슐화" class="headerlink" title="캡슐화"></a>캡슐화</h3><ul>
+<li>정보 은닉을 활용한 캡슐화</li>
+<li>꼭 필요한 정보와 기능만 외부 접근을 허용</li>
+<li>대부분 멤버 변수와 메소드를 감추고 외부 통합 인터페이스만 제공하여 일관된 기능 구현</li>
+<li>각 메소드나, 멤버 변수를 접근함으로 발생하는 오류 최소화</li>
+<li>public 클래스에서 모든 멤버 변수와 메소드를 private으로 선언 후에 public 메소드로 private 메소드를 사용하는 기능을 구현하면 외부에서 private 메소드는 사용하지 못하지만 public 메소드를 이용하여 기능사용 가능</li>
+<li>아래 코드를 보면 getReport 메소드로 private으로 선언되어 접근이 불가능한 메소드를 외부 클래스에서 사용함</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">public class MakeReport &#123;</span><br><span class="line"></span><br><span class="line">	StringBuffer buffer = new StringBuffer();</span><br><span class="line"></span><br><span class="line">	private String line = &quot;===========================================\n&quot;;</span><br><span class="line">	private String title = &quot;  이름\t   주소 \t\t  전화번호  \n&quot;;</span><br><span class="line">	private void makeHeader()</span><br><span class="line">	&#123;</span><br><span class="line">		buffer.append(line);</span><br><span class="line">		buffer.append(title);</span><br><span class="line">		buffer.append(line);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	private void generateBody()</span><br><span class="line">	&#123;</span><br><span class="line">		buffer.append(&quot;James \t&quot;);</span><br><span class="line">		buffer.append(&quot;Seoul Korea \t&quot;);</span><br><span class="line">		buffer.append(&quot;010-2222-3333\n&quot;);</span><br><span class="line"></span><br><span class="line">		buffer.append(&quot;Tomas \t&quot;);</span><br><span class="line">		buffer.append(&quot;NewYork US \t&quot;);</span><br><span class="line">		buffer.append(&quot;010-7777-0987\n&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	private void makeFooter()</span><br><span class="line">	&#123;</span><br><span class="line"></span><br><span class="line">		buffer.append(line);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public String getReport()</span><br><span class="line">	&#123;</span><br><span class="line">		makeHeader();</span><br><span class="line">		generateBody();</span><br><span class="line">		makeFooter();</span><br><span class="line">		return buffer.toString();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public class TestReprt &#123;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line">		MakeReport report = new MakeReport();</span><br><span class="line">		String builder = report.getReport();</span><br><span class="line"></span><br><span class="line">		System.out.println(builder);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://my4831218.github.io/2022/04/06/Java/Java-day3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="my4831218">
+      <meta itemprop="description" content="Everything I learned today, including coding test study, exercise record, etc.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Skang's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/06/Java/Java-day3/" class="post-title-link" itemprop="url">Java-day3</a>
         </h2>
 
         <div class="post-meta">
@@ -300,7 +392,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://my4831218.github.io/2022/04/05/Java-day2/">
+    <link itemprop="mainEntityOfPage" href="http://my4831218.github.io/2022/04/05/Java/Java-day2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -314,7 +406,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/04/05/Java-day2/" class="post-title-link" itemprop="url">Java-day2</a>
+            <a href="/2022/04/05/Java/Java-day2/" class="post-title-link" itemprop="url">Java-day2</a>
         </h2>
 
         <div class="post-meta">
@@ -411,7 +503,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://my4831218.github.io/2022/04/05/Java-day1/">
+    <link itemprop="mainEntityOfPage" href="http://my4831218.github.io/2022/04/05/Java/Java-day1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -425,7 +517,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/04/05/Java-day1/" class="post-title-link" itemprop="url">Java_day1</a>
+            <a href="/2022/04/05/Java/Java-day1/" class="post-title-link" itemprop="url">Java_day1</a>
         </h2>
 
         <div class="post-meta">
@@ -1175,14 +1267,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-count">20</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">

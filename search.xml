@@ -1,70 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Data-structures-day1</title>
-    <url>/2022/04/08/Data-structures-day1/</url>
-    <content><![CDATA[<h3 id="Queue"><a href="#Queue" class="headerlink" title="Queue"></a>Queue</h3><ul>
-<li>줄을 서는 행위같은 개념을 추상화한 데이터 구조</li>
-<li>가장 먼저 넣은 데이터를 제일 먼저 처리하는 구조 (FIFO)</li>
-<li>사용되는 메소드<ul>
-<li>Enqueue : 큐에 데이터 입력</li>
-<li>Dequeue : 큐에 데이터 제거</li>
-</ul>
-</li>
-<li>Python 에서 Queue 기능을 제공하는 메소드를 사용하여 큐 구현 가능 (import queue)</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 제공되는 메소드를 사용한 큐 구현</span><br><span class="line">impotr queue</span><br><span class="line">data_queue = queue.Queue()</span><br><span class="line"></span><br><span class="line">data_queue.put(&quot;funcoding&quot;)</span><br><span class="line">data_queue.put(1)</span><br><span class="line">data_queue.size() # print 2</span><br><span class="line">data_queue.get() # print &#x27;funcoding&#x27;</span><br><span class="line">data_queue.qsize() # print 0</span><br><span class="line">data_queue.get() # print 1</span><br><span class="line"></span><br><span class="line"># 우선순위 큐 생성</span><br><span class="line">data_pqueue = queue.PriorityQueue()</span><br><span class="line"></span><br><span class="line">data_queue.put((n, data)) # n은 우선순위</span><br><span class="line">data_queue.put((n, data)) # 3개중 가장 우선순위가 낮은것부터</span><br><span class="line">data_queue.put((n, data)) # queue에 처리</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 제공되는 메소드 없이 직접 구현한 큐</span><br><span class="line">queue_list = list()</span><br><span class="line"></span><br><span class="line">def enqueue(data):</span><br><span class="line">	queue_list.append(data)</span><br><span class="line">def dequeue():</span><br><span class="line">	data = queue_list[0]</span><br><span class="line">	del queue_list[0]</span><br><span class="line"></span><br><span class="line">	return data</span><br></pre></td></tr></table></figure>
-<hr>
-<h3 id="Stack"><a href="#Stack" class="headerlink" title="Stack"></a>Stack</h3><ul>
-<li>마지막에 들어온 데이터를 제일 먼저 처리하는 추상적인 데이터 구조</li>
-<li>사용되는 메소드<ul>
-<li>push : 스택에 데이터 입력</li>
-<li>pop : 스택에 데이터 제거</li>
-</ul>
-</li>
-<li>장점<ul>
-<li>구조가 단순해서 구현이 쉽고 데이터 R&#x2F;W 속도가 빠르다</li>
-</ul>
-</li>
-<li>단점<ul>
-<li>데이터 갯수를 미리 정해야 해서 메모리 낭비가 발생할 수 있다.</li>
-</ul>
-</li>
-<li>Python 에서 리스트 기능을 제공하는 메소드를 사용하여 스택을 구현할 수 있다. (append(push), pop) 메소드 제공</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 제공 메소드 사용 스택 구현</span><br><span class="line">data_stack = list()</span><br><span class="line">data_stack.append(1)</span><br><span class="line">data_stack.append(2)</span><br><span class="line"></span><br><span class="line">data_stack # [1, 2] print</span><br><span class="line"></span><br><span class="line">data_stack.pop() # 2 print</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 제공 메소드 없이 직접 스택 구현</span><br><span class="line">stack_list = list()</span><br><span class="line"></span><br><span class="line">def push(data):</span><br><span class="line">	stack_list.append(data)</span><br><span class="line">def pop():</span><br><span class="line">	data = stack_list[-1]</span><br><span class="line">	del stack_list[-1]</span><br><span class="line">	return data</span><br></pre></td></tr></table></figure>
-<hr>
-<h3 id="Linked-List"><a href="#Linked-List" class="headerlink" title="Linked List"></a>Linked List</h3><ul>
-<li>원소와 다음 원소의 메모리 주소를 가르키는 포인터로 이루어진 데이터 구조</li>
-<li>처음을 의미하는 head, 마지막을 의미하는 tail이 있을수 있다.</li>
-<li>장점<ul>
-<li>미리 메모리 공간을 할당하지 않아도 됨</li>
-</ul>
-</li>
-<li>단점<ul>
-<li>원소 외에 포인터를 가지기 때문에 저장공간 효율이 높지 않다</li>
-<li>특정 정보를 찾을 때 속도가 느리다</li>
-<li>중간 데이터를 삭제하면 앞 뒤 연결을 재구성해야 하는 부가적 작업 필요</li>
-</ul>
-</li>
-<li>사용자 수가 20만명으로 예상되는 웹 페이지의 회원 정보를 배열로 관리할 때 25만개의 배열을 미리 할당해야 하는데 사용자가 10만명밖에 되지 않거나 25만명을 초과할 때 문제가 생길 수 있다, 하지만 Linked List를 사용하면 회원 한명이 가입할 때마다 노드를 하나씩 생성하므로 메모리를 정확하게 사용할 수 있다.</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 메소드 사용하여 구현</span><br><span class="line">class Node:</span><br><span class="line">	def __init__(self, data):</span><br><span class="line">		self.data = data</span><br><span class="line">		self.next = None</span><br><span class="line"></span><br><span class="line"># def __init__(self, data, next=None):</span><br><span class="line">#			self.data = data</span><br><span class="line">#			self.next = next</span><br><span class="line"></span><br><span class="line">	def add(data):</span><br><span class="line">		node = head</span><br><span class="line">		# 마지막 노드 찾는 코드</span><br><span class="line">		while node.next:</span><br><span class="line">			node = node.next</span><br><span class="line">		node.next = Node(data)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 직접 구현</span><br><span class="line">class Node:</span><br><span class="line">	def __init__(self, data, next=None):</span><br><span class="line">		self.data = data</span><br><span class="line">		self.next = next</span><br><span class="line"></span><br><span class="line">class NodeMgmt:</span><br><span class="line">	def __init__(self, data):</span><br><span class="line">		self.head = Node(data)</span><br><span class="line"></span><br><span class="line">	def add(self, data):</span><br><span class="line">		if self.head ==&quot;:</span><br><span class="line">			self.head = Node(data)</span><br><span class="line">		else:</span><br><span class="line">			node = self.head</span><br><span class="line">			while node.next:</span><br><span class="line">				node = node.next</span><br><span class="line">			node.next = Node(data)</span><br><span class="line"></span><br><span class="line">	def desc(self):</span><br><span class="line">		node = self.head</span><br><span class="line">		while node:</span><br><span class="line">			print(node.data)</span><br><span class="line">			node = node.next</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>Data-structures</category>
-      </categories>
-      <tags>
-        <tag>TIL</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Data-structures-day2</title>
     <url>/2022/04/08/Data-structures-day2/</url>
     <content><![CDATA[<h1 id="Linked-List"><a href="#Linked-List" class="headerlink" title="Linked List"></a>Linked List</h1><h3 id="노드-삽입"><a href="#노드-삽입" class="headerlink" title="노드 삽입"></a>노드 삽입</h3><ul>
@@ -122,6 +58,70 @@
 <li>저장, 삭제, 읽기가 자주 쓰일 때</li>
 <li>캐쉬 구현시 (중복 확인이 쉬워서)</li>
 </ul>
+]]></content>
+      <categories>
+        <category>Data-structures</category>
+      </categories>
+      <tags>
+        <tag>TIL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Data-structures-day1</title>
+    <url>/2022/04/08/Data-structures-day1/</url>
+    <content><![CDATA[<h3 id="Queue"><a href="#Queue" class="headerlink" title="Queue"></a>Queue</h3><ul>
+<li>줄을 서는 행위같은 개념을 추상화한 데이터 구조</li>
+<li>가장 먼저 넣은 데이터를 제일 먼저 처리하는 구조 (FIFO)</li>
+<li>사용되는 메소드<ul>
+<li>Enqueue : 큐에 데이터 입력</li>
+<li>Dequeue : 큐에 데이터 제거</li>
+</ul>
+</li>
+<li>Python 에서 Queue 기능을 제공하는 메소드를 사용하여 큐 구현 가능 (import queue)</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 제공되는 메소드를 사용한 큐 구현</span><br><span class="line">impotr queue</span><br><span class="line">data_queue = queue.Queue()</span><br><span class="line"></span><br><span class="line">data_queue.put(&quot;funcoding&quot;)</span><br><span class="line">data_queue.put(1)</span><br><span class="line">data_queue.size() # print 2</span><br><span class="line">data_queue.get() # print &#x27;funcoding&#x27;</span><br><span class="line">data_queue.qsize() # print 0</span><br><span class="line">data_queue.get() # print 1</span><br><span class="line"></span><br><span class="line"># 우선순위 큐 생성</span><br><span class="line">data_pqueue = queue.PriorityQueue()</span><br><span class="line"></span><br><span class="line">data_queue.put((n, data)) # n은 우선순위</span><br><span class="line">data_queue.put((n, data)) # 3개중 가장 우선순위가 낮은것부터</span><br><span class="line">data_queue.put((n, data)) # queue에 처리</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 제공되는 메소드 없이 직접 구현한 큐</span><br><span class="line">queue_list = list()</span><br><span class="line"></span><br><span class="line">def enqueue(data):</span><br><span class="line">	queue_list.append(data)</span><br><span class="line">def dequeue():</span><br><span class="line">	data = queue_list[0]</span><br><span class="line">	del queue_list[0]</span><br><span class="line"></span><br><span class="line">	return data</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="Stack"><a href="#Stack" class="headerlink" title="Stack"></a>Stack</h3><ul>
+<li>마지막에 들어온 데이터를 제일 먼저 처리하는 추상적인 데이터 구조</li>
+<li>사용되는 메소드<ul>
+<li>push : 스택에 데이터 입력</li>
+<li>pop : 스택에 데이터 제거</li>
+</ul>
+</li>
+<li>장점<ul>
+<li>구조가 단순해서 구현이 쉽고 데이터 R&#x2F;W 속도가 빠르다</li>
+</ul>
+</li>
+<li>단점<ul>
+<li>데이터 갯수를 미리 정해야 해서 메모리 낭비가 발생할 수 있다.</li>
+</ul>
+</li>
+<li>Python 에서 리스트 기능을 제공하는 메소드를 사용하여 스택을 구현할 수 있다. (append(push), pop) 메소드 제공</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 제공 메소드 사용 스택 구현</span><br><span class="line">data_stack = list()</span><br><span class="line">data_stack.append(1)</span><br><span class="line">data_stack.append(2)</span><br><span class="line"></span><br><span class="line">data_stack # [1, 2] print</span><br><span class="line"></span><br><span class="line">data_stack.pop() # 2 print</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 제공 메소드 없이 직접 스택 구현</span><br><span class="line">stack_list = list()</span><br><span class="line"></span><br><span class="line">def push(data):</span><br><span class="line">	stack_list.append(data)</span><br><span class="line">def pop():</span><br><span class="line">	data = stack_list[-1]</span><br><span class="line">	del stack_list[-1]</span><br><span class="line">	return data</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="Linked-List"><a href="#Linked-List" class="headerlink" title="Linked List"></a>Linked List</h3><ul>
+<li>원소와 다음 원소의 메모리 주소를 가르키는 포인터로 이루어진 데이터 구조</li>
+<li>처음을 의미하는 head, 마지막을 의미하는 tail이 있을수 있다.</li>
+<li>장점<ul>
+<li>미리 메모리 공간을 할당하지 않아도 됨</li>
+</ul>
+</li>
+<li>단점<ul>
+<li>원소 외에 포인터를 가지기 때문에 저장공간 효율이 높지 않다</li>
+<li>특정 정보를 찾을 때 속도가 느리다</li>
+<li>중간 데이터를 삭제하면 앞 뒤 연결을 재구성해야 하는 부가적 작업 필요</li>
+</ul>
+</li>
+<li>사용자 수가 20만명으로 예상되는 웹 페이지의 회원 정보를 배열로 관리할 때 25만개의 배열을 미리 할당해야 하는데 사용자가 10만명밖에 되지 않거나 25만명을 초과할 때 문제가 생길 수 있다, 하지만 Linked List를 사용하면 회원 한명이 가입할 때마다 노드를 하나씩 생성하므로 메모리를 정확하게 사용할 수 있다.</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 메소드 사용하여 구현</span><br><span class="line">class Node:</span><br><span class="line">	def __init__(self, data):</span><br><span class="line">		self.data = data</span><br><span class="line">		self.next = None</span><br><span class="line"></span><br><span class="line"># def __init__(self, data, next=None):</span><br><span class="line">#			self.data = data</span><br><span class="line">#			self.next = next</span><br><span class="line"></span><br><span class="line">	def add(data):</span><br><span class="line">		node = head</span><br><span class="line">		# 마지막 노드 찾는 코드</span><br><span class="line">		while node.next:</span><br><span class="line">			node = node.next</span><br><span class="line">		node.next = Node(data)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 직접 구현</span><br><span class="line">class Node:</span><br><span class="line">	def __init__(self, data, next=None):</span><br><span class="line">		self.data = data</span><br><span class="line">		self.next = next</span><br><span class="line"></span><br><span class="line">class NodeMgmt:</span><br><span class="line">	def __init__(self, data):</span><br><span class="line">		self.head = Node(data)</span><br><span class="line"></span><br><span class="line">	def add(self, data):</span><br><span class="line">		if self.head ==&quot;:</span><br><span class="line">			self.head = Node(data)</span><br><span class="line">		else:</span><br><span class="line">			node = self.head</span><br><span class="line">			while node.next:</span><br><span class="line">				node = node.next</span><br><span class="line">			node.next = Node(data)</span><br><span class="line"></span><br><span class="line">	def desc(self):</span><br><span class="line">		node = self.head</span><br><span class="line">		while node:</span><br><span class="line">			print(node.data)</span><br><span class="line">			node = node.next</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>Data-structures</category>
@@ -343,6 +343,24 @@
       </tags>
   </entry>
   <entry>
+    <title>Gitflow2</title>
+    <url>/2022/04/01/Gitflow2/</url>
+    <content><![CDATA[<h1 id="Using-git-flow-with-external-programs"><a href="#Using-git-flow-with-external-programs" class="headerlink" title="Using git flow with external programs"></a>Using git flow with external programs</h1><ol>
+<li>git flow init</li>
+<li>git flow feature start name</li>
+<li>코딩 프로그램에서 코딩 및 컴파일, 저장 (local 저장소와 파일저장위치 동일하게)</li>
+<li>add, commit(log 작성)</li>
+<li>git flow feature finish</li>
+</ol>
+]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>TIL</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Gitflow</title>
     <url>/2022/04/01/Gitflow/</url>
     <content><![CDATA[<h1 id="Day-3"><a href="#Day-3" class="headerlink" title="Day - 3"></a>Day - 3</h1><h3 id="README-md"><a href="#README-md" class="headerlink" title="README.md"></a>README.md</h3><ul>
@@ -378,24 +396,6 @@
 </li>
 <li>github flow: git flow 이외에 대부분 사용 (전체 git flow 90%, 얘가 나머지) CI에 의존하며 단순하기 때문에 빠르게 자주 업데이트 가능, 불완전 코드 노출될 약점 존재</li>
 <li>gitlab flow: 강사님 피셜 쓰는거 못봄</li>
-</ol>
-]]></content>
-      <categories>
-        <category>git</category>
-      </categories>
-      <tags>
-        <tag>TIL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Gitflow2</title>
-    <url>/2022/04/01/Gitflow2/</url>
-    <content><![CDATA[<h1 id="Using-git-flow-with-external-programs"><a href="#Using-git-flow-with-external-programs" class="headerlink" title="Using git flow with external programs"></a>Using git flow with external programs</h1><ol>
-<li>git flow init</li>
-<li>git flow feature start name</li>
-<li>코딩 프로그램에서 코딩 및 컴파일, 저장 (local 저장소와 파일저장위치 동일하게)</li>
-<li>add, commit(log 작성)</li>
-<li>git flow feature finish</li>
 </ol>
 ]]></content>
       <categories>
@@ -443,8 +443,42 @@
       </tags>
   </entry>
   <entry>
+    <title>css-day1</title>
+    <url>/2022/04/13/css-day1/</url>
+    <content><![CDATA[<h3 id="기본-문법"><a href="#기본-문법" class="headerlink" title="기본 문법"></a>기본 문법</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">선택자(div) &#123;</span><br><span class="line">	color : /*글자 색*/</span><br><span class="line">	font-size : /*글자 크기*/</span><br><span class="line">	witdh : /*가로 너비*/</span><br><span class="line">	height: /*세로 너비*/</span><br><span class="line">	margin : /*바깥 여백*/</span><br><span class="line">	padding : /*안쪽 여백 상하좌우*/</span><br><span class="line">	position : /*부모 요소 기준*/</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="작성-방법"><a href="#작성-방법" class="headerlink" title="작성 방법"></a>작성 방법</h3><ul>
+<li>인라인 작성 방식<ul>
+<li>HTML의 태그에 직접 작성하는 방법으로 선택자 필요 X</li>
+<li>ex. <code>&lt;div style=”color : red;”&gt;직접 작성&lt;/div&gt;</code></li>
+<li>같은 div가 여러개 있을 때 일일이 div마다 작성해야하는 단점이 있어 유지&#x2F;보수에 단점이 생긴다.</li>
+</ul>
+</li>
+<li>HTML 내장 방식<ul>
+<li>head 태그 안쪽에 style 태그를 통해 설정<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;head&gt;</span><br><span class="line">	&lt;style&gt;</span><br><span class="line">		div &#123;</span><br><span class="line">			color: red;</span><br><span class="line">		&#125;</span><br><span class="line">	&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">/*head에 설정하면 body 안에 div들이 모두 변경*/</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>HTML 외부에서 불러오기<ul>
+<li>head 태그 안쪽에 link 태그를 통해 외부에서 문서를 가져오기</li>
+<li><code>&lt;link rel=”stylesheet” href=”경로.css”&gt;</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="선택자"><a href="#선택자" class="headerlink" title="선택자"></a>선택자</h3><ul>
+<li>tag로만 찾는것은 한계가 있기 때문에 class를 만들어 class 선택자로 찾기</li>
+<li>ex. <h1 class=”title”>제목</h1> —&gt; css에서 h1 변경하려면 .title로 선택자 사용</li>
+</ul>
+]]></content>
+      <categories>
+        <category>CSS</category>
+      </categories>
+      <tags>
+        <tag>TIL</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java_day1</title>
-    <url>/2022/04/05/Java-day1/</url>
+    <url>/2022/04/05/Java/Java-day1/</url>
     <content><![CDATA[<h3 id="JAVA-특징"><a href="#JAVA-특징" class="headerlink" title="JAVA 특징"></a>JAVA 특징</h3><ul>
 <li>C, C++과 달리 pointer를 사용하지 않기 때문에 메모리를 직접 지정하지 않아서 프로그램이 더 안정적</li>
 <li>개발에 필요한 JDK가 있고, 실행을 하기 위한 JRE가 있다.</li>
@@ -482,8 +516,119 @@
       </tags>
   </entry>
   <entry>
+    <title>Java-day10</title>
+    <url>/2022/04/19/Java/Java-day10/</url>
+    <content><![CDATA[<h2 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h2><ul>
+<li>속성<ul>
+<li>width: npx; 가로 너비를 n</li>
+<li>height: npx; 세로 너비를 n</li>
+<li>font-size: npx; 글자 크기</li>
+<li>background: color; 요소 배경색, background-color는 개별속성</li>
+<li>margin: npx; 요소 바깥 여백, 숫자 4개쓰면 top, right, bottom, left 지정</li>
+<li>padding: npx npx npx npx; 요소 내부 여백, 숫자 4개쓰면 top, right, bottom, left</li>
+<li>color: color; 글자색</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="JAVA"><a href="#JAVA" class="headerlink" title="JAVA"></a>JAVA</h2><h3 id="객체지향-vs-람다식"><a href="#객체지향-vs-람다식" class="headerlink" title="객체지향 vs 람다식"></a>객체지향 vs 람다식</h3><ul>
+<li>인터페이스 선언 - 인터페이스 상속한 클래스 만듦 - 클래스 생성, 메서드 호출</li>
+<li><code>StringConcat concat2 = (s, v)-&gt;System.out.println(s + &quot;,&quot; + v );</code> 람다식 구현, <code>concat2.makeString(s1, s2);</code> 사용</li>
+</ul>
+<h3 id="reduce"><a href="#reduce" class="headerlink" title="reduce()"></a>reduce()</h3><ul>
+<li>정의된 연산이 아닌 프로그래머가 직접 구현한 연산</li>
+<li>최종 연산으로 스트림을 소모하며 진행</li>
+<li>람다식을 직접 구현 or BinaryOperator를 구현한 클래스사용</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 배열에 여러 문자열 있을 때 가장 길이가 긴 문자열 찾기</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CompareString</span> <span class="keyword">implements</span> <span class="title class_">BinaryOperator</span>&lt;String&gt;&#123;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="keyword">public</span> String <span class="title function_">apply</span><span class="params">(String s1, String s2)</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (s1.getBytes().length &gt;= s2.getBytes().length) <span class="keyword">return</span> s1;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">return</span> s2;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">main() &#123;</span><br><span class="line">	String[] a = &#123;<span class="string">&quot;test&quot;</span>, <span class="string">&quot;test2&quot;</span>, <span class="string">&quot;test3&quot;</span>&#125;;</span><br><span class="line">	System.out.print(Arrays.stream(a).reduce(<span class="string">&quot;&quot;</span>, (s1, s2)-&gt; &#123;<span class="keyword">if</span> (s1.getBytes().length &gt;=</span><br><span class="line">																					s2.getBytes().length) <span class="keyword">return</span> s1;</span><br><span class="line">																						<span class="keyword">else</span> <span class="keyword">return</span> s2;&#125;));</span><br><span class="line">	<span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> Arrays.stream(a).reduce(<span class="keyword">new</span> <span class="title class_">CompareString</span>()).get();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="stream-예시"><a href="#stream-예시" class="headerlink" title="stream 예시"></a>stream 예시</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TravelCustomer</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> String name;   <span class="comment">//이름</span></span><br><span class="line">	<span class="keyword">private</span> <span class="type">int</span> age;       <span class="comment">//나이</span></span><br><span class="line">	<span class="keyword">private</span> <span class="type">int</span> price;     <span class="comment">//가격</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">TravelCustomer</span><span class="params">(String name, <span class="type">int</span> age, <span class="type">int</span> price)</span> &#123;</span><br><span class="line">		<span class="built_in">this</span>.name = name;</span><br><span class="line">		<span class="built_in">this</span>.age = age;</span><br><span class="line">		<span class="built_in">this</span>.price = price;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> String <span class="title function_">getName</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> name;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getAge</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> age;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getPrice</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> price;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setName</span><span class="params">(String name)</span> &#123;</span><br><span class="line">		<span class="built_in">this</span>.name = name;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setAge</span><span class="params">(<span class="type">int</span> age)</span> &#123;</span><br><span class="line">		<span class="built_in">this</span>.age = age;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setPrice</span><span class="params">(<span class="type">int</span> price)</span> &#123;</span><br><span class="line">		<span class="built_in">this</span>.price = price;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">&quot;name: &quot;</span> + name + <span class="string">&quot;age: &quot;</span> + age + <span class="string">&quot;price: &quot;</span> + price; </span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TravelTest</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">TravelCustomer</span> <span class="variable">customerLee</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TravelCustomer</span>(<span class="string">&quot;이순신&quot;</span>, <span class="number">40</span>, <span class="number">100</span>);</span><br><span class="line">		<span class="type">TravelCustomer</span> <span class="variable">customerKim</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TravelCustomer</span>(<span class="string">&quot;김유신&quot;</span>, <span class="number">20</span>, <span class="number">100</span>);</span><br><span class="line">		<span class="type">TravelCustomer</span> <span class="variable">customerHong</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TravelCustomer</span>(<span class="string">&quot;홍길동&quot;</span>, <span class="number">13</span>, <span class="number">50</span>);</span><br><span class="line">		</span><br><span class="line">		List&lt;TravelCustomer&gt; customerList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">		customerList.add(customerLee);</span><br><span class="line">		customerList.add(customerKim);</span><br><span class="line">		customerList.add(customerHong);</span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">&quot;== 고객 명단 추가된 순서대로 출력 ==&quot;</span>);</span><br><span class="line">		customerList.stream().map(c-&gt;c.getName()).forEach(s-&gt;System.out.println(s));</span><br><span class="line">		</span><br><span class="line">		<span class="type">int</span> <span class="variable">total</span> <span class="operator">=</span> customerList.stream().mapToInt(c-&gt;c.getPrice()).sum();</span><br><span class="line">		System.out.println(<span class="string">&quot;총 여행 비용은 :&quot;</span> + total + <span class="string">&quot;입니다&quot;</span>);</span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">&quot;== 20세 이상 고객 명단 정렬하여 출력 ==&quot;</span>);</span><br><span class="line">		customerList.stream().filter(c-&gt;c.getAge() &gt;= <span class="number">20</span>).map(c-&gt;c.getName()).sorted().forEach(s-&gt;System.out.println(s));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Logging"><a href="#Logging" class="headerlink" title="Logging"></a>Logging</h3><ul>
+<li><p>학생정보 시스템 로그 기록</p>
+</li>
+<li><p>학생 이름에 오류(null, space 3개이상)가 있으면 예외처리, 로그로 상황 기록</p>
+</li>
+<li><p>MyLogger</p>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyLogger</span> &#123;</span><br><span class="line">	</span><br><span class="line">	<span class="type">Logger</span> <span class="variable">logger</span> <span class="operator">=</span> Logger.getLogger(<span class="string">&quot;mylogger&quot;</span>);</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="type">MyLogger</span> <span class="variable">instance</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MyLogger</span>();</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">errorLog</span> <span class="operator">=</span> <span class="string">&quot;log.txt&quot;</span>;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">warningLog</span> <span class="operator">=</span> <span class="string">&quot;warning.txt&quot;</span>;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">fineLog</span> <span class="operator">=</span> <span class="string">&quot;fine.txt&quot;</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="type">FileHandler</span> <span class="variable">logFile</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="type">FileHandler</span> <span class="variable">warningFile</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="type">FileHandler</span> <span class="variable">fineFile</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="title function_">MyLogger</span><span class="params">()</span>&#123;</span><br><span class="line">	</span><br><span class="line">			<span class="keyword">try</span> &#123;</span><br><span class="line">				logFile = <span class="keyword">new</span> <span class="title class_">FileHandler</span>(errorLog, <span class="literal">true</span>);</span><br><span class="line">				warningFile = <span class="keyword">new</span> <span class="title class_">FileHandler</span>(warningLog, <span class="literal">true</span>);</span><br><span class="line">				fineFile = <span class="keyword">new</span> <span class="title class_">FileHandler</span>(fineLog, <span class="literal">true</span>);</span><br><span class="line">				</span><br><span class="line">			&#125; <span class="keyword">catch</span> (SecurityException e) &#123;</span><br><span class="line">				<span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">				e.printStackTrace();</span><br><span class="line">			&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">				<span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">				e.printStackTrace();</span><br><span class="line">			&#125;</span><br><span class="line">	</span><br><span class="line">			logFile.setFormatter(<span class="keyword">new</span> <span class="title class_">SimpleFormatter</span>());</span><br><span class="line">			warningFile.setFormatter(<span class="keyword">new</span> <span class="title class_">SimpleFormatter</span>());</span><br><span class="line">			fineFile.setFormatter(<span class="keyword">new</span> <span class="title class_">SimpleFormatter</span>());</span><br><span class="line">			</span><br><span class="line">			logger.setLevel(Level.ALL);</span><br><span class="line">			fineFile.setLevel(Level.FINE);</span><br><span class="line">			warningFile.setLevel(Level.WARNING);</span><br><span class="line">			</span><br><span class="line">			logger.addHandler(logFile);</span><br><span class="line">			logger.addHandler(warningFile);</span><br><span class="line">			logger.addHandler(fineFile);</span><br><span class="line">	&#125;	</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> MyLogger <span class="title function_">getLogger</span><span class="params">()</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> instance;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">log</span><span class="params">(String msg)</span>&#123;</span><br><span class="line">		</span><br><span class="line">		logger.finest(msg);</span><br><span class="line">		logger.finer(msg);</span><br><span class="line">		logger.fine(msg);</span><br><span class="line">		logger.config(msg);</span><br><span class="line">		logger.info(msg);</span><br><span class="line">		logger.warning(msg);</span><br><span class="line">		logger.severe(msg);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">fine</span><span class="params">(String msg)</span>&#123;</span><br><span class="line">		logger.fine(msg);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">warning</span><span class="params">(String msg)</span>&#123;</span><br><span class="line">		logger.warning(msg);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>사용자 예외함수</p>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StudentNameFormatException</span> <span class="keyword">extends</span> <span class="title class_">IllegalArgumentException</span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">StudentNameFormatException</span><span class="params">(String message)</span>&#123;</span><br><span class="line">		<span class="built_in">super</span>(message);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Student</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class Student &#123;</span><br><span class="line"></span><br><span class="line">	private String studentName;</span><br><span class="line">	MyLogger myLogger = MyLogger.getLogger();</span><br><span class="line"></span><br><span class="line">	public Student(String studentName)&#123;</span><br><span class="line"></span><br><span class="line">		if(studentName == null)&#123;</span><br><span class="line"></span><br><span class="line">			throw new StudentNameFormatException(&quot;name must not be null&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">		if( studentName.split(&quot; &quot;).length &gt; 3)</span><br><span class="line">			throw new StudentNameFormatException(&quot;이름이 너무 길어요&quot;);</span><br><span class="line"></span><br><span class="line">		this.studentName = studentName;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public String getStudentName() &#123;</span><br><span class="line"></span><br><span class="line">		myLogger.fine(&quot;begin getStudentName()&quot;);</span><br><span class="line"></span><br><span class="line">		return studentName;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>main</p>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StudentTest</span> &#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">	</span><br><span class="line">		<span class="type">MyLogger</span> <span class="variable">myLogger</span> <span class="operator">=</span> MyLogger.getLogger();</span><br><span class="line">		</span><br><span class="line">		<span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">		<span class="keyword">try</span>&#123;</span><br><span class="line">			<span class="type">Student</span> <span class="variable">student</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Student</span>(name);</span><br><span class="line">			</span><br><span class="line">		&#125;<span class="keyword">catch</span>( StudentNameFormatException e )&#123;</span><br><span class="line">			myLogger.warning(e.getMessage());</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">try</span>&#123;</span><br><span class="line">			<span class="type">Student</span> <span class="variable">student</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Student</span>(<span class="string">&quot;Edward Jon Kim Test&quot;</span>);</span><br><span class="line">		&#125;<span class="keyword">catch</span> ( StudentNameFormatException e)&#123;</span><br><span class="line">			myLogger.warning(e.getMessage());</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="type">Student</span> <span class="variable">student</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Student</span>(<span class="string">&quot;James&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="I-x2F-O-stream"><a href="#I-x2F-O-stream" class="headerlink" title="I&#x2F;O stream"></a>I&#x2F;O stream</h3></li>
+<li><p>구분</p>
+<ul>
+<li>대상 기준 : 입력, 출력<ul>
+<li>System 클래스의 표준 입출력</li>
+</ul>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">System</span>&#123; </span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> PrintStream out; </span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> InputStream in; </span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> PrintStream err; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>System.out.print(): 출력</li>
+<li>System.in.read() 입력</li>
+<li>System.err.print() 에러 출력</li>
+</ul>
+</li>
+<li>자료 종류 : 바이트, 문자<ul>
+<li>바이트 스트림 : 동영상, 음악, 실행 파일등 자료 R&#x2F;W 사용</li>
+<li>문자 스트림 : 바이트 단위 자료 처리시 문자 깨짐, 인코딩에 맞는 2바이트 이상 처리구현 스트림</li>
+</ul>
+</li>
+<li>기능 : 기반, 보조<ul>
+<li>기반 스트림 : 대상에 직접 자료 읽고 쓰는 기능</li>
+<li>보조 스트림 : 기반 스트림 기능 없이 추가적인 기능 더하는 스트림, 항상 기반 or 다른 보조 스트림 생성자의 매개변수로 포함</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="바이트-단위-입출력-스트림"><a href="#바이트-단위-입출력-스트림" class="headerlink" title="바이트 단위 입출력 스트림"></a>바이트 단위 입출력 스트림</h3><ul>
+<li>flush() : 출력 버퍼 비우기, close 메소드가 호출함</li>
+<li>InputStream<ul>
+<li>바이트 단위 입력 최상위 추상 클래스</li>
+<li>int read(). void close() 메소드</li>
+</ul>
+</li>
+<li>OutputStream<ul>
+<li>바이트 단위 출력 최상위 추상 클래스</li>
+<li>int write(). void flush(), void close() 등 메소드</li>
+</ul>
+</li>
+</ul>
+<h3 id="문자-단위-입출력-스트림"><a href="#문자-단위-입출력-스트림" class="headerlink" title="문자 단위 입출력 스트림"></a>문자 단위 입출력 스트림</h3><ul>
+<li>Reader<ul>
+<li>문자단위 입력 최상위 추상 클래스</li>
+<li>int read(), void close()</li>
+</ul>
+</li>
+<li>Writer<ul>
+<li>문자단위 출력 최상위 추상 클래스</li>
+<li>int write(), int flush, void close()</li>
+</ul>
+</li>
+</ul>
+<h3 id="라인-단위-read"><a href="#라인-단위-read" class="headerlink" title="라인 단위 read"></a>라인 단위 read</h3><ul>
+<li><p>1</p>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">main() &#123;</span><br><span class="line">	<span class="type">FileReader</span> <span class="variable">reader</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileReader</span>(<span class="string">&quot;./~.txt&quot;</span>)</span><br><span class="line">	BufferedReader = buffReader = <span class="keyword">new</span> <span class="title class_">BufferedReader</span>(reader);</span><br><span class="line">	<span class="comment">// 파일 끝까지 한줄씩 읽어라</span></span><br><span class="line">	<span class="keyword">while</span> ((data = buffReader.readLine()) != <span class="literal">null</span>) &#123;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>2</p>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">main() &#123;</span><br><span class="line">	<span class="comment">// 사용자가 입력한 메시지 읽기</span></span><br><span class="line">	<span class="type">Scanner</span> <span class="variable">input</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">	<span class="type">String</span> <span class="variable">message</span> <span class="operator">=</span> input.nextLine();</span><br><span class="line">	<span class="keyword">while</span> (True) &#123;</span><br><span class="line">		<span class="keyword">if</span>(message.equals(<span class="string">&quot;quit&quot;</span>)) &#123;</span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>TIL</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java-day2</title>
-    <url>/2022/04/05/Java-day2/</url>
+    <url>/2022/04/05/Java/Java-day2/</url>
     <content><![CDATA[<h2 id="객체-지향-프로그래밍"><a href="#객체-지향-프로그래밍" class="headerlink" title="객체 지향 프로그래밍"></a>객체 지향 프로그래밍</h2><h3 id="객체"><a href="#객체" class="headerlink" title="객체"></a>객체</h3><ul>
 <li>의사나 행위가 미치는 대상</li>
 <li>구체적, 추상적 데이터 단위</li>
@@ -537,44 +682,8 @@
       </tags>
   </entry>
   <entry>
-    <title>Java-day4</title>
-    <url>/2022/04/08/Java-day4/</url>
-    <content><![CDATA[<h1 id="참조-자료형-변수"><a href="#참조-자료형-변수" class="headerlink" title="참조 자료형 변수"></a>참조 자료형 변수</h1><hr>
-<h3 id="참조-자료형"><a href="#참조-자료형" class="headerlink" title="참조 자료형"></a>참조 자료형</h3><ul>
-<li>클래스형 변수 선언</li>
-<li>기본 자료형은 메모리 크기가 정해져 있지만 참조 자료형은 클래스에 따라 다르다</li>
-<li>참조 자료형 사용시 해당 변수에 대해 생성해야 한다.</li>
-<li>멤버 변수로 클래스를 가지는 자료형 사용 가능</li>
-<li>아래 코드를 참고</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">package ch09;</span><br><span class="line"></span><br><span class="line">public class Student &#123;</span><br><span class="line">	</span><br><span class="line">	int studentID;</span><br><span class="line">	String studentName;</span><br><span class="line">	</span><br><span class="line">	Subject korea;</span><br><span class="line">	Subject math;</span><br><span class="line">	</span><br><span class="line">	public Student(int id, String name) &#123;</span><br><span class="line">		studentID = id;</span><br><span class="line">		studentName = name;</span><br><span class="line">		</span><br><span class="line">		korea = new Subject();</span><br><span class="line">		math = new Subject();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public void setKoreaSubject(String name, int score) &#123;</span><br><span class="line">		korea.subjectName = name;</span><br><span class="line">		korea.score = score;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public void setMathSubject(String name, int score) &#123;</span><br><span class="line">		math.subjectName = name;</span><br><span class="line">		math.score = score;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public void showStudentSocre() &#123;</span><br><span class="line">		int total = korea.score + math.score;</span><br><span class="line">		System.out.println(studentName +  &quot; 학생의 총점은 &quot; + total + &quot;점 입니다.&quot; );</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">package ch09;</span><br><span class="line"></span><br><span class="line">public class Subject &#123;</span><br><span class="line">	String subjectName;</span><br><span class="line">	int score;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">package ch09;</span><br><span class="line"></span><br><span class="line">public class StudentTest &#123;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line">		Student studentLee = new Student(100, &quot;Lee&quot;);</span><br><span class="line">		studentLee.setKoreaSubject(&quot;국어&quot;, 100);</span><br><span class="line">		studentLee.setMathSubject(&quot;수학&quot;, 95);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		Student studentKim = new Student(101, &quot;Kim&quot;);</span><br><span class="line">		studentKim.setKoreaSubject(&quot;국어&quot;, 80);</span><br><span class="line">		studentKim.setMathSubject(&quot;수학&quot;, 99);</span><br><span class="line"></span><br><span class="line">		studentLee.showStudentSocre();</span><br><span class="line">		studentKim.showStudentSocre();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<h3 id="캡슐화"><a href="#캡슐화" class="headerlink" title="캡슐화"></a>캡슐화</h3><ul>
-<li>정보 은닉을 활용한 캡슐화</li>
-<li>꼭 필요한 정보와 기능만 외부 접근을 허용</li>
-<li>대부분 멤버 변수와 메소드를 감추고 외부 통합 인터페이스만 제공하여 일관된 기능 구현</li>
-<li>각 메소드나, 멤버 변수를 접근함으로 발생하는 오류 최소화</li>
-<li>public 클래스에서 모든 멤버 변수와 메소드를 private으로 선언 후에 public 메소드로 private 메소드를 사용하는 기능을 구현하면 외부에서 private 메소드는 사용하지 못하지만 public 메소드를 이용하여 기능사용 가능</li>
-<li>아래 코드를 보면 getReport 메소드로 private으로 선언되어 접근이 불가능한 메소드를 외부 클래스에서 사용함</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class MakeReport &#123;</span><br><span class="line"></span><br><span class="line">	StringBuffer buffer = new StringBuffer();</span><br><span class="line"></span><br><span class="line">	private String line = &quot;===========================================\n&quot;;</span><br><span class="line">	private String title = &quot;  이름\t   주소 \t\t  전화번호  \n&quot;;</span><br><span class="line">	private void makeHeader()</span><br><span class="line">	&#123;</span><br><span class="line">		buffer.append(line);</span><br><span class="line">		buffer.append(title);</span><br><span class="line">		buffer.append(line);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	private void generateBody()</span><br><span class="line">	&#123;</span><br><span class="line">		buffer.append(&quot;James \t&quot;);</span><br><span class="line">		buffer.append(&quot;Seoul Korea \t&quot;);</span><br><span class="line">		buffer.append(&quot;010-2222-3333\n&quot;);</span><br><span class="line"></span><br><span class="line">		buffer.append(&quot;Tomas \t&quot;);</span><br><span class="line">		buffer.append(&quot;NewYork US \t&quot;);</span><br><span class="line">		buffer.append(&quot;010-7777-0987\n&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	private void makeFooter()</span><br><span class="line">	&#123;</span><br><span class="line"></span><br><span class="line">		buffer.append(line);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public String getReport()</span><br><span class="line">	&#123;</span><br><span class="line">		makeHeader();</span><br><span class="line">		generateBody();</span><br><span class="line">		makeFooter();</span><br><span class="line">		return buffer.toString();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class TestReprt &#123;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line">		MakeReport report = new MakeReport();</span><br><span class="line">		String builder = report.getReport();</span><br><span class="line"></span><br><span class="line">		System.out.println(builder);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>TIL</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Java-day3</title>
-    <url>/2022/04/06/Java-day3/</url>
+    <url>/2022/04/06/Java/Java-day3/</url>
     <content><![CDATA[<h3 id="인스턴스-생성과-힙-메모리"><a href="#인스턴스-생성과-힙-메모리" class="headerlink" title="인스턴스 생성과 힙 메모리"></a>인스턴스 생성과 힙 메모리</h3><h6 id="인스턴스-instance"><a href="#인스턴스-instance" class="headerlink" title="인스턴스 (instance)"></a>인스턴스 (instance)</h6><ul>
 <li>클래스는 객체의 속성을 정의, 기능을 구현하여 만들어 놓은 코드 상태</li>
 <li>실제 클래스 기반으로 생성된 객체(인스턴스)는 각각 다른 멤버 변수 값 가짐</li>
@@ -638,7 +747,7 @@
   </entry>
   <entry>
     <title>Java-day5</title>
-    <url>/2022/04/11/Java-day5/</url>
+    <url>/2022/04/11/Java/Java-day5/</url>
     <content><![CDATA[<h3 id="This"><a href="#This" class="headerlink" title="This"></a>This</h3><ul>
 <li>자신의 메모리의 주소값을 가르킴 (인스턴스)</li>
 <li>생성자에서 다른 생성자 호출시 사용</li>
@@ -749,62 +858,8 @@
       </tags>
   </entry>
   <entry>
-    <title>Java-day6</title>
-    <url>/2022/04/12/Java-day6/</url>
-    <content><![CDATA[<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><ul>
-<li>상속 구조에서 최상위 부모 클래스로만 사용</li>
-<li>추상 메소드는 시그니처만 있고 구체적 로직이 없다. ({} ←이게 없다.)</li>
-<li>예를들어 멤버변수와 메소드가 똑같은 SamsungTV 클래스와 LGTV클래스가 존재하고 main에서 SamsungTV클래스를 사용하다가 LGTV 클래스를 사용하려면 많은 코드를 사용해야 한다. </li>
-<li>이 때 다형성을 적용(상속, 메소드 오버라이딩, 타입 변환 필요)하면 소스(코드) 수정을 최소화하면서 프로그램 수정이 가능<ol>
-<li>SamsungTV, LGTV와 멤버변수가 동일, 추상 메소드를 선언한 추상 클래스 TV 생성</li>
-<li>TV클래스를 SamsungTV, LGTV클래스에 각각 상속하고, 메소드 오버라이딩</li>
-<li>main 에서 사용할 때 삼성tv라면 TV 거실 &#x3D; new SamsungTV();</li>
-<li>거실에 Samsung TV를 사용하다가 LGTV로 바꿧을 때 참조변수의 SamsungTV 객체를 LGTV로 수정하면 다른부분 수정이 필요없이 기존 사용하던 켜기, 끄기, 켜기예약 모든 메소드를 사용 가능하다.<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">	// 추상 클래스</span><br><span class="line">public abstract class TV &#123;</span><br><span class="line">	int i;</span><br><span class="line">	int j;</span><br><span class="line"></span><br><span class="line">	TV(int i, int j) &#123;</span><br><span class="line">		this.i = i;</span><br><span class="line">		this.j = j;</span><br><span class="line">	&#125;</span><br><span class="line">// 추상 메소드</span><br><span class="line">	abstract void 켜기();</span><br><span class="line">	abstract void 끄기();</span><br><span class="line">	abstract void 켜기예약();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-</li>
-</ul>
-<hr>
-<h2 id="Interface"><a href="#Interface" class="headerlink" title="Interface"></a>Interface</h2><h3 id="Create"><a href="#Create" class="headerlink" title="Create"></a>Create</h3><ul>
-<li>interface name {}으로 작성하며 상수, 추상 메소드만 가지는 특수 클래스</li>
-<li>상수는 멤버변수와 구분하기 위해 모두 대문자로 작성 및 단어와 단어를 _ 로 연결</li>
-<li>interface에서 상수 앞에는 static final이 컴파일하며 자동으로 추가된다.</li>
-<li>interface에서 추상 메소드 앞에 abstract를 생략해도 컴파일 시점에 자동 추가</li>
-</ul>
-<h3 id="Implements"><a href="#Implements" class="headerlink" title="Implements"></a>Implements</h3><ul>
-<li>추상 클래스처럼 상속 구조상 최상위 부모 클래스로만 사용, interface는 상속할 때 extends가 아닌 implements(구현하다) 사용 —&gt; class Name implements Interface {}</li>
-<li>한 클래스에 여러개의 interface를 상속할 수 있다. —&gt; 인터페이스가 상수만 허용하기 때문에 가능 (두 인터페이스에서 중복되는 상수라도 static이 붙어있기 때문에 이름과 결합하여 사용해서 문제가 없다) [class Name implements Interface1, Interface2 {}]</li>
-<li>Interface는 부모 Interface를 상속받을 수 있다. —&gt; 이때는 extends를 사용한다. (다중도 가능)</li>
-<li>Abstract와 Interface의 다른점은 Abstract는 논리적으로 같다, 포함한다는 관계인데 그러한 관계가 아닌  논리적으로 좀 다른 관계를 하나로 묶어서 사용하기 위해서는 최상위 부모로 논리적으로 같지 않아도 객체들을 모두 포함할 수 있는 Interface를 사용해야 한다.</li>
-</ul>
-<h2 id="Exception"><a href="#Exception" class="headerlink" title="Exception"></a>Exception</h2><h3 id="Exception-1"><a href="#Exception-1" class="headerlink" title="Exception"></a>Exception</h3><ul>
-<li>예외는 발생할 수도있고 안할 수도 있다 (2개의 정수를 입력받는 프로그램에 문자를 입력하거나 입력하지 않는 행위 등등이 모두 예외)</li>
-<li>JVM에서는 예외가 발생되면 해당 예외 클래스의 객체를 생성하여 실행중인 프로그램에 던진다(throw), 이 때 던져진 예외객체를 잡아서(catch) 처리해야 하는데 예외를 잡지 않으면 프로그램이 비정상적으로 종료.</li>
-<li>예외 객체를 처리하는 가장 기본적인 방법은 try ~ catch문 사용<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">	try &#123;</span><br><span class="line">		// 일단 오류가 나더라도 실행</span><br><span class="line">		example();</span><br><span class="line">		// Exception 에는 문제적 상황을 미리 정의해둔 클래스가 있다.</span><br><span class="line">	&#125; catch(Exception e) &#123;</span><br><span class="line">		// 예외 처리</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="Multiple-catch"><a href="#Multiple-catch" class="headerlink" title="Multiple catch"></a>Multiple catch</h3><ul>
-<li>try 블록에서 2가지 예외를 예상하고 처리했는데 예상치 못한 다른 예외가 발생했을 때 두 가지 방법으로 처리가 가능하다.<ol>
-<li>새롭게 발견된 예외를 처리할 해당 예외를 catch문에 추가</li>
-<li>모든 Exception 클래스의 최상위 부모인 Exception 타입의 catch문 맨 마지막에 추가 (catch(Exception e)) —&gt; 항상 catch문 마지막에 위치해야 한다<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">try &#123;</span><br><span class="line"></span><br><span class="line">&#125; catch (Case1 e) &#123;</span><br><span class="line">	println(&quot;Case1 문제 발생함&quot;)</span><br><span class="line">&#125; catch (Case2 e) &#123;</span><br><span class="line">	println(&quot;Case2 문제 발생함&quot;)</span><br><span class="line">&#125; // catch (Case3 e) &#123;</span><br><span class="line">//	println(&quot;Case3 문제 발생함&quot;)</span><br><span class="line">//&#125; (1)</span><br><span class="line"></span><br><span class="line">//catch (Exception e) &#123;</span><br><span class="line">//	Println(&quot;예상치 못한 문제 발생&quot;)</span><br><span class="line">//&#125; (2)</span><br></pre></td></tr></table></figure></li>
-</ol>
-</li>
-</ul>
-<h3 id="Finally"><a href="#Finally" class="headerlink" title="Finally"></a>Finally</h3><ul>
-<li>try-catch 문 마지막에 finally {} 추가하면 예외가 발생 하던 안하던 무조건 실행</li>
-</ul>
-<h3 id="throws"><a href="#throws" class="headerlink" title="throws"></a>throws</h3><ul>
-<li>throws를 이용하여 특정 메소드에서 발생된 예외를 메소드를 호출한 쪽으로 던질 수 있다.<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void main(String[] args) &#123;</span><br><span class="line">	try &#123;</span><br><span class="line">		int a = 9;</span><br><span class="line">		int b = 0;</span><br><span class="line">	&#125; catch (ArithmeticException e) &#123;</span><br><span class="line">		println(&quot;2번째 숫자는 0이 아닌 수 입력하세요&quot;)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">// 메소드 안에서 발생한 예외 객체를 main으로 던졌다.</span><br><span class="line">private static void testMethod(int a, int b) throws ArithmeticException &#123;</span><br><span class="line">	println(a / b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>TIL</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Java-day7</title>
-    <url>/2022/04/13/Java-day7/</url>
+    <url>/2022/04/13/Java/Java-day7/</url>
     <content><![CDATA[<h2 id="Static-Method"><a href="#Static-Method" class="headerlink" title="Static Method"></a>Static Method</h2><h3 id="desc"><a href="#desc" class="headerlink" title="desc"></a>desc</h3><ul>
 <li>외부에서 static 변수를 참조할 수 없기 때문에 method를 만들어 접근</li>
 <li>static method는 인스턴스 생성과 무관하게 클래스 이름으로 호출 가능</li>
@@ -983,7 +1038,97 @@
 </ul>
 ]]></content>
       <categories>
-        <category>JAVA</category>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>TIL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java-day6</title>
+    <url>/2022/04/12/Java/Java-day6/</url>
+    <content><![CDATA[<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><ul>
+<li>상속 구조에서 최상위 부모 클래스로만 사용</li>
+<li>추상 메소드는 시그니처만 있고 구체적 로직이 없다. ({} ←이게 없다.)</li>
+<li>예를들어 멤버변수와 메소드가 똑같은 SamsungTV 클래스와 LGTV클래스가 존재하고 main에서 SamsungTV클래스를 사용하다가 LGTV 클래스를 사용하려면 많은 코드를 사용해야 한다. </li>
+<li>이 때 다형성을 적용(상속, 메소드 오버라이딩, 타입 변환 필요)하면 소스(코드) 수정을 최소화하면서 프로그램 수정이 가능<ol>
+<li>SamsungTV, LGTV와 멤버변수가 동일, 추상 메소드를 선언한 추상 클래스 TV 생성</li>
+<li>TV클래스를 SamsungTV, LGTV클래스에 각각 상속하고, 메소드 오버라이딩</li>
+<li>main 에서 사용할 때 삼성tv라면 TV 거실 &#x3D; new SamsungTV();</li>
+<li>거실에 Samsung TV를 사용하다가 LGTV로 바꿧을 때 참조변수의 SamsungTV 객체를 LGTV로 수정하면 다른부분 수정이 필요없이 기존 사용하던 켜기, 끄기, 켜기예약 모든 메소드를 사용 가능하다.<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">	// 추상 클래스</span><br><span class="line">public abstract class TV &#123;</span><br><span class="line">	int i;</span><br><span class="line">	int j;</span><br><span class="line"></span><br><span class="line">	TV(int i, int j) &#123;</span><br><span class="line">		this.i = i;</span><br><span class="line">		this.j = j;</span><br><span class="line">	&#125;</span><br><span class="line">// 추상 메소드</span><br><span class="line">	abstract void 켜기();</span><br><span class="line">	abstract void 끄기();</span><br><span class="line">	abstract void 켜기예약();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ul>
+<hr>
+<h2 id="Interface"><a href="#Interface" class="headerlink" title="Interface"></a>Interface</h2><h3 id="Create"><a href="#Create" class="headerlink" title="Create"></a>Create</h3><ul>
+<li>interface name {}으로 작성하며 상수, 추상 메소드만 가지는 특수 클래스</li>
+<li>상수는 멤버변수와 구분하기 위해 모두 대문자로 작성 및 단어와 단어를 _ 로 연결</li>
+<li>interface에서 상수 앞에는 static final이 컴파일하며 자동으로 추가된다.</li>
+<li>interface에서 추상 메소드 앞에 abstract를 생략해도 컴파일 시점에 자동 추가</li>
+</ul>
+<h3 id="Implements"><a href="#Implements" class="headerlink" title="Implements"></a>Implements</h3><ul>
+<li>추상 클래스처럼 상속 구조상 최상위 부모 클래스로만 사용, interface는 상속할 때 extends가 아닌 implements(구현하다) 사용 —&gt; class Name implements Interface {}</li>
+<li>한 클래스에 여러개의 interface를 상속할 수 있다. —&gt; 인터페이스가 상수만 허용하기 때문에 가능 (두 인터페이스에서 중복되는 상수라도 static이 붙어있기 때문에 이름과 결합하여 사용해서 문제가 없다) [class Name implements Interface1, Interface2 {}]</li>
+<li>Interface는 부모 Interface를 상속받을 수 있다. —&gt; 이때는 extends를 사용한다. (다중도 가능)</li>
+<li>Abstract와 Interface의 다른점은 Abstract는 논리적으로 같다, 포함한다는 관계인데 그러한 관계가 아닌  논리적으로 좀 다른 관계를 하나로 묶어서 사용하기 위해서는 최상위 부모로 논리적으로 같지 않아도 객체들을 모두 포함할 수 있는 Interface를 사용해야 한다.</li>
+</ul>
+<h2 id="Exception"><a href="#Exception" class="headerlink" title="Exception"></a>Exception</h2><h3 id="Exception-1"><a href="#Exception-1" class="headerlink" title="Exception"></a>Exception</h3><ul>
+<li>예외는 발생할 수도있고 안할 수도 있다 (2개의 정수를 입력받는 프로그램에 문자를 입력하거나 입력하지 않는 행위 등등이 모두 예외)</li>
+<li>JVM에서는 예외가 발생되면 해당 예외 클래스의 객체를 생성하여 실행중인 프로그램에 던진다(throw), 이 때 던져진 예외객체를 잡아서(catch) 처리해야 하는데 예외를 잡지 않으면 프로그램이 비정상적으로 종료.</li>
+<li>예외 객체를 처리하는 가장 기본적인 방법은 try ~ catch문 사용<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">	try &#123;</span><br><span class="line">		// 일단 오류가 나더라도 실행</span><br><span class="line">		example();</span><br><span class="line">		// Exception 에는 문제적 상황을 미리 정의해둔 클래스가 있다.</span><br><span class="line">	&#125; catch(Exception e) &#123;</span><br><span class="line">		// 예외 처리</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Multiple-catch"><a href="#Multiple-catch" class="headerlink" title="Multiple catch"></a>Multiple catch</h3><ul>
+<li>try 블록에서 2가지 예외를 예상하고 처리했는데 예상치 못한 다른 예외가 발생했을 때 두 가지 방법으로 처리가 가능하다.<ol>
+<li>새롭게 발견된 예외를 처리할 해당 예외를 catch문에 추가</li>
+<li>모든 Exception 클래스의 최상위 부모인 Exception 타입의 catch문 맨 마지막에 추가 (catch(Exception e)) —&gt; 항상 catch문 마지막에 위치해야 한다<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">try &#123;</span><br><span class="line"></span><br><span class="line">&#125; catch (Case1 e) &#123;</span><br><span class="line">	println(&quot;Case1 문제 발생함&quot;)</span><br><span class="line">&#125; catch (Case2 e) &#123;</span><br><span class="line">	println(&quot;Case2 문제 발생함&quot;)</span><br><span class="line">&#125; // catch (Case3 e) &#123;</span><br><span class="line">//	println(&quot;Case3 문제 발생함&quot;)</span><br><span class="line">//&#125; (1)</span><br><span class="line"></span><br><span class="line">//catch (Exception e) &#123;</span><br><span class="line">//	Println(&quot;예상치 못한 문제 발생&quot;)</span><br><span class="line">//&#125; (2)</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ul>
+<h3 id="Finally"><a href="#Finally" class="headerlink" title="Finally"></a>Finally</h3><ul>
+<li>try-catch 문 마지막에 finally {} 추가하면 예외가 발생 하던 안하던 무조건 실행</li>
+</ul>
+<h3 id="throws"><a href="#throws" class="headerlink" title="throws"></a>throws</h3><ul>
+<li>throws를 이용하여 특정 메소드에서 발생된 예외를 메소드를 호출한 쪽으로 던질 수 있다.<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void main(String[] args) &#123;</span><br><span class="line">	try &#123;</span><br><span class="line">		int a = 9;</span><br><span class="line">		int b = 0;</span><br><span class="line">	&#125; catch (ArithmeticException e) &#123;</span><br><span class="line">		println(&quot;2번째 숫자는 0이 아닌 수 입력하세요&quot;)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">// 메소드 안에서 발생한 예외 객체를 main으로 던졌다.</span><br><span class="line">private static void testMethod(int a, int b) throws ArithmeticException &#123;</span><br><span class="line">	println(a / b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>TIL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java-day4</title>
+    <url>/2022/04/08/Java/Java-day4/</url>
+    <content><![CDATA[<h1 id="참조-자료형-변수"><a href="#참조-자료형-변수" class="headerlink" title="참조 자료형 변수"></a>참조 자료형 변수</h1><hr>
+<h3 id="참조-자료형"><a href="#참조-자료형" class="headerlink" title="참조 자료형"></a>참조 자료형</h3><ul>
+<li>클래스형 변수 선언</li>
+<li>기본 자료형은 메모리 크기가 정해져 있지만 참조 자료형은 클래스에 따라 다르다</li>
+<li>참조 자료형 사용시 해당 변수에 대해 생성해야 한다.</li>
+<li>멤버 변수로 클래스를 가지는 자료형 사용 가능</li>
+<li>아래 코드를 참고</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">package ch09;</span><br><span class="line"></span><br><span class="line">public class Student &#123;</span><br><span class="line">	</span><br><span class="line">	int studentID;</span><br><span class="line">	String studentName;</span><br><span class="line">	</span><br><span class="line">	Subject korea;</span><br><span class="line">	Subject math;</span><br><span class="line">	</span><br><span class="line">	public Student(int id, String name) &#123;</span><br><span class="line">		studentID = id;</span><br><span class="line">		studentName = name;</span><br><span class="line">		</span><br><span class="line">		korea = new Subject();</span><br><span class="line">		math = new Subject();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public void setKoreaSubject(String name, int score) &#123;</span><br><span class="line">		korea.subjectName = name;</span><br><span class="line">		korea.score = score;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public void setMathSubject(String name, int score) &#123;</span><br><span class="line">		math.subjectName = name;</span><br><span class="line">		math.score = score;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public void showStudentSocre() &#123;</span><br><span class="line">		int total = korea.score + math.score;</span><br><span class="line">		System.out.println(studentName +  &quot; 학생의 총점은 &quot; + total + &quot;점 입니다.&quot; );</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">package ch09;</span><br><span class="line"></span><br><span class="line">public class Subject &#123;</span><br><span class="line">	String subjectName;</span><br><span class="line">	int score;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">package ch09;</span><br><span class="line"></span><br><span class="line">public class StudentTest &#123;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line">		Student studentLee = new Student(100, &quot;Lee&quot;);</span><br><span class="line">		studentLee.setKoreaSubject(&quot;국어&quot;, 100);</span><br><span class="line">		studentLee.setMathSubject(&quot;수학&quot;, 95);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		Student studentKim = new Student(101, &quot;Kim&quot;);</span><br><span class="line">		studentKim.setKoreaSubject(&quot;국어&quot;, 80);</span><br><span class="line">		studentKim.setMathSubject(&quot;수학&quot;, 99);</span><br><span class="line"></span><br><span class="line">		studentLee.showStudentSocre();</span><br><span class="line">		studentKim.showStudentSocre();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="캡슐화"><a href="#캡슐화" class="headerlink" title="캡슐화"></a>캡슐화</h3><ul>
+<li>정보 은닉을 활용한 캡슐화</li>
+<li>꼭 필요한 정보와 기능만 외부 접근을 허용</li>
+<li>대부분 멤버 변수와 메소드를 감추고 외부 통합 인터페이스만 제공하여 일관된 기능 구현</li>
+<li>각 메소드나, 멤버 변수를 접근함으로 발생하는 오류 최소화</li>
+<li>public 클래스에서 모든 멤버 변수와 메소드를 private으로 선언 후에 public 메소드로 private 메소드를 사용하는 기능을 구현하면 외부에서 private 메소드는 사용하지 못하지만 public 메소드를 이용하여 기능사용 가능</li>
+<li>아래 코드를 보면 getReport 메소드로 private으로 선언되어 접근이 불가능한 메소드를 외부 클래스에서 사용함</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class MakeReport &#123;</span><br><span class="line"></span><br><span class="line">	StringBuffer buffer = new StringBuffer();</span><br><span class="line"></span><br><span class="line">	private String line = &quot;===========================================\n&quot;;</span><br><span class="line">	private String title = &quot;  이름\t   주소 \t\t  전화번호  \n&quot;;</span><br><span class="line">	private void makeHeader()</span><br><span class="line">	&#123;</span><br><span class="line">		buffer.append(line);</span><br><span class="line">		buffer.append(title);</span><br><span class="line">		buffer.append(line);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	private void generateBody()</span><br><span class="line">	&#123;</span><br><span class="line">		buffer.append(&quot;James \t&quot;);</span><br><span class="line">		buffer.append(&quot;Seoul Korea \t&quot;);</span><br><span class="line">		buffer.append(&quot;010-2222-3333\n&quot;);</span><br><span class="line"></span><br><span class="line">		buffer.append(&quot;Tomas \t&quot;);</span><br><span class="line">		buffer.append(&quot;NewYork US \t&quot;);</span><br><span class="line">		buffer.append(&quot;010-7777-0987\n&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	private void makeFooter()</span><br><span class="line">	&#123;</span><br><span class="line"></span><br><span class="line">		buffer.append(line);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public String getReport()</span><br><span class="line">	&#123;</span><br><span class="line">		makeHeader();</span><br><span class="line">		generateBody();</span><br><span class="line">		makeFooter();</span><br><span class="line">		return buffer.toString();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class TestReprt &#123;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line">		MakeReport report = new MakeReport();</span><br><span class="line">		String builder = report.getReport();</span><br><span class="line"></span><br><span class="line">		System.out.println(builder);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Java</category>
       </categories>
       <tags>
         <tag>TIL</tag>
@@ -991,7 +1136,7 @@
   </entry>
   <entry>
     <title>Java-day8</title>
-    <url>/2022/04/15/Java-day8/</url>
+    <url>/2022/04/15/Java/Java-day8/</url>
     <content><![CDATA[<h3 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h3><ul>
 <li>원래 인스턴스의 형이 맞는지 여부 체크, boolean타입으로 반환</li>
 <li>if (A instanceof B)가 주로 사용, 상속받은 조상과 비교해도 True 반환</li>
@@ -1035,7 +1180,7 @@
   </entry>
   <entry>
     <title>Java-day9</title>
-    <url>/2022/04/18/Java-day9/</url>
+    <url>/2022/04/18/Java/Java-day9/</url>
     <content><![CDATA[<h2 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h2><ul>
 <li>jdk Class : Array List, Vector 사용<h3 id="insert"><a href="#insert" class="headerlink" title="insert"></a>insert</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public void insertElement(int position, int num) &#123;</span><br><span class="line">		int i;</span><br><span class="line">		</span><br><span class="line">		if(count &gt;= ARRAY_SIZE) &#123;  //꽉 찬 경우</span><br><span class="line">			System.out.println(&quot;not enough memory&quot;);</span><br><span class="line">			return;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		if(position &lt; 0 || position &gt; count ) &#123;  //index error</span><br><span class="line">			System.out.println(&quot;insert Error&quot;);</span><br><span class="line">			return;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		for( i = count-1; i &gt;= position ; i--) &#123;</span><br><span class="line">			intArr[i+1]  = intArr[i];        // 하나씩 이동</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		intArr[position] = num;</span><br><span class="line">		count++;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="remove"><a href="#remove" class="headerlink" title="remove"></a>remove</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public int removeElement(int position) &#123;</span><br><span class="line">		int ret = ERROR_NUM;</span><br><span class="line">		</span><br><span class="line">		if( isEmpty() ) &#123;</span><br><span class="line">			System.out.println(&quot;There is no element&quot;);</span><br><span class="line">			return ret;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		if(position &lt; 0 || position &gt;= count ) &#123;  //index error</span><br><span class="line">			System.out.println(&quot;remove Error&quot;);</span><br><span class="line">			return ret;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		ret = intArr[position];</span><br><span class="line">		</span><br><span class="line">		for(int i = position; i&lt;count -1; i++ ) &#123;</span><br><span class="line">			intArr[i] = intArr[i+1];</span><br><span class="line">		&#125;</span><br><span class="line">		count--;</span><br><span class="line">		return ret;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
@@ -1101,41 +1246,7 @@
 ]]></content>
       <categories>
         <category>Java</category>
-        <category>Data structures</category>
-      </categories>
-      <tags>
-        <tag>TIL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>css-day1</title>
-    <url>/2022/04/13/css-day1/</url>
-    <content><![CDATA[<h3 id="기본-문법"><a href="#기본-문법" class="headerlink" title="기본 문법"></a>기본 문법</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">선택자(div) &#123;</span><br><span class="line">	color : /*글자 색*/</span><br><span class="line">	font-size : /*글자 크기*/</span><br><span class="line">	witdh : /*가로 너비*/</span><br><span class="line">	height: /*세로 너비*/</span><br><span class="line">	margin : /*바깥 여백*/</span><br><span class="line">	padding : /*안쪽 여백 상하좌우*/</span><br><span class="line">	position : /*부모 요소 기준*/</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="작성-방법"><a href="#작성-방법" class="headerlink" title="작성 방법"></a>작성 방법</h3><ul>
-<li>인라인 작성 방식<ul>
-<li>HTML의 태그에 직접 작성하는 방법으로 선택자 필요 X</li>
-<li>ex. <code>&lt;div style=”color : red;”&gt;직접 작성&lt;/div&gt;</code></li>
-<li>같은 div가 여러개 있을 때 일일이 div마다 작성해야하는 단점이 있어 유지&#x2F;보수에 단점이 생긴다.</li>
-</ul>
-</li>
-<li>HTML 내장 방식<ul>
-<li>head 태그 안쪽에 style 태그를 통해 설정<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;head&gt;</span><br><span class="line">	&lt;style&gt;</span><br><span class="line">		div &#123;</span><br><span class="line">			color: red;</span><br><span class="line">		&#125;</span><br><span class="line">	&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">/*head에 설정하면 body 안에 div들이 모두 변경*/</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li>HTML 외부에서 불러오기<ul>
-<li>head 태그 안쪽에 link 태그를 통해 외부에서 문서를 가져오기</li>
-<li><code>&lt;link rel=”stylesheet” href=”경로.css”&gt;</code></li>
-</ul>
-</li>
-</ul>
-<h3 id="선택자"><a href="#선택자" class="headerlink" title="선택자"></a>선택자</h3><ul>
-<li>tag로만 찾는것은 한계가 있기 때문에 class를 만들어 class 선택자로 찾기</li>
-<li>ex. <h1 class=”title”>제목</h1> —&gt; css에서 h1 변경하려면 .title로 선택자 사용</li>
-</ul>
-]]></content>
-      <categories>
-        <category>CSS</category>
+        <category>Data-structures</category>
       </categories>
       <tags>
         <tag>TIL</tag>
