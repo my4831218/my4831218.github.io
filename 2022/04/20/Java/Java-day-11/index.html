@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"my4831218.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="직렬화 (serialization) 인스턴스 상태 그대로 파일 저장 or 네트웍 전송하고 다시 복원 자바에서는 보조 스트림을 활용한 직렬화 제공 인스턴스 내용이 외부로 유출되기 때문에 프로그래머가 직렬화 의도 표시해야됨  Thread 실제 작업을 수행하는 단위  code   1234567891011121314class Thread extends Thread">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java-day-11">
+<meta property="og:url" content="http://my4831218.github.io/2022/04/20/Java/Java-day-11/index.html">
+<meta property="og:site_name" content="Skang&#39;s blog">
+<meta property="og:description" content="직렬화 (serialization) 인스턴스 상태 그대로 파일 저장 or 네트웍 전송하고 다시 복원 자바에서는 보조 스트림을 활용한 직렬화 제공 인스턴스 내용이 외부로 유출되기 때문에 프로그래머가 직렬화 의도 표시해야됨  Thread 실제 작업을 수행하는 단위  code   1234567891011121314class Thread extends Thread">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-04-20T13:04:18.000Z">
+<meta property="article:modified_time" content="2022-04-20T13:06:15.479Z">
+<meta property="article:author" content="my4831218">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://my4831218.github.io/2022/04/20/Java/Java-day-11/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Java-day-11 | Skang's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Skang's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Skang github blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://my4831218.github.io/2022/04/20/Java/Java-day-11/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="my4831218">
+      <meta itemprop="description" content="Everything I learned today, including coding test study, exercise record, etc.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Skang's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java-day-11
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-04-20 22:04:18 / Modified: 22:06:15" itemprop="dateCreated datePublished" datetime="2022-04-20T22:04:18+09:00">2022-04-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="직렬화-serialization"><a href="#직렬화-serialization" class="headerlink" title="직렬화 (serialization)"></a>직렬화 (serialization)</h3><ul>
+<li>인스턴스 상태 그대로 파일 저장 or 네트웍 전송하고 다시 복원</li>
+<li>자바에서는 보조 스트림을 활용한 직렬화 제공</li>
+<li>인스턴스 내용이 외부로 유출되기 때문에 프로그래머가 직렬화 의도 표시해야됨</li>
+</ul>
+<h3 id="Thread"><a href="#Thread" class="headerlink" title="Thread"></a>Thread</h3><ul>
+<li><p>실제 작업을 수행하는 단위</p>
+</li>
+<li><p>code</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Thread</span> <span class="keyword">extends</span> <span class="title class_">Thread</span> &#123;&#125;</span><br><span class="line">main() &#123;</span><br><span class="line">	Thread.currentThread();</span><br><span class="line">	<span class="type">Thread</span> <span class="variable">t1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>();</span><br><span class="line">	t1.start();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 이미 다른 클래스 상속했으면 thread 만들기 위해 인터페이스로 구현</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyThread</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;&#125;</span><br><span class="line">main() &#123;</span><br><span class="line">	<span class="type">MyThread</span> <span class="variable">t2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MyThread</span>();</span><br><span class="line">	<span class="type">Thread</span> <span class="variable">t1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(t2);</span><br><span class="line">	t1.start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>priority thread</p>
+<ul>
+<li>default 5, 우선순위가 높을수록 자원할당 받을 확률 높다</li>
+</ul>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">PThread</span> <span class="keyword">extends</span> <span class="title class_">Thread</span>&#123;&#125;</span><br><span class="line">main() &#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> Thread.MIN_PRIORITY; i &lt;= Thread.MAX_PRIORITY; i++) &#123;</span><br><span class="line">		<span class="type">PThread</span> <span class="variable">pt</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PThread</span>();</span><br><span class="line">		pt.setPriority(i);</span><br><span class="line">		pt.start();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>join()</p>
+<ul>
+<li>동시에 Thread가 실행될 때 다른 Thread 결과를 참조해서 실행할 때 join() 사용</li>
+<li>join() 호출한 Thread는 not-runnable상태가됨</li>
+<li>다른 Thread 호출 끝나면 runnable상태가 됨</li>
+</ul>
+</li>
+<li><p>interrupt()</p>
+<ul>
+<li>다른 Thread에 예외를 발생시킴</li>
+<li>join, sleep, wait으로 not runnable일때 interrupt 호출해서 runnable로 바꿀수있다</li>
+</ul>
+</li>
+<li><p>종료</p>
+<ul>
+<li>Thread 종료시 사용</li>
+</ul>
+</li>
+</ul>
+<h3 id="동기화"><a href="#동기화" class="headerlink" title="동기화"></a>동기화</h3><ul>
+<li>critical section은 thread가 무조건 하나만 접근할 수 있음</li>
+<li>semaphore는 오직 하나만 생성가능, semaphore를 얻은 thread만 critical section에 접근 가능, 나머지는 대기(blocking 상태)</li>
+<li>wait()은 자원 기다리는 상태, notify() 호출까지 대기</li>
+<li>notify()호출 시 무작위 Thread 재시작</li>
+<li>notifyAll() 호출시 모든 wait 쓰레드 재시작, 자원이 부족하면 자원을 받지못한 쓰레드 다시 wait</li>
+</ul>
+<h3 id="JDBC"><a href="#JDBC" class="headerlink" title="JDBC"></a>JDBC</h3><ul>
+<li><p>JDBC API의 인터페이스만 수정되지 않으면 프로그램을 수정하지 않아도 사용이 가능하다 —&gt; DB가 변경되어도 JDBC 드라이버만 교체하면 프로그램 수정 없이 가능</p>
+</li>
+<li><p>객체 로딩 - 커넥션 연결 - Statement 생성 - SQL 전송 - 연결 해제</p>
+</li>
+<li><p>jdbcutil</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.sql.Connection;</span><br><span class="line"><span class="keyword">import</span> java.sql.DriverManager;</span><br><span class="line"><span class="keyword">import</span> java.sql.PreparedStatement;</span><br><span class="line"><span class="keyword">import</span> java.sql.ResultSet;</span><br><span class="line"><span class="keyword">import</span> java.sql.SQLException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JDBCUtil</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> Connection <span class="title function_">getConnection</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="type">Connection</span> <span class="variable">conn</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			DriverManager.registerDriver(<span class="keyword">new</span> <span class="title class_">org</span>.h2.Driver());</span><br><span class="line"></span><br><span class="line">			<span class="type">String</span> <span class="variable">jdbcUrl</span> <span class="operator">=</span> <span class="string">&quot;jdbc:h2:tcp://localhost/~/test&quot;</span>;</span><br><span class="line">			conn = DriverManager.getConnection(jdbcUrl, <span class="string">&quot;sa&quot;</span>, <span class="string">&quot;&quot;</span>);	</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> conn;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">close</span><span class="params">(PreparedStatement stmt, Connection conn)</span> &#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			stmt.close();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			conn.close();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">close</span><span class="params">(ResultSet rs, PreparedStatement stmt, Connection conn)</span> &#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			rs.close();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			stmt.close();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			conn.close();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>insert (InsertTest2 는 필수적인 코드만 작성된것)</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">InsertTest</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		</span><br><span class="line">		<span class="type">Connection</span> <span class="variable">conn</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">		<span class="type">PreparedStatement</span> <span class="variable">stmt</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			<span class="comment">/*</span></span><br><span class="line"><span class="comment">			// JDBC 1단계 : 드라이버 객체 로딩</span></span><br><span class="line"><span class="comment">			DriverManager.registerDriver(new org.h2.Driver());</span></span><br><span class="line"><span class="comment">			</span></span><br><span class="line"><span class="comment">			// JDBC 2단계 : 커넥션 (고속도로) 연결</span></span><br><span class="line"><span class="comment">			String jdbcUrl = &quot;jdbc:h2:tcp://localhost/~/test&quot;;</span></span><br><span class="line"><span class="comment">			conn = DriverManager.getConnection(jdbcUrl, &quot;sa&quot;, &quot;&quot;);	</span></span><br><span class="line"><span class="comment">			*/</span></span><br><span class="line">			conn = JDBCUtil.getConnection();</span><br><span class="line">			<span class="comment">// JDBC 3단계 : Statement 생성</span></span><br><span class="line">			<span class="comment">// value를 ?로 하면 성능향상에 매우 큰 도움</span></span><br><span class="line">			<span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;insert into student values(?, ?, ?, ?)&quot;</span>;</span><br><span class="line">			stmt = conn.prepareStatement(sql);</span><br><span class="line">			</span><br><span class="line">			<span class="comment">// JDBC 4단계 : SQL 전송</span></span><br><span class="line">			<span class="comment">// ? 값 설정</span></span><br><span class="line">			stmt.setString(<span class="number">1</span>, <span class="string">&quot;STD-00005&quot;</span>);</span><br><span class="line">			stmt.setString(<span class="number">2</span>, <span class="string">&quot;외계인1&quot;</span>);</span><br><span class="line">			stmt.setInt(<span class="number">3</span>, <span class="number">88</span>);</span><br><span class="line">			stmt.setString(<span class="number">4</span>, <span class="string">&quot;우주항공 공학&quot;</span>);</span><br><span class="line">			</span><br><span class="line">			<span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> stmt.executeUpdate();</span><br><span class="line">			System.out.println(count + <span class="string">&quot;건 데이터 처리 성공!&quot;</span>);</span><br><span class="line"></span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			<span class="comment">// 어느 클래스의 어느 메소드에서 예외 발생한지 추적해서 그 위치 콘솔에 출력</span></span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">			<span class="comment">// JDBC 5단계 : 연결 해제</span></span><br><span class="line">			<span class="comment">// finally 에서는 try 문에서 선언된 변수들 접근 불가능</span></span><br><span class="line">			<span class="comment">// 그래서 처음에 conn, stmt변수를 try구문 밖에 선언.</span></span><br><span class="line">			<span class="comment">/*</span></span><br><span class="line"><span class="comment">			try &#123;</span></span><br><span class="line"><span class="comment">				stmt.close();</span></span><br><span class="line"><span class="comment">			&#125; catch (SQLException e) &#123;</span></span><br><span class="line"><span class="comment">				e.printStackTrace();</span></span><br><span class="line"><span class="comment">			&#125;</span></span><br><span class="line"><span class="comment">			try &#123;</span></span><br><span class="line"><span class="comment">				conn.close();</span></span><br><span class="line"><span class="comment">			&#125; catch (SQLException e) &#123;</span></span><br><span class="line"><span class="comment">				e.printStackTrace();</span></span><br><span class="line"><span class="comment">			&#125;</span></span><br><span class="line"><span class="comment">			*/</span></span><br><span class="line">			JDBCUtil.close(stmt, conn);</span><br><span class="line">			System.out.println(<span class="string">&quot;Exit&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">InsertTest2</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception&#123;</span><br><span class="line"></span><br><span class="line">			DriverManager.registerDriver(<span class="keyword">new</span> <span class="title class_">org</span>.h2.Driver());</span><br><span class="line">			</span><br><span class="line">			<span class="type">String</span> <span class="variable">jdbcUrl</span> <span class="operator">=</span> <span class="string">&quot;jdbc:h2:tcp://localhost/~/test&quot;</span>;</span><br><span class="line">			<span class="type">Connection</span> <span class="variable">conn</span> <span class="operator">=</span> </span><br><span class="line">					DriverManager.getConnection(jdbcUrl, <span class="string">&quot;sa&quot;</span>, <span class="string">&quot;&quot;</span>);	</span><br><span class="line">			<span class="type">PreparedStatement</span> <span class="variable">stmt</span> <span class="operator">=</span> </span><br><span class="line">					conn.prepareStatement(<span class="string">&quot;insert into student(student_no, name, score, major) &quot;</span></span><br><span class="line">							+ <span class="string">&quot;values(&#x27;STD-00002&#x27;, &#x27;fads&#x27;, 13, &#x27;afsd&#x27;)&quot;</span>);</span><br><span class="line">			stmt.executeUpdate();</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>delete</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DeleteTest</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		</span><br><span class="line">		<span class="type">Connection</span> <span class="variable">conn</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">		<span class="type">PreparedStatement</span> <span class="variable">stmt</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			conn = JDBCUtil.getConnection();</span><br><span class="line">			</span><br><span class="line">			<span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;delete student where student_no=?&quot;</span>;</span><br><span class="line">			stmt = conn.prepareStatement(sql);</span><br><span class="line"></span><br><span class="line">			stmt.setString(<span class="number">1</span>, <span class="string">&quot;STD-00005&quot;</span>);</span><br><span class="line">			</span><br><span class="line">			<span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> stmt.executeUpdate();</span><br><span class="line">			System.out.println(count + <span class="string">&quot;건 데이터 처리 성공!&quot;</span>);</span><br><span class="line"></span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">			JDBCUtil.close(stmt, conn);</span><br><span class="line">			System.out.println(<span class="string">&quot;Exit&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>update</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UpdateTest</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		</span><br><span class="line">		<span class="type">Connection</span> <span class="variable">conn</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">		<span class="type">PreparedStatement</span> <span class="variable">stmt</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			conn = JDBCUtil.getConnection();</span><br><span class="line">			</span><br><span class="line">			<span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;update student set score=?, major=? where student_no=?&quot;</span>;</span><br><span class="line">			stmt = conn.prepareStatement(sql);</span><br><span class="line"></span><br><span class="line">			stmt.setInt(<span class="number">1</span>, <span class="number">99</span>);</span><br><span class="line">			stmt.setString(<span class="number">2</span>, <span class="string">&quot;무역학과&quot;</span>);</span><br><span class="line">			stmt.setString(<span class="number">3</span>, <span class="string">&quot;STD-00005&quot;</span>);</span><br><span class="line">			</span><br><span class="line">			<span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> stmt.executeUpdate();</span><br><span class="line">			System.out.println(count + <span class="string">&quot;건 데이터 처리 성공!&quot;</span>);</span><br><span class="line"></span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">			JDBCUtil.close(stmt, conn);</span><br><span class="line">			System.out.println(<span class="string">&quot;Exit&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>select</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SelectTest</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		</span><br><span class="line">		<span class="type">Connection</span> <span class="variable">conn</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">		<span class="type">PreparedStatement</span> <span class="variable">stmt</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">		<span class="type">ResultSet</span> <span class="variable">rs</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			conn = JDBCUtil.getConnection();</span><br><span class="line">			</span><br><span class="line">			<span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;select * from student&quot;</span>;</span><br><span class="line">			stmt = conn.prepareStatement(sql);</span><br><span class="line">			</span><br><span class="line">			<span class="comment">//executeUpdate 는 insert, update, delete 전용</span></span><br><span class="line">			<span class="comment">//executeQuery는 select 전용</span></span><br><span class="line">			rs = stmt.executeQuery();</span><br><span class="line">			<span class="keyword">while</span> (rs.next()) &#123; <span class="comment">// ResultSet의 커서 한칸 밑으로 내림.</span></span><br><span class="line">				System.out.print(rs.getString(<span class="string">&quot;student_no&quot;</span>) + <span class="string">&quot; : &quot;</span>);</span><br><span class="line">				System.out.print(rs.getString(<span class="string">&quot;name&quot;</span>) + <span class="string">&quot; : &quot;</span>);</span><br><span class="line">				System.out.print(rs.getInt(<span class="string">&quot;score&quot;</span>) + <span class="string">&quot; : &quot;</span>);</span><br><span class="line">				System.out.println(rs.getString(<span class="string">&quot;major&quot;</span>) + <span class="string">&quot; : &quot;</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">			JDBCUtil.close(rs, stmt, conn);</span><br><span class="line">			System.out.println(<span class="string">&quot;Exit&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="DAO-Data-Access-Object"><a href="#DAO-Data-Access-Object" class="headerlink" title="DAO (Data Access Object)"></a>DAO (Data Access Object)</h3><ul>
+<li><p>table당 하나씩 만드는것이 원칙</p>
+</li>
+<li><p>StudentDAO</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StudentDAO</span> &#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="type">Connection</span> <span class="variable">conn</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="type">PreparedStatement</span> <span class="variable">stmt</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="type">ResultSet</span> <span class="variable">rs</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">STUDENT_LIST</span> <span class="operator">=</span> <span class="string">&quot;select student_no, name, score, major from student&quot;</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">STUDENT_INSERT</span> <span class="operator">=</span> <span class="string">&quot;insert into student values(?, ?, ?, ?)&quot;</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">STUDENT_UPDATE</span> <span class="operator">=</span> <span class="string">&quot;update student set score = ?, major = ? where student_no = ?&quot;</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">STUDENT_DELETE</span> <span class="operator">=</span> <span class="string">&quot;delete student where student_no = ?&quot;</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 학생 삭제</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">deleteStudent</span><span class="params">(String studentNo)</span> &#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			conn = JDBCUtil.getConnection();</span><br><span class="line">			stmt = conn.prepareStatement(STUDENT_DELETE);</span><br><span class="line">			stmt.setString(<span class="number">1</span>, studentNo);</span><br><span class="line">			stmt.executeUpdate();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">			JDBCUtil.close(stmt, conn);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 학생 수정</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">updateStudent</span><span class="params">(<span class="type">int</span> score, String major, String studentNo)</span> &#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			conn = JDBCUtil.getConnection();</span><br><span class="line">			stmt = conn.prepareStatement(STUDENT_UPDATE);</span><br><span class="line">			stmt.setInt(<span class="number">1</span>, score);</span><br><span class="line">			stmt.setString(<span class="number">2</span>, major);</span><br><span class="line">			stmt.setString(<span class="number">3</span>, studentNo);</span><br><span class="line">			stmt.executeUpdate();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">			JDBCUtil.close(stmt, conn);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 학생 등록</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">insertStudent</span><span class="params">(String studentNo, String name, <span class="type">int</span> score, String major)</span> &#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			conn = JDBCUtil.getConnection();</span><br><span class="line">			stmt = conn.prepareStatement(STUDENT_INSERT);</span><br><span class="line">			stmt.setString(<span class="number">1</span>, studentNo);</span><br><span class="line">			stmt.setString(<span class="number">2</span>, name);</span><br><span class="line">			stmt.setInt(<span class="number">3</span>, score);</span><br><span class="line">			stmt.setString(<span class="number">4</span>, major);</span><br><span class="line">			stmt.executeUpdate();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">			JDBCUtil.close(stmt, conn);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 학생 목록 조회</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">getStudentList</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			conn = JDBCUtil.getConnection();</span><br><span class="line">			stmt = conn.prepareStatement(STUDENT_LIST);</span><br><span class="line">			rs = stmt.executeQuery();</span><br><span class="line">			System.out.println(<span class="string">&quot;[ STUDENT 목록 ]&quot;</span>);</span><br><span class="line">			<span class="keyword">while</span>(rs.next()) &#123;</span><br><span class="line">				System.out.print(rs.getString(<span class="string">&quot;STUDENT_NO&quot;</span>) + <span class="string">&quot; : &quot;</span>);</span><br><span class="line">				System.out.print(rs.getString(<span class="string">&quot;NAME&quot;</span>) + <span class="string">&quot; : &quot;</span>);</span><br><span class="line">				System.out.print(rs.getInt(<span class="string">&quot;SCORE&quot;</span>) + <span class="string">&quot; : &quot;</span>);</span><br><span class="line">				System.out.println(rs.getString(<span class="string">&quot;MAJOR&quot;</span>));</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">			JDBCUtil.close(rs, stmt, conn);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>main</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">main() &#123;</span><br><span class="line">	<span class="type">StudentDAO</span> <span class="variable">dao</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StudentDAO</span>();</span><br><span class="line">	dao.deleteStudent(<span class="string">&quot;STD-000013&quot;</span>);</span><br><span class="line">	dao.getStudentList();</span><br><span class="line"></span><br><span class="line">	dao.updateStudent(<span class="number">81</span>, <span class="string">&quot;통계학&quot;</span>, <span class="string">&quot;STD-000013&quot;</span>);</span><br><span class="line">	dao.getStudentList();</span><br><span class="line"></span><br><span class="line">	dao.insertStudent(<span class="string">&quot;STD-000013&quot;</span>, <span class="string">&quot;외계인3&quot;</span>, <span class="number">0</span>, <span class="string">&quot;생명 공학&quot;</span>);</span><br><span class="line">	dao.getStudentList();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="VO-Value-Object-패턴-적용"><a href="#VO-Value-Object-패턴-적용" class="headerlink" title="VO (Value Object) 패턴 적용"></a>VO (Value Object) 패턴 적용</h3><ul>
+<li><p>StudentVO</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StudentVO</span> &#123;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// private 멤버변수 선언</span></span><br><span class="line">	<span class="keyword">private</span> String studentNo;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="keyword">private</span> <span class="type">int</span> score; </span><br><span class="line">	<span class="keyword">private</span> String major;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>StudentDAO</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StudentDAO</span> &#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="type">Connection</span> <span class="variable">conn</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="type">PreparedStatement</span> <span class="variable">stmt</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="type">ResultSet</span> <span class="variable">rs</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">STUDENT_LIST</span> <span class="operator">=</span> <span class="string">&quot;select student_no, name, score, major from student&quot;</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">STUDENT_INSERT</span> <span class="operator">=</span> <span class="string">&quot;insert into student values(?, ?, ?, ?)&quot;</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">STUDENT_UPDATE</span> <span class="operator">=</span> <span class="string">&quot;update student set score = ?, major = ? where student_no = ?&quot;</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">STUDENT_DELETE</span> <span class="operator">=</span> <span class="string">&quot;delete student where student_no = ?&quot;</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 학생 삭제</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">deleteStudent</span><span class="params">(String studentNo)</span> &#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			conn = JDBCUtil.getConnection();</span><br><span class="line">			stmt = conn.prepareStatement(STUDENT_DELETE);</span><br><span class="line">			stmt.setString(<span class="number">1</span>, studentNo);</span><br><span class="line">			stmt.executeUpdate();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">			JDBCUtil.close(stmt, conn);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 학생 수정</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">updateStudent</span><span class="params">(StudentVO vo)</span> &#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			conn = JDBCUtil.getConnection();</span><br><span class="line">			stmt = conn.prepareStatement(STUDENT_UPDATE);</span><br><span class="line">			stmt.setInt(<span class="number">1</span>, vo.getScore());</span><br><span class="line">			stmt.setString(<span class="number">2</span>, vo.getMajor());</span><br><span class="line">			stmt.setString(<span class="number">3</span>, vo.getStudentNo());</span><br><span class="line">			stmt.executeUpdate();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">			JDBCUtil.close(stmt, conn);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 학생 등록</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">insertStudent</span><span class="params">(StudentVO vo)</span> &#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			conn = JDBCUtil.getConnection();</span><br><span class="line">			stmt = conn.prepareStatement(STUDENT_INSERT);</span><br><span class="line">			stmt.setString(<span class="number">1</span>, vo.getStudentNo());</span><br><span class="line">			stmt.setString(<span class="number">2</span>, vo.getName());</span><br><span class="line">			stmt.setInt(<span class="number">3</span>, vo.getScore());</span><br><span class="line">			stmt.setString(<span class="number">4</span>, vo.getMajor());</span><br><span class="line">			stmt.executeUpdate();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">			JDBCUtil.close(stmt, conn);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 학생 목록 조회</span></span><br><span class="line">	<span class="keyword">public</span> List&lt;StudentVO&gt; <span class="title function_">getStudentList</span><span class="params">()</span> &#123;</span><br><span class="line">	List&lt;StudentVO&gt; studentList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;StudentVO&gt;();</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			conn = JDBCUtil.getConnection();</span><br><span class="line">			stmt = conn.prepareStatement(STUDENT_LIST);</span><br><span class="line">			rs = stmt.executeQuery();</span><br><span class="line">			<span class="keyword">while</span>(rs.next()) &#123;</span><br><span class="line">				<span class="type">StudentVO</span> <span class="variable">student</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StudentVO</span>();</span><br><span class="line">				student.setStudentNo(rs.getString(<span class="string">&quot;STUDENT_NO&quot;</span>));</span><br><span class="line">				student.setName(rs.getString(<span class="string">&quot;NAME&quot;</span>));</span><br><span class="line">				student.setScore(rs.getInt(<span class="string">&quot;SCORE&quot;</span>));</span><br><span class="line">				student.setMajor(rs.getString(<span class="string">&quot;MAJOR&quot;</span>));</span><br><span class="line">				studentList.add(student);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">			JDBCUtil.close(rs, stmt, conn);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> studentList;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>main</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">main() &#123;</span><br><span class="line">	<span class="type">StudentDAO</span> <span class="variable">dao</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StudentDAO</span>();</span><br><span class="line">	<span class="type">StudentVO</span> <span class="variable">vo</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StudentVO</span>();</span><br><span class="line">	List&lt;StudentVO&gt; studentList = dao.getStudentList();</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 조회</span></span><br><span class="line">	<span class="comment">// CASE-1</span></span><br><span class="line">	System.out.println(<span class="string">&quot;전체 학생의 수 : &quot;</span> + studentList.size());</span><br><span class="line">		</span><br><span class="line">	<span class="comment">// CASE-2</span></span><br><span class="line">	System.out.println(<span class="string">&quot;[ 학생의 점수 ]&quot;</span>);</span><br><span class="line">	<span class="keyword">for</span> (StudentVO student : studentList) &#123;</span><br><span class="line">		System.out.println(student.getName() + <span class="string">&quot;의 점수 : &quot;</span> + </span><br><span class="line">		student.getScore() + <span class="string">&quot;점&quot;</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//update</span></span><br><span class="line">	vo.setMajor(<span class="string">&quot;심리학&quot;</span>);</span><br><span class="line">	vo.setScore(<span class="number">0</span>);</span><br><span class="line">	vo.setStudentNo(<span class="string">&quot;STD-000014&quot;</span>);</span><br><span class="line">	dao.updateStudent(vo);</span><br><span class="line">	dao.getStudentList();</span><br><span class="line"></span><br><span class="line">	<span class="comment">//insert</span></span><br><span class="line">	vo.setName(<span class="string">&quot;외계인3&quot;</span>);</span><br><span class="line">	vo.setMajor(<span class="string">&quot;생명 공학&quot;</span>);</span><br><span class="line">	vo.setScore(<span class="number">20</span>);</span><br><span class="line">	vo.setStudentNo(<span class="string">&quot;STD-000014&quot;</span>);</span><br><span class="line">	dao.insertStudent(vo);</span><br><span class="line">	dao.getStudentList();	</span><br><span class="line"></span><br><span class="line">	<span class="comment">//delete</span></span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/04/20/Database/" rel="prev" title="Database">
+      <i class="fa fa-chevron-left"></i> Database
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EC%A7%81%EB%A0%AC%ED%99%94-serialization"><span class="nav-number">1.</span> <span class="nav-text">직렬화 (serialization)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Thread"><span class="nav-number">2.</span> <span class="nav-text">Thread</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EB%8F%99%EA%B8%B0%ED%99%94"><span class="nav-number">3.</span> <span class="nav-text">동기화</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JDBC"><span class="nav-number">4.</span> <span class="nav-text">JDBC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DAO-Data-Access-Object"><span class="nav-number">5.</span> <span class="nav-text">DAO (Data Access Object)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VO-Value-Object-%ED%8C%A8%ED%84%B4-%EC%A0%81%EC%9A%A9"><span class="nav-number">6.</span> <span class="nav-text">VO (Value Object) 패턴 적용</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">my4831218</p>
+  <div class="site-description" itemprop="description">Everything I learned today, including coding test study, exercise record, etc.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">my4831218</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

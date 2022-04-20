@@ -186,6 +186,296 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://my4831218.github.io/2022/04/20/Java/Java-day-11/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="my4831218">
+      <meta itemprop="description" content="Everything I learned today, including coding test study, exercise record, etc.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Skang's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/20/Java/Java-day-11/" class="post-title-link" itemprop="url">Java-day-11</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-04-20 22:04:18 / Modified: 22:06:15" itemprop="dateCreated datePublished" datetime="2022-04-20T22:04:18+09:00">2022-04-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="직렬화-serialization"><a href="#직렬화-serialization" class="headerlink" title="직렬화 (serialization)"></a>직렬화 (serialization)</h3><ul>
+<li>인스턴스 상태 그대로 파일 저장 or 네트웍 전송하고 다시 복원</li>
+<li>자바에서는 보조 스트림을 활용한 직렬화 제공</li>
+<li>인스턴스 내용이 외부로 유출되기 때문에 프로그래머가 직렬화 의도 표시해야됨</li>
+</ul>
+<h3 id="Thread"><a href="#Thread" class="headerlink" title="Thread"></a>Thread</h3><ul>
+<li><p>실제 작업을 수행하는 단위</p>
+</li>
+<li><p>code</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Thread</span> <span class="keyword">extends</span> <span class="title class_">Thread</span> &#123;&#125;</span><br><span class="line">main() &#123;</span><br><span class="line">	Thread.currentThread();</span><br><span class="line">	<span class="type">Thread</span> <span class="variable">t1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>();</span><br><span class="line">	t1.start();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 이미 다른 클래스 상속했으면 thread 만들기 위해 인터페이스로 구현</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyThread</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;&#125;</span><br><span class="line">main() &#123;</span><br><span class="line">	<span class="type">MyThread</span> <span class="variable">t2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MyThread</span>();</span><br><span class="line">	<span class="type">Thread</span> <span class="variable">t1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(t2);</span><br><span class="line">	t1.start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>priority thread</p>
+<ul>
+<li>default 5, 우선순위가 높을수록 자원할당 받을 확률 높다</li>
+</ul>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">PThread</span> <span class="keyword">extends</span> <span class="title class_">Thread</span>&#123;&#125;</span><br><span class="line">main() &#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> Thread.MIN_PRIORITY; i &lt;= Thread.MAX_PRIORITY; i++) &#123;</span><br><span class="line">		<span class="type">PThread</span> <span class="variable">pt</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PThread</span>();</span><br><span class="line">		pt.setPriority(i);</span><br><span class="line">		pt.start();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>join()</p>
+<ul>
+<li>동시에 Thread가 실행될 때 다른 Thread 결과를 참조해서 실행할 때 join() 사용</li>
+<li>join() 호출한 Thread는 not-runnable상태가됨</li>
+<li>다른 Thread 호출 끝나면 runnable상태가 됨</li>
+</ul>
+</li>
+<li><p>interrupt()</p>
+<ul>
+<li>다른 Thread에 예외를 발생시킴</li>
+<li>join, sleep, wait으로 not runnable일때 interrupt 호출해서 runnable로 바꿀수있다</li>
+</ul>
+</li>
+<li><p>종료</p>
+<ul>
+<li>Thread 종료시 사용</li>
+</ul>
+</li>
+</ul>
+<h3 id="동기화"><a href="#동기화" class="headerlink" title="동기화"></a>동기화</h3><ul>
+<li>critical section은 thread가 무조건 하나만 접근할 수 있음</li>
+<li>semaphore는 오직 하나만 생성가능, semaphore를 얻은 thread만 critical section에 접근 가능, 나머지는 대기(blocking 상태)</li>
+<li>wait()은 자원 기다리는 상태, notify() 호출까지 대기</li>
+<li>notify()호출 시 무작위 Thread 재시작</li>
+<li>notifyAll() 호출시 모든 wait 쓰레드 재시작, 자원이 부족하면 자원을 받지못한 쓰레드 다시 wait</li>
+</ul>
+<h3 id="JDBC"><a href="#JDBC" class="headerlink" title="JDBC"></a>JDBC</h3><ul>
+<li><p>JDBC API의 인터페이스만 수정되지 않으면 프로그램을 수정하지 않아도 사용이 가능하다 —&gt; DB가 변경되어도 JDBC 드라이버만 교체하면 프로그램 수정 없이 가능</p>
+</li>
+<li><p>객체 로딩 - 커넥션 연결 - Statement 생성 - SQL 전송 - 연결 해제</p>
+</li>
+<li><p>jdbcutil</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.sql.Connection;</span><br><span class="line"><span class="keyword">import</span> java.sql.DriverManager;</span><br><span class="line"><span class="keyword">import</span> java.sql.PreparedStatement;</span><br><span class="line"><span class="keyword">import</span> java.sql.ResultSet;</span><br><span class="line"><span class="keyword">import</span> java.sql.SQLException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JDBCUtil</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> Connection <span class="title function_">getConnection</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="type">Connection</span> <span class="variable">conn</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			DriverManager.registerDriver(<span class="keyword">new</span> <span class="title class_">org</span>.h2.Driver());</span><br><span class="line"></span><br><span class="line">			<span class="type">String</span> <span class="variable">jdbcUrl</span> <span class="operator">=</span> <span class="string">&quot;jdbc:h2:tcp://localhost/~/test&quot;</span>;</span><br><span class="line">			conn = DriverManager.getConnection(jdbcUrl, <span class="string">&quot;sa&quot;</span>, <span class="string">&quot;&quot;</span>);	</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> conn;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">close</span><span class="params">(PreparedStatement stmt, Connection conn)</span> &#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			stmt.close();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			conn.close();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">close</span><span class="params">(ResultSet rs, PreparedStatement stmt, Connection conn)</span> &#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			rs.close();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			stmt.close();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			conn.close();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>insert (InsertTest2 는 필수적인 코드만 작성된것)</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">InsertTest</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		</span><br><span class="line">		<span class="type">Connection</span> <span class="variable">conn</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">		<span class="type">PreparedStatement</span> <span class="variable">stmt</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			<span class="comment">/*</span></span><br><span class="line"><span class="comment">			// JDBC 1단계 : 드라이버 객체 로딩</span></span><br><span class="line"><span class="comment">			DriverManager.registerDriver(new org.h2.Driver());</span></span><br><span class="line"><span class="comment">			</span></span><br><span class="line"><span class="comment">			// JDBC 2단계 : 커넥션 (고속도로) 연결</span></span><br><span class="line"><span class="comment">			String jdbcUrl = &quot;jdbc:h2:tcp://localhost/~/test&quot;;</span></span><br><span class="line"><span class="comment">			conn = DriverManager.getConnection(jdbcUrl, &quot;sa&quot;, &quot;&quot;);	</span></span><br><span class="line"><span class="comment">			*/</span></span><br><span class="line">			conn = JDBCUtil.getConnection();</span><br><span class="line">			<span class="comment">// JDBC 3단계 : Statement 생성</span></span><br><span class="line">			<span class="comment">// value를 ?로 하면 성능향상에 매우 큰 도움</span></span><br><span class="line">			<span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;insert into student values(?, ?, ?, ?)&quot;</span>;</span><br><span class="line">			stmt = conn.prepareStatement(sql);</span><br><span class="line">			</span><br><span class="line">			<span class="comment">// JDBC 4단계 : SQL 전송</span></span><br><span class="line">			<span class="comment">// ? 값 설정</span></span><br><span class="line">			stmt.setString(<span class="number">1</span>, <span class="string">&quot;STD-00005&quot;</span>);</span><br><span class="line">			stmt.setString(<span class="number">2</span>, <span class="string">&quot;외계인1&quot;</span>);</span><br><span class="line">			stmt.setInt(<span class="number">3</span>, <span class="number">88</span>);</span><br><span class="line">			stmt.setString(<span class="number">4</span>, <span class="string">&quot;우주항공 공학&quot;</span>);</span><br><span class="line">			</span><br><span class="line">			<span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> stmt.executeUpdate();</span><br><span class="line">			System.out.println(count + <span class="string">&quot;건 데이터 처리 성공!&quot;</span>);</span><br><span class="line"></span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			<span class="comment">// 어느 클래스의 어느 메소드에서 예외 발생한지 추적해서 그 위치 콘솔에 출력</span></span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">			<span class="comment">// JDBC 5단계 : 연결 해제</span></span><br><span class="line">			<span class="comment">// finally 에서는 try 문에서 선언된 변수들 접근 불가능</span></span><br><span class="line">			<span class="comment">// 그래서 처음에 conn, stmt변수를 try구문 밖에 선언.</span></span><br><span class="line">			<span class="comment">/*</span></span><br><span class="line"><span class="comment">			try &#123;</span></span><br><span class="line"><span class="comment">				stmt.close();</span></span><br><span class="line"><span class="comment">			&#125; catch (SQLException e) &#123;</span></span><br><span class="line"><span class="comment">				e.printStackTrace();</span></span><br><span class="line"><span class="comment">			&#125;</span></span><br><span class="line"><span class="comment">			try &#123;</span></span><br><span class="line"><span class="comment">				conn.close();</span></span><br><span class="line"><span class="comment">			&#125; catch (SQLException e) &#123;</span></span><br><span class="line"><span class="comment">				e.printStackTrace();</span></span><br><span class="line"><span class="comment">			&#125;</span></span><br><span class="line"><span class="comment">			*/</span></span><br><span class="line">			JDBCUtil.close(stmt, conn);</span><br><span class="line">			System.out.println(<span class="string">&quot;Exit&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">InsertTest2</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception&#123;</span><br><span class="line"></span><br><span class="line">			DriverManager.registerDriver(<span class="keyword">new</span> <span class="title class_">org</span>.h2.Driver());</span><br><span class="line">			</span><br><span class="line">			<span class="type">String</span> <span class="variable">jdbcUrl</span> <span class="operator">=</span> <span class="string">&quot;jdbc:h2:tcp://localhost/~/test&quot;</span>;</span><br><span class="line">			<span class="type">Connection</span> <span class="variable">conn</span> <span class="operator">=</span> </span><br><span class="line">					DriverManager.getConnection(jdbcUrl, <span class="string">&quot;sa&quot;</span>, <span class="string">&quot;&quot;</span>);	</span><br><span class="line">			<span class="type">PreparedStatement</span> <span class="variable">stmt</span> <span class="operator">=</span> </span><br><span class="line">					conn.prepareStatement(<span class="string">&quot;insert into student(student_no, name, score, major) &quot;</span></span><br><span class="line">							+ <span class="string">&quot;values(&#x27;STD-00002&#x27;, &#x27;fads&#x27;, 13, &#x27;afsd&#x27;)&quot;</span>);</span><br><span class="line">			stmt.executeUpdate();</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>delete</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DeleteTest</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		</span><br><span class="line">		<span class="type">Connection</span> <span class="variable">conn</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">		<span class="type">PreparedStatement</span> <span class="variable">stmt</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			conn = JDBCUtil.getConnection();</span><br><span class="line">			</span><br><span class="line">			<span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;delete student where student_no=?&quot;</span>;</span><br><span class="line">			stmt = conn.prepareStatement(sql);</span><br><span class="line"></span><br><span class="line">			stmt.setString(<span class="number">1</span>, <span class="string">&quot;STD-00005&quot;</span>);</span><br><span class="line">			</span><br><span class="line">			<span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> stmt.executeUpdate();</span><br><span class="line">			System.out.println(count + <span class="string">&quot;건 데이터 처리 성공!&quot;</span>);</span><br><span class="line"></span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">			JDBCUtil.close(stmt, conn);</span><br><span class="line">			System.out.println(<span class="string">&quot;Exit&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>update</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UpdateTest</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		</span><br><span class="line">		<span class="type">Connection</span> <span class="variable">conn</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">		<span class="type">PreparedStatement</span> <span class="variable">stmt</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			conn = JDBCUtil.getConnection();</span><br><span class="line">			</span><br><span class="line">			<span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;update student set score=?, major=? where student_no=?&quot;</span>;</span><br><span class="line">			stmt = conn.prepareStatement(sql);</span><br><span class="line"></span><br><span class="line">			stmt.setInt(<span class="number">1</span>, <span class="number">99</span>);</span><br><span class="line">			stmt.setString(<span class="number">2</span>, <span class="string">&quot;무역학과&quot;</span>);</span><br><span class="line">			stmt.setString(<span class="number">3</span>, <span class="string">&quot;STD-00005&quot;</span>);</span><br><span class="line">			</span><br><span class="line">			<span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> stmt.executeUpdate();</span><br><span class="line">			System.out.println(count + <span class="string">&quot;건 데이터 처리 성공!&quot;</span>);</span><br><span class="line"></span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">			JDBCUtil.close(stmt, conn);</span><br><span class="line">			System.out.println(<span class="string">&quot;Exit&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>select</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SelectTest</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		</span><br><span class="line">		<span class="type">Connection</span> <span class="variable">conn</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">		<span class="type">PreparedStatement</span> <span class="variable">stmt</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">		<span class="type">ResultSet</span> <span class="variable">rs</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			conn = JDBCUtil.getConnection();</span><br><span class="line">			</span><br><span class="line">			<span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;select * from student&quot;</span>;</span><br><span class="line">			stmt = conn.prepareStatement(sql);</span><br><span class="line">			</span><br><span class="line">			<span class="comment">//executeUpdate 는 insert, update, delete 전용</span></span><br><span class="line">			<span class="comment">//executeQuery는 select 전용</span></span><br><span class="line">			rs = stmt.executeQuery();</span><br><span class="line">			<span class="keyword">while</span> (rs.next()) &#123; <span class="comment">// ResultSet의 커서 한칸 밑으로 내림.</span></span><br><span class="line">				System.out.print(rs.getString(<span class="string">&quot;student_no&quot;</span>) + <span class="string">&quot; : &quot;</span>);</span><br><span class="line">				System.out.print(rs.getString(<span class="string">&quot;name&quot;</span>) + <span class="string">&quot; : &quot;</span>);</span><br><span class="line">				System.out.print(rs.getInt(<span class="string">&quot;score&quot;</span>) + <span class="string">&quot; : &quot;</span>);</span><br><span class="line">				System.out.println(rs.getString(<span class="string">&quot;major&quot;</span>) + <span class="string">&quot; : &quot;</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">			JDBCUtil.close(rs, stmt, conn);</span><br><span class="line">			System.out.println(<span class="string">&quot;Exit&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="DAO-Data-Access-Object"><a href="#DAO-Data-Access-Object" class="headerlink" title="DAO (Data Access Object)"></a>DAO (Data Access Object)</h3><ul>
+<li><p>table당 하나씩 만드는것이 원칙</p>
+</li>
+<li><p>StudentDAO</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StudentDAO</span> &#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="type">Connection</span> <span class="variable">conn</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="type">PreparedStatement</span> <span class="variable">stmt</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="type">ResultSet</span> <span class="variable">rs</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">STUDENT_LIST</span> <span class="operator">=</span> <span class="string">&quot;select student_no, name, score, major from student&quot;</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">STUDENT_INSERT</span> <span class="operator">=</span> <span class="string">&quot;insert into student values(?, ?, ?, ?)&quot;</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">STUDENT_UPDATE</span> <span class="operator">=</span> <span class="string">&quot;update student set score = ?, major = ? where student_no = ?&quot;</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">STUDENT_DELETE</span> <span class="operator">=</span> <span class="string">&quot;delete student where student_no = ?&quot;</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 학생 삭제</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">deleteStudent</span><span class="params">(String studentNo)</span> &#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			conn = JDBCUtil.getConnection();</span><br><span class="line">			stmt = conn.prepareStatement(STUDENT_DELETE);</span><br><span class="line">			stmt.setString(<span class="number">1</span>, studentNo);</span><br><span class="line">			stmt.executeUpdate();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">			JDBCUtil.close(stmt, conn);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 학생 수정</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">updateStudent</span><span class="params">(<span class="type">int</span> score, String major, String studentNo)</span> &#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			conn = JDBCUtil.getConnection();</span><br><span class="line">			stmt = conn.prepareStatement(STUDENT_UPDATE);</span><br><span class="line">			stmt.setInt(<span class="number">1</span>, score);</span><br><span class="line">			stmt.setString(<span class="number">2</span>, major);</span><br><span class="line">			stmt.setString(<span class="number">3</span>, studentNo);</span><br><span class="line">			stmt.executeUpdate();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">			JDBCUtil.close(stmt, conn);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 학생 등록</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">insertStudent</span><span class="params">(String studentNo, String name, <span class="type">int</span> score, String major)</span> &#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			conn = JDBCUtil.getConnection();</span><br><span class="line">			stmt = conn.prepareStatement(STUDENT_INSERT);</span><br><span class="line">			stmt.setString(<span class="number">1</span>, studentNo);</span><br><span class="line">			stmt.setString(<span class="number">2</span>, name);</span><br><span class="line">			stmt.setInt(<span class="number">3</span>, score);</span><br><span class="line">			stmt.setString(<span class="number">4</span>, major);</span><br><span class="line">			stmt.executeUpdate();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">			JDBCUtil.close(stmt, conn);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 학생 목록 조회</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">getStudentList</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			conn = JDBCUtil.getConnection();</span><br><span class="line">			stmt = conn.prepareStatement(STUDENT_LIST);</span><br><span class="line">			rs = stmt.executeQuery();</span><br><span class="line">			System.out.println(<span class="string">&quot;[ STUDENT 목록 ]&quot;</span>);</span><br><span class="line">			<span class="keyword">while</span>(rs.next()) &#123;</span><br><span class="line">				System.out.print(rs.getString(<span class="string">&quot;STUDENT_NO&quot;</span>) + <span class="string">&quot; : &quot;</span>);</span><br><span class="line">				System.out.print(rs.getString(<span class="string">&quot;NAME&quot;</span>) + <span class="string">&quot; : &quot;</span>);</span><br><span class="line">				System.out.print(rs.getInt(<span class="string">&quot;SCORE&quot;</span>) + <span class="string">&quot; : &quot;</span>);</span><br><span class="line">				System.out.println(rs.getString(<span class="string">&quot;MAJOR&quot;</span>));</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">			JDBCUtil.close(rs, stmt, conn);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>main</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">main() &#123;</span><br><span class="line">	<span class="type">StudentDAO</span> <span class="variable">dao</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StudentDAO</span>();</span><br><span class="line">	dao.deleteStudent(<span class="string">&quot;STD-000013&quot;</span>);</span><br><span class="line">	dao.getStudentList();</span><br><span class="line"></span><br><span class="line">	dao.updateStudent(<span class="number">81</span>, <span class="string">&quot;통계학&quot;</span>, <span class="string">&quot;STD-000013&quot;</span>);</span><br><span class="line">	dao.getStudentList();</span><br><span class="line"></span><br><span class="line">	dao.insertStudent(<span class="string">&quot;STD-000013&quot;</span>, <span class="string">&quot;외계인3&quot;</span>, <span class="number">0</span>, <span class="string">&quot;생명 공학&quot;</span>);</span><br><span class="line">	dao.getStudentList();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="VO-Value-Object-패턴-적용"><a href="#VO-Value-Object-패턴-적용" class="headerlink" title="VO (Value Object) 패턴 적용"></a>VO (Value Object) 패턴 적용</h3><ul>
+<li><p>StudentVO</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StudentVO</span> &#123;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// private 멤버변수 선언</span></span><br><span class="line">	<span class="keyword">private</span> String studentNo;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="keyword">private</span> <span class="type">int</span> score; </span><br><span class="line">	<span class="keyword">private</span> String major;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>StudentDAO</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StudentDAO</span> &#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="type">Connection</span> <span class="variable">conn</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="type">PreparedStatement</span> <span class="variable">stmt</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="type">ResultSet</span> <span class="variable">rs</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">STUDENT_LIST</span> <span class="operator">=</span> <span class="string">&quot;select student_no, name, score, major from student&quot;</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">STUDENT_INSERT</span> <span class="operator">=</span> <span class="string">&quot;insert into student values(?, ?, ?, ?)&quot;</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">STUDENT_UPDATE</span> <span class="operator">=</span> <span class="string">&quot;update student set score = ?, major = ? where student_no = ?&quot;</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">STUDENT_DELETE</span> <span class="operator">=</span> <span class="string">&quot;delete student where student_no = ?&quot;</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 학생 삭제</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">deleteStudent</span><span class="params">(String studentNo)</span> &#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			conn = JDBCUtil.getConnection();</span><br><span class="line">			stmt = conn.prepareStatement(STUDENT_DELETE);</span><br><span class="line">			stmt.setString(<span class="number">1</span>, studentNo);</span><br><span class="line">			stmt.executeUpdate();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">			JDBCUtil.close(stmt, conn);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 학생 수정</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">updateStudent</span><span class="params">(StudentVO vo)</span> &#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			conn = JDBCUtil.getConnection();</span><br><span class="line">			stmt = conn.prepareStatement(STUDENT_UPDATE);</span><br><span class="line">			stmt.setInt(<span class="number">1</span>, vo.getScore());</span><br><span class="line">			stmt.setString(<span class="number">2</span>, vo.getMajor());</span><br><span class="line">			stmt.setString(<span class="number">3</span>, vo.getStudentNo());</span><br><span class="line">			stmt.executeUpdate();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">			JDBCUtil.close(stmt, conn);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 학생 등록</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">insertStudent</span><span class="params">(StudentVO vo)</span> &#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			conn = JDBCUtil.getConnection();</span><br><span class="line">			stmt = conn.prepareStatement(STUDENT_INSERT);</span><br><span class="line">			stmt.setString(<span class="number">1</span>, vo.getStudentNo());</span><br><span class="line">			stmt.setString(<span class="number">2</span>, vo.getName());</span><br><span class="line">			stmt.setInt(<span class="number">3</span>, vo.getScore());</span><br><span class="line">			stmt.setString(<span class="number">4</span>, vo.getMajor());</span><br><span class="line">			stmt.executeUpdate();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">			JDBCUtil.close(stmt, conn);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 학생 목록 조회</span></span><br><span class="line">	<span class="keyword">public</span> List&lt;StudentVO&gt; <span class="title function_">getStudentList</span><span class="params">()</span> &#123;</span><br><span class="line">	List&lt;StudentVO&gt; studentList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;StudentVO&gt;();</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			conn = JDBCUtil.getConnection();</span><br><span class="line">			stmt = conn.prepareStatement(STUDENT_LIST);</span><br><span class="line">			rs = stmt.executeQuery();</span><br><span class="line">			<span class="keyword">while</span>(rs.next()) &#123;</span><br><span class="line">				<span class="type">StudentVO</span> <span class="variable">student</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StudentVO</span>();</span><br><span class="line">				student.setStudentNo(rs.getString(<span class="string">&quot;STUDENT_NO&quot;</span>));</span><br><span class="line">				student.setName(rs.getString(<span class="string">&quot;NAME&quot;</span>));</span><br><span class="line">				student.setScore(rs.getInt(<span class="string">&quot;SCORE&quot;</span>));</span><br><span class="line">				student.setMajor(rs.getString(<span class="string">&quot;MAJOR&quot;</span>));</span><br><span class="line">				studentList.add(student);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">			JDBCUtil.close(rs, stmt, conn);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> studentList;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>main</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">main() &#123;</span><br><span class="line">	<span class="type">StudentDAO</span> <span class="variable">dao</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StudentDAO</span>();</span><br><span class="line">	<span class="type">StudentVO</span> <span class="variable">vo</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StudentVO</span>();</span><br><span class="line">	List&lt;StudentVO&gt; studentList = dao.getStudentList();</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 조회</span></span><br><span class="line">	<span class="comment">// CASE-1</span></span><br><span class="line">	System.out.println(<span class="string">&quot;전체 학생의 수 : &quot;</span> + studentList.size());</span><br><span class="line">		</span><br><span class="line">	<span class="comment">// CASE-2</span></span><br><span class="line">	System.out.println(<span class="string">&quot;[ 학생의 점수 ]&quot;</span>);</span><br><span class="line">	<span class="keyword">for</span> (StudentVO student : studentList) &#123;</span><br><span class="line">		System.out.println(student.getName() + <span class="string">&quot;의 점수 : &quot;</span> + </span><br><span class="line">		student.getScore() + <span class="string">&quot;점&quot;</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//update</span></span><br><span class="line">	vo.setMajor(<span class="string">&quot;심리학&quot;</span>);</span><br><span class="line">	vo.setScore(<span class="number">0</span>);</span><br><span class="line">	vo.setStudentNo(<span class="string">&quot;STD-000014&quot;</span>);</span><br><span class="line">	dao.updateStudent(vo);</span><br><span class="line">	dao.getStudentList();</span><br><span class="line"></span><br><span class="line">	<span class="comment">//insert</span></span><br><span class="line">	vo.setName(<span class="string">&quot;외계인3&quot;</span>);</span><br><span class="line">	vo.setMajor(<span class="string">&quot;생명 공학&quot;</span>);</span><br><span class="line">	vo.setScore(<span class="number">20</span>);</span><br><span class="line">	vo.setStudentNo(<span class="string">&quot;STD-000014&quot;</span>);</span><br><span class="line">	dao.insertStudent(vo);</span><br><span class="line">	dao.getStudentList();	</span><br><span class="line"></span><br><span class="line">	<span class="comment">//delete</span></span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://my4831218.github.io/2022/04/20/Database/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="my4831218">
+      <meta itemprop="description" content="Everything I learned today, including coding test study, exercise record, etc.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Skang's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/20/Database/" class="post-title-link" itemprop="url">Database</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-04-20 22:02:03 / Modified: 22:03:19" itemprop="dateCreated datePublished" datetime="2022-04-20T22:02:03+09:00">2022-04-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Database/" itemprop="url" rel="index"><span itemprop="name">Database</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Database"><a href="#Database" class="headerlink" title="Database"></a>Database</h2><ul>
+<li>SELECT * FROM TABLE 테이블 확인</li>
+</ul>
+<h3 id="DML-Data-Manipulation-Language"><a href="#DML-Data-Manipulation-Language" class="headerlink" title="DML (Data Manipulation Language)"></a>DML (<strong>Data Manipulation Language)</strong></h3><ul>
+<li>INSERT<ul>
+<li>데이터베이스에 데이터 입력</li>
+<li><code>INSERT INTO tableName(columnList) VALUES(valueList);</code></li>
+<li>ex. INSERT INTO STUDENT VALUES(’STD-002’, ‘이름’, ‘54’, ‘전공’);</li>
+</ul>
+</li>
+<li>UPDATA<ul>
+<li>데이터베이스에 저장된 데이터 수정</li>
+<li><code>UPDATE TableName SET columnName = &#39;values&#39;</code> (, 로 한번에 여러개 수정 가능)</li>
+</ul>
+</li>
+<li>DELETE<ul>
+<li>데이터 베이스에 데이터 삭제</li>
+<li><code>DELETE TableName WHERE columnName = &#39;value&#39;</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="DQL-Data-Query-Language"><a href="#DQL-Data-Query-Language" class="headerlink" title="DQL(Data Query Language)"></a><strong>DQL(Data Query Language)</strong></h3><ul>
+<li><p>처리 순서 select - from - where - group by - having - order by</p>
+</li>
+<li><p>SELECT (출력될 테이블 목록들이라 생각)</p>
+<ul>
+<li>WHERE<ul>
+<li>비교 : &#x3D;, &lt;&gt;, &lt;, &lt;&#x3D;, &gt;, ≥</li>
+<li>범위 : BETWEEN</li>
+<li>집합 : IN, NOT IN</li>
+<li>패턴 : LIKE</li>
+<li>NULL : IS NULL, IS NOT NULL</li>
+<li>복합조건 : AND, OR, NOT</li>
+</ul>
+</li>
+<li>ORDER BY<ul>
+<li>정렬, 숫자, 날짜, 문자, NULL 등등으로 정렬</li>
+<li><code>SELECT * FROM table ORDER BY column1 DESC, column2 AS;</code> column1 은 내림차순, 2는 오름차순 정렬</li>
+</ul>
+</li>
+<li>산술식 검색<ul>
+<li><code>select 컬럼1, 컬럼2/1000 from table</code> 컬럼2를 1000으로 나눈 테이블 보여줌</li>
+</ul>
+</li>
+<li>AS<ul>
+<li><code>SELECT 콜럼, SUN AS 임시컬럼이름 from</code> 임시 컬럼이름으로 결과 테이블 출력</li>
+</ul>
+</li>
+<li>GROUB BY<ul>
+<li><code>select 컬럼 from 테이블 group by 컬럼 having count (*) ≥ 3;</code> 컬럼에 3개이상 있는 목록 출력</li>
+</ul>
+</li>
+</ul>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT columnName, , </span><br><span class="line">FROM tableName</span><br><span class="line">WHERE 조건</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>JOIN</p>
+<ul>
+<li><p>INNER JOIN</p>
+<ul>
+<li>교집합 개념 기존 테이블과 join 테이블의 중복값 보여줌</li>
+<li>기준 테이블, 조인 테이블의 조인 컬럼의 값이 모두 존재하는 경우에만 데이터 조회</li>
+<li>SELECT 컬럼이름 FROM 기준테이블 INNER JOIN 조인테이블 ON 기준테이블</li>
+<li>ex. <code>SELECT A.NAME, A.HEIGHT, A.WEIGHT, B.성별  FROM A INNER JOIN B ON A.WEIGHT = B.WEIGHT</code> 명령하면 다음과 같이 출력, test2 는 NULL이 있어 출력 X</li>
+</ul>
+</li>
+<li><p>OUTER JOIN</p>
+<ul>
+<li>LEFT, RIGHT 등은 기준 테이블을 지정, join 테이블의 데이터가 없어도 기준 테이블의 모든 데이터 조회, 조인 테이블에 데이터가 존재하면 해당 데이터 참조 가능</li>
+<li>ex. <code>SELECT A.NAME, A.HEIGHT, A.WEIGHT, B.성별  FROM A LEFT JOIN B ON A.WEIGHT = B.WEIGHT</code></li>
+</ul>
+</li>
+</ul>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT &lt;속성들&gt; <span class="comment">// INNER 대체로 LEFT, RIGHT, FULL, OUTER 등이 있다</span></span><br><span class="line">FROM 테이블<span class="number">1</span> INNER JOIN 에티블<span class="number">2</span> ON &lt;조인조건&gt;</span><br><span class="line">WHERE &lt;검색조건&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://my4831218.github.io/2022/04/19/Java/Java-day10/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1335,252 +1625,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://my4831218.github.io/2022/04/08/Data-structures-day2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="my4831218">
-      <meta itemprop="description" content="Everything I learned today, including coding test study, exercise record, etc.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Skang's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/04/08/Data-structures-day2/" class="post-title-link" itemprop="url">Data-structures-day2</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-04-08 21:53:00 / Modified: 22:18:33" itemprop="dateCreated datePublished" datetime="2022-04-08T21:53:00+09:00">2022-04-08</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Data-structures/" itemprop="url" rel="index"><span itemprop="name">Data-structures</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Linked-List"><a href="#Linked-List" class="headerlink" title="Linked List"></a>Linked List</h1><h3 id="노드-삽입"><a href="#노드-삽입" class="headerlink" title="노드 삽입"></a>노드 삽입</h3><ul>
-<li>삽입할 위치 search (노드1찾기)</li>
-<li>새로운 노드2 생성</li>
-<li>노드2의 포인터에 노드3 주소 저장</li>
-<li>노드1의 포인터에 노드2 주소 저장<br><img src="/./img/insert.png" alt="Insert Node"><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">def insert(self, data, search_data):</span><br><span class="line">        if self.head == None:</span><br><span class="line">            print(&quot;노드가 없습니다&quot;)</span><br><span class="line">            return</span><br><span class="line"></span><br><span class="line">        if self.head.data == search_data: # 1</span><br><span class="line">            temp = head</span><br><span class="line">            node = head # 2</span><br><span class="line">            node.data = data # 2</span><br><span class="line">            node.next = temp # 3</span><br><span class="line"></span><br><span class="line">        else:</span><br><span class="line">            node = self.head</span><br><span class="line">            while node.next: # 1</span><br><span class="line">                if node.next.data = search_data: # 1</span><br><span class="line">                    new = Node(data) # 2</span><br><span class="line">                    new.next = node.next.next # 3</span><br><span class="line">                    node.next = new # 4</span><br><span class="line">		    return</span><br><span class="line">                else:</span><br><span class="line">                    node = node.next</span><br></pre></td></tr></table></figure></li>
-</ul>
-<hr>
-<h3 id="노드-삭제"><a href="#노드-삭제" class="headerlink" title="노드 삭제"></a>노드 삭제</h3><ul>
-<li>삭제할 위치를 search (노드2 찾기)</li>
-<li>index - 1 위치의 노드1 포인터에 노드3의 주소 저장</li>
-<li>노드2 삭제<br><img src="/./img/remove.png" alt="Delete Node"><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">def delete(self.data):</span><br><span class="line">        if self.head == &quot;:</span><br><span class="line">            print(&quot;해당 값을 가진 노드 없습니다&quot;)</span><br><span class="line">            return</span><br><span class="line"></span><br><span class="line">        if self.head.data == data: # 1</span><br><span class="line">            temp = self.head</span><br><span class="line">            self.head = self.head.next</span><br><span class="line">        else:</span><br><span class="line">            node = self.head</span><br><span class="line">            while node.next: # 1</span><br><span class="line">                if node.next.data = data:</span><br><span class="line">                    temp = node.next</span><br><span class="line">                    node.next = node.next.next # 2</span><br><span class="line">                    del temp # 3</span><br><span class="line">		    return</span><br><span class="line">		else:</span><br><span class="line">		    node = node.next</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="Double-Linked-List"><a href="#Double-Linked-List" class="headerlink" title="Double Linked List"></a>Double Linked List</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">def insert(self.data, search_data):</span><br><span class="line">        if self.head == None:</span><br><span class="line">            self.head = Node(data)</span><br><span class="line">            return True</span><br><span class="line">        else:</span><br><span class="line">            node = self.head</span><br><span class="line">            while node.data != search_data:</span><br><span class="line">                node = node.next</span><br><span class="line">                if node == None:</span><br><span class="line">                    return False</span><br><span class="line">            new = Node(data)</span><br><span class="line">            new.next = node.next</span><br><span class="line">            new.prev = node</span><br><span class="line">            node.next.prev = new</span><br><span class="line">            node.next = new</span><br><span class="line">            return True</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def delete(self.data, search_data):</span><br><span class="line">        if self.head == None:</span><br><span class="line">            print(&quot;노드가 존재하지 않습니다&quot;)</span><br><span class="line">            return False</span><br><span class="line">        else:</span><br><span class="line">            node = self.head</span><br><span class="line">            while node.data != search_data:</span><br><span class="line">                node = node.next</span><br><span class="line">                if node == None:</span><br><span class="line">                    return False</span><br><span class="line">            node.next.next.prev = node</span><br><span class="line">            node.next =  node.next.next</span><br><span class="line">            return True</span><br></pre></td></tr></table></figure>
-<hr>
-<h1 id="시간-복잡도"><a href="#시간-복잡도" class="headerlink" title="시간 복잡도"></a>시간 복잡도</h1><ul>
-<li>알고리즘 성능 평가는 두가지<ul>
-<li>시간 복잡도 : 실행 속도</li>
-<li>공간 복잡도 : 알고리즘 사용 메모리 크기</li>
-</ul>
-</li>
-<li>시간 복잡도 평가 방법<ul>
-<li>최선 실행 시간 : 최상의 경우실행시간</li>
-<li>평균 실행 시간 : 평균 실행 시간</li>
-<li>최악 실행 시간 : 가장 오래 걸리는 시간을 기준</li>
-</ul>
-</li>
-<li>최악 실행 시간을 사용 -&gt; Big O</li>
-</ul>
-<hr>
-<h1 id="Hash-Table"><a href="#Hash-Table" class="headerlink" title="Hash Table"></a>Hash Table</h1><ul>
-<li>Hash 란 임의 값을 고정 길이로 변환한것</li>
-<li>Key에 데이터(value)를 매핑할 수 있는 데이터 구조</li>
-<li>해쉬 함수를 통해 배열에 키에 대한 데이터를 저장할 수 있는 주소(index)를 계산</li>
-<li>key를 통해 바로 데이터가 저장된 주소(index)를 알 수 있어 저장 및 탐색 속도가 획기적으로 빠르다</li>
-<li>미리 해쉬 함수가 생성할 수 있는 주소에 대한 공간을 배열로 할당, 키에 따른 데이터 저장 및 탐색을 지원 (메모리 공간과 탐색 시간을 맞바꾸는 기법으로도 불림)</li>
-<li>Python에서는 별도 구현 X, 딕셔너리 타입 사용</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">def insert(self.data, search_data):</span><br><span class="line">        if self.head == None:</span><br><span class="line">            self.head = Node(data)</span><br><span class="line">            return True</span><br><span class="line">        else:</span><br><span class="line">            node = self.head</span><br><span class="line">            while node.data != search_data:</span><br><span class="line">                node = node.next</span><br><span class="line">                if node == None:</span><br><span class="line">                    return False</span><br><span class="line">            new = Node(data)</span><br><span class="line">            new.next = node.next</span><br><span class="line">            new.prev = node</span><br><span class="line">            node.next.prev = new</span><br><span class="line">            node.next = new</span><br><span class="line">            return True</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def delete(self.data, search_data):</span><br><span class="line">        if self.head == None:</span><br><span class="line">            print(&quot;노드가 존재하지 않습니다&quot;)</span><br><span class="line">            return False</span><br><span class="line">        else:</span><br><span class="line">            node = self.head</span><br><span class="line">            while node.data != search_data:</span><br><span class="line">                node = node.next</span><br><span class="line">                if node == None:</span><br><span class="line">                    return False</span><br><span class="line">            node.next.next.prev = node</span><br><span class="line">            node.next =  node.next.next</span><br><span class="line">            return True</span><br></pre></td></tr></table></figure>
-<h3 id="동작-방식"><a href="#동작-방식" class="headerlink" title="동작 방식"></a>동작 방식</h3><ol>
-<li>Key(1)를 Hash fucntion(2)에 입력하면 주소(index number) 출력</li>
-<li>출력된 주소(index number)를 (3)에서 찾아 필요한 데이터(4) 찾을 수 있다.<br><img src="/./img/Hash_table.png" alt="Hash Table 작동"></li>
-</ol>
-<h6 id="장점"><a href="#장점" class="headerlink" title="장점"></a>장점</h6><ul>
-<li>데이터 R &#x2F; W 속도가 빠르다</li>
-<li>해쉬는 키에 대한 데이터가 있는지 (중복) 확인이 쉽다</li>
-</ul>
-<h6 id="단점"><a href="#단점" class="headerlink" title="단점"></a>단점</h6><ul>
-<li>일반적으로 저장공간이 기존보다 더 많이 필요하다</li>
-<li>여러 키에 해당하는 주소가 동일할 경우 충돌을 해결하기 위한 별도의 자료구조가 필요하다</li>
-</ul>
-<h6 id="사용"><a href="#사용" class="headerlink" title="사용"></a>사용</h6><ul>
-<li>검색이 많이 필요할 때</li>
-<li>저장, 삭제, 읽기가 자주 쓰일 때</li>
-<li>캐쉬 구현시 (중복 확인이 쉬워서)</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://my4831218.github.io/2022/04/08/Data-structures-day1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="my4831218">
-      <meta itemprop="description" content="Everything I learned today, including coding test study, exercise record, etc.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Skang's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/04/08/Data-structures-day1/" class="post-title-link" itemprop="url">Data-structures-day1</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-04-08 14:07:33 / Modified: 14:18:44" itemprop="dateCreated datePublished" datetime="2022-04-08T14:07:33+09:00">2022-04-08</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Data-structures/" itemprop="url" rel="index"><span itemprop="name">Data-structures</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="Queue"><a href="#Queue" class="headerlink" title="Queue"></a>Queue</h3><ul>
-<li>줄을 서는 행위같은 개념을 추상화한 데이터 구조</li>
-<li>가장 먼저 넣은 데이터를 제일 먼저 처리하는 구조 (FIFO)</li>
-<li>사용되는 메소드<ul>
-<li>Enqueue : 큐에 데이터 입력</li>
-<li>Dequeue : 큐에 데이터 제거</li>
-</ul>
-</li>
-<li>Python 에서 Queue 기능을 제공하는 메소드를 사용하여 큐 구현 가능 (import queue)</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># 제공되는 메소드를 사용한 큐 구현</span><br><span class="line">impotr queue</span><br><span class="line">data_queue = queue.Queue()</span><br><span class="line"></span><br><span class="line">data_queue.put(&quot;funcoding&quot;)</span><br><span class="line">data_queue.put(1)</span><br><span class="line">data_queue.size() # print 2</span><br><span class="line">data_queue.get() # print &#x27;funcoding&#x27;</span><br><span class="line">data_queue.qsize() # print 0</span><br><span class="line">data_queue.get() # print 1</span><br><span class="line"></span><br><span class="line"># 우선순위 큐 생성</span><br><span class="line">data_pqueue = queue.PriorityQueue()</span><br><span class="line"></span><br><span class="line">data_queue.put((n, data)) # n은 우선순위</span><br><span class="line">data_queue.put((n, data)) # 3개중 가장 우선순위가 낮은것부터</span><br><span class="line">data_queue.put((n, data)) # queue에 처리</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 제공되는 메소드 없이 직접 구현한 큐</span><br><span class="line">queue_list = list()</span><br><span class="line"></span><br><span class="line">def enqueue(data):</span><br><span class="line">	queue_list.append(data)</span><br><span class="line">def dequeue():</span><br><span class="line">	data = queue_list[0]</span><br><span class="line">	del queue_list[0]</span><br><span class="line"></span><br><span class="line">	return data</span><br></pre></td></tr></table></figure>
-<hr>
-<h3 id="Stack"><a href="#Stack" class="headerlink" title="Stack"></a>Stack</h3><ul>
-<li>마지막에 들어온 데이터를 제일 먼저 처리하는 추상적인 데이터 구조</li>
-<li>사용되는 메소드<ul>
-<li>push : 스택에 데이터 입력</li>
-<li>pop : 스택에 데이터 제거</li>
-</ul>
-</li>
-<li>장점<ul>
-<li>구조가 단순해서 구현이 쉽고 데이터 R&#x2F;W 속도가 빠르다</li>
-</ul>
-</li>
-<li>단점<ul>
-<li>데이터 갯수를 미리 정해야 해서 메모리 낭비가 발생할 수 있다.</li>
-</ul>
-</li>
-<li>Python 에서 리스트 기능을 제공하는 메소드를 사용하여 스택을 구현할 수 있다. (append(push), pop) 메소드 제공</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 제공 메소드 사용 스택 구현</span><br><span class="line">data_stack = list()</span><br><span class="line">data_stack.append(1)</span><br><span class="line">data_stack.append(2)</span><br><span class="line"></span><br><span class="line">data_stack # [1, 2] print</span><br><span class="line"></span><br><span class="line">data_stack.pop() # 2 print</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 제공 메소드 없이 직접 스택 구현</span><br><span class="line">stack_list = list()</span><br><span class="line"></span><br><span class="line">def push(data):</span><br><span class="line">	stack_list.append(data)</span><br><span class="line">def pop():</span><br><span class="line">	data = stack_list[-1]</span><br><span class="line">	del stack_list[-1]</span><br><span class="line">	return data</span><br></pre></td></tr></table></figure>
-<hr>
-<h3 id="Linked-List"><a href="#Linked-List" class="headerlink" title="Linked List"></a>Linked List</h3><ul>
-<li>원소와 다음 원소의 메모리 주소를 가르키는 포인터로 이루어진 데이터 구조</li>
-<li>처음을 의미하는 head, 마지막을 의미하는 tail이 있을수 있다.</li>
-<li>장점<ul>
-<li>미리 메모리 공간을 할당하지 않아도 됨</li>
-</ul>
-</li>
-<li>단점<ul>
-<li>원소 외에 포인터를 가지기 때문에 저장공간 효율이 높지 않다</li>
-<li>특정 정보를 찾을 때 속도가 느리다</li>
-<li>중간 데이터를 삭제하면 앞 뒤 연결을 재구성해야 하는 부가적 작업 필요</li>
-</ul>
-</li>
-<li>사용자 수가 20만명으로 예상되는 웹 페이지의 회원 정보를 배열로 관리할 때 25만개의 배열을 미리 할당해야 하는데 사용자가 10만명밖에 되지 않거나 25만명을 초과할 때 문제가 생길 수 있다, 하지만 Linked List를 사용하면 회원 한명이 가입할 때마다 노드를 하나씩 생성하므로 메모리를 정확하게 사용할 수 있다.</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># 메소드 사용하여 구현</span><br><span class="line">class Node:</span><br><span class="line">	def __init__(self, data):</span><br><span class="line">		self.data = data</span><br><span class="line">		self.next = None</span><br><span class="line"></span><br><span class="line"># def __init__(self, data, next=None):</span><br><span class="line">#			self.data = data</span><br><span class="line">#			self.next = next</span><br><span class="line"></span><br><span class="line">	def add(data):</span><br><span class="line">		node = head</span><br><span class="line">		# 마지막 노드 찾는 코드</span><br><span class="line">		while node.next:</span><br><span class="line">			node = node.next</span><br><span class="line">		node.next = Node(data)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"># 직접 구현</span><br><span class="line">class Node:</span><br><span class="line">	def __init__(self, data, next=None):</span><br><span class="line">		self.data = data</span><br><span class="line">		self.next = next</span><br><span class="line"></span><br><span class="line">class NodeMgmt:</span><br><span class="line">	def __init__(self, data):</span><br><span class="line">		self.head = Node(data)</span><br><span class="line"></span><br><span class="line">	def add(self, data):</span><br><span class="line">		if self.head ==&quot;:</span><br><span class="line">			self.head = Node(data)</span><br><span class="line">		else:</span><br><span class="line">			node = self.head</span><br><span class="line">			while node.next:</span><br><span class="line">				node = node.next</span><br><span class="line">			node.next = Node(data)</span><br><span class="line"></span><br><span class="line">	def desc(self):</span><br><span class="line">		node = self.head</span><br><span class="line">		while node:</span><br><span class="line">			print(node.data)</span><br><span class="line">			node = node.next</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1646,14 +1694,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-count">22</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
