@@ -1,6 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Algorithm-day1</title>
+    <url>/2022/04/21/Algorithm-day1/</url>
+    <content><![CDATA[<h2 id="LinkedList"><a href="#LinkedList" class="headerlink" title="LinkedList"></a>LinkedList</h2><ul>
+<li><p>알고리즘 문제</p>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// BJ-11728</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="comment">// input</span></span><br><span class="line">		<span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">		<span class="type">int</span> <span class="variable">N</span> <span class="operator">=</span> scanner.nextInt();</span><br><span class="line">		<span class="type">int</span> <span class="variable">M</span> <span class="operator">=</span> scanner.nextInt();</span><br><span class="line">		</span><br><span class="line">		List&lt;Integer&gt; A = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">			<span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> scanner.nextInt();</span><br><span class="line">			A.add(n);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		List&lt;Integer&gt; B = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">			<span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> scanner.nextInt();</span><br><span class="line">			B.add(n);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// logic</span></span><br><span class="line">		List&lt;Integer&gt; result = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">		</span><br><span class="line">		<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span> (i &lt; N &amp;&amp; j &lt; M) &#123;</span><br><span class="line">			<span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> A.get(i);</span><br><span class="line">			<span class="type">int</span> <span class="variable">b</span> <span class="operator">=</span> B.get(j);</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span> (a &lt;= b) &#123;</span><br><span class="line">				result.add(a);</span><br><span class="line">				i++;</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				result.add(b);</span><br><span class="line">				j++;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span> (; i &lt; N; i++) &#123;</span><br><span class="line">			result.add(A.get(i));</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span> (; i &lt; M; i++) &#123;</span><br><span class="line">			result.add(B.get(j));</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//Output</span></span><br><span class="line">		<span class="type">StringBuilder</span> <span class="variable">sb</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> e : result) &#123;</span><br><span class="line">			sb.append(e + <span class="string">&quot; &quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(sb.toString());</span><br><span class="line">			</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>이중연결리스트 indexOf, delete</p>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">indexOf</span><span class="params">(T t)</span> &#123;</span><br><span class="line">		<span class="type">Node</span> <span class="variable">f_curr</span> <span class="operator">=</span> <span class="built_in">this</span>.head.next;</span><br><span class="line">		<span class="type">Node</span> <span class="variable">e_curr</span> <span class="operator">=</span> <span class="built_in">this</span>.tail.prev;</span><br><span class="line">		<span class="type">int</span> <span class="variable">f_index</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">		<span class="type">int</span> <span class="variable">e_index</span> <span class="operator">=</span> <span class="built_in">this</span>.size - <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">while</span> (f_curr != <span class="literal">null</span> &amp;&amp; e_curr != <span class="literal">null</span>) &#123;</span><br><span class="line">			<span class="keyword">if</span> (t.equals(f_curr.data)) &#123;</span><br><span class="line">				<span class="keyword">return</span> f_index;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span> (t.equals(e_curr.data)) &#123;</span><br><span class="line">				<span class="keyword">return</span> e_index;</span><br><span class="line">			&#125;</span><br><span class="line">			f_curr = f_curr.next;</span><br><span class="line">			e_curr = e_curr.prev;</span><br><span class="line">			f_index++;</span><br><span class="line">			e_index--;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">delete</span><span class="params">(T t)</span> &#123;</span><br><span class="line">		<span class="type">Node</span> <span class="variable">f_prev</span> <span class="operator">=</span> <span class="built_in">this</span>.head;</span><br><span class="line">		<span class="type">Node</span> <span class="variable">f_curr</span> <span class="operator">=</span> f_prev.next;</span><br><span class="line">		<span class="type">Node</span> <span class="variable">e_next</span> <span class="operator">=</span> <span class="built_in">this</span>.tail;</span><br><span class="line">		<span class="type">Node</span> <span class="variable">e_curr</span> <span class="operator">=</span> e_next.prev;</span><br><span class="line">		<span class="keyword">while</span> (f_curr != <span class="literal">null</span> &amp;&amp; e_curr != <span class="literal">null</span>) &#123;</span><br><span class="line">			<span class="keyword">if</span> (f_curr.data.equals(t)) &#123;</span><br><span class="line">				f_prev.next = f_curr.next;</span><br><span class="line">				f_curr.next.prev = f_prev;</span><br><span class="line">				f_curr.next = <span class="literal">null</span>;</span><br><span class="line">				f_curr.prev = <span class="literal">null</span>;</span><br><span class="line">				<span class="built_in">this</span>.size--;</span><br><span class="line">				<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span> (e_curr.data.equals(t)) &#123;</span><br><span class="line">				e_curr.prev.next = e_next;</span><br><span class="line">				e_next.prev = e_curr.prev;</span><br><span class="line">				e_curr.next = <span class="literal">null</span>;</span><br><span class="line">				e_curr.prev = <span class="literal">null</span>;</span><br><span class="line">				<span class="built_in">this</span>.size--;</span><br><span class="line">				<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			f_prev = f_prev.next;</span><br><span class="line">			f_curr = f_curr.next;</span><br><span class="line">			e_next = e_next.prev;</span><br><span class="line">			e_curr = e_curr.prev;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Stack"><a href="#Stack" class="headerlink" title="Stack"></a>Stack</h3><ul>
+<li><p>알고리즘 문제</p>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// BJ-9012</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">foo</span><span class="params">(String s)</span> &#123;</span><br><span class="line">		Stack&lt;Character&gt; stack = <span class="keyword">new</span> <span class="title class_">Stack</span>&lt;&gt;();</span><br><span class="line">		</span><br><span class="line">		<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span>(i &lt; s.length()) &#123;</span><br><span class="line">			<span class="type">char</span> <span class="variable">c</span> <span class="operator">=</span> s.charAt(i);</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span> (c == <span class="string">&#x27;(&#x27;</span>) &#123;</span><br><span class="line">				stack.push(c);</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="keyword">if</span> (stack.size() &lt; <span class="number">1</span>) &#123;</span><br><span class="line">					System.out.println(<span class="string">&quot;NO&quot;</span>);</span><br><span class="line">					<span class="keyword">return</span>;</span><br><span class="line">				&#125;</span><br><span class="line">				stack.pop();</span><br><span class="line">			&#125;</span><br><span class="line">			i++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (stack.size() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">			System.out.println(<span class="string">&quot;NO&quot;</span>);</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			System.out.println(<span class="string">&quot;Yes&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="comment">//input</span></span><br><span class="line">		<span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">		<span class="type">int</span> <span class="variable">T</span> <span class="operator">=</span> scanner.nextInt();</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; T; i++) &#123;</span><br><span class="line">			foo(scanner.next());</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Queue"><a href="#Queue" class="headerlink" title="Queue"></a>Queue</h3><ul>
+<li><p>알고리즘 문제</p>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// BJ-2164</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="comment">//input</span></span><br><span class="line">		<span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">		<span class="type">int</span> <span class="variable">N</span> <span class="operator">=</span> scanner.nextInt();</span><br><span class="line"></span><br><span class="line">		<span class="comment">//logic</span></span><br><span class="line">		Queue&lt;Integer&gt; queue = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; N ; i++) &#123;</span><br><span class="line">			queue.add(i + <span class="number">1</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">while</span> (queue.size() != <span class="number">1</span>) &#123;</span><br><span class="line">			<span class="type">int</span> <span class="variable">q</span> <span class="operator">=</span> queue.poll();</span><br><span class="line">			<span class="keyword">if</span> (count % <span class="number">2</span> == <span class="number">0</span>) &#123;</span><br><span class="line">				queue.offer(q);</span><br><span class="line">			&#125;</span><br><span class="line">			System.out.println(count + <span class="string">&quot; -&gt; &quot;</span> + queue);</span><br><span class="line">			count++;</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(queue.peek());</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h3><ul>
+<li><p>알고리즘 문제</p>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// BJ-1920</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">		<span class="type">int</span> <span class="variable">N</span> <span class="operator">=</span> scanner.nextInt();</span><br><span class="line">		</span><br><span class="line">		Set&lt;Integer&gt; A = <span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;();</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">			<span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> scanner.nextInt();</span><br><span class="line">			A.add(n);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="type">StringBuilder</span> <span class="variable">result</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">		</span><br><span class="line">		<span class="type">int</span> <span class="variable">M</span> <span class="operator">=</span> scanner.nextInt();</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; M; i++) &#123;</span><br><span class="line">			<span class="type">int</span> <span class="variable">m</span> <span class="operator">=</span> scanner.nextInt();</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span> (A.contains(m)) &#123;</span><br><span class="line">				result.append(<span class="number">1</span> + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				result.append(<span class="number">0</span> + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(result.toString());</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Sort"><a href="#Sort" class="headerlink" title="Sort"></a>Sort</h3><ul>
+<li><p>Bubble Sort</p>
+<ul>
+<li>N크기의 list를 N-1번 정렬</li>
+</ul>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; arr.length - <span class="number">1</span>; i++) &#123;</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; arr.length - <span class="number">1</span> - i; j++)&#123;</span><br><span class="line">				<span class="keyword">if</span> (arr[j] &gt; arr[j + <span class="number">1</span>]) &#123;</span><br><span class="line">					<span class="type">int</span> <span class="variable">tmp</span> <span class="operator">=</span> arr[j];</span><br><span class="line">					arr[j] = arr[j + <span class="number">1</span>];</span><br><span class="line">					arr[j + <span class="number">1</span>] = tmp;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Insertion Sort</p>
+<ul>
+<li>맨앞 sublist로 하고 2번째부터 sublist에 추가하면서 안의 값과 비교하여 자료 이동</li>
+</ul>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">			<span class="type">int</span> <span class="variable">key</span> <span class="operator">=</span> arr[i]; <span class="comment">// 삽입 위치 찾아줄 데이터</span></span><br><span class="line">			<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> i - <span class="number">1</span>; <span class="comment">// 정렬된 서브 리스트</span></span><br><span class="line">			<span class="keyword">while</span> (j &gt;= <span class="number">0</span> &amp;&amp; arr[j] &gt; key) &#123;</span><br><span class="line">				arr[j + <span class="number">1</span>] = arr[j];</span><br><span class="line">				j = j - <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			arr[j + <span class="number">1</span>] = key;</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Merge Sort</p>
+<ul>
+<li>list를 원소가 1이 될때까지 계속 분할, 그 후 분할된 list를 다시 원래크기 list가 될때까지  정렬하면서 두개씩 병합</li>
+</ul>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sort</span><span class="params">(<span class="type">int</span>[] arr)</span> &#123;</span><br><span class="line">		mergeSort(arr, <span class="number">0</span>, arr.length - <span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//분할</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">mergeSort</span><span class="params">(<span class="type">int</span>[] arr, <span class="type">int</span> low, <span class="type">int</span> high)</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (low &gt;= high) &#123;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="type">int</span> <span class="variable">mid</span> <span class="operator">=</span> low + ((high - low) / <span class="number">2</span>);</span><br><span class="line">		</span><br><span class="line">		mergeSort(arr, low, mid);</span><br><span class="line">		mergeSort(arr, mid + <span class="number">1</span>, high);</span><br><span class="line">		</span><br><span class="line">		merge(arr, low, mid, high);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//합치기</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">merge</span><span class="params">( <span class="type">int</span>[] arr, <span class="type">int</span> low, <span class="type">int</span> mid, <span class="type">int</span> high)</span> &#123;</span><br><span class="line">		<span class="type">int</span>[] temp = <span class="keyword">new</span> <span class="title class_">int</span>[high - low + <span class="number">1</span>];</span><br><span class="line">		<span class="type">int</span> <span class="variable">idx</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">		</span><br><span class="line">		<span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> low;</span><br><span class="line">		<span class="type">int</span> <span class="variable">right</span> <span class="operator">=</span> mid + <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">while</span> (left &lt;= mid &amp;&amp; right &lt;= high) &#123;</span><br><span class="line">			<span class="keyword">if</span> (arr[left] &lt;= arr[right]) &#123;</span><br><span class="line">				temp[idx] = arr[left];</span><br><span class="line">				left++;</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				temp[idx] = arr[right];</span><br><span class="line">				right++;</span><br><span class="line">			&#125;</span><br><span class="line">			idx++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">while</span> (left &lt;= mid) &#123;</span><br><span class="line">			temp[idx] = arr[left];</span><br><span class="line">			idx++;</span><br><span class="line">			left++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">while</span> (right &lt;= high) &#123;</span><br><span class="line">			temp[idx] = arr[right];</span><br><span class="line">			idx++;</span><br><span class="line">			right++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> low; i &lt;= high; i++) &#123;</span><br><span class="line">			arr[i] = temp[i - low];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Quick Sort</p>
+<ul>
+<li>pivot을 하나 정해서 pibot보다 작은값 왼쪽 큰값 오른쪽으로, pibot 왼쪽 오른쪽을 각각 sub list 로  만들고 pibot을 정해 작은값 왼쪽, 큰값 오른쪽</li>
+<li>pivot 값을 정하는 방법도 있다.<ul>
+<li>list 좌, 우, 중앙  3개 값을 뽑아 정렬, 그중 중간 값을 가장 좌측 or 우측으로 이동시켜 pivot으로 설정</li>
+</ul>
+</li>
+</ul>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sort</span><span class="params">(<span class="type">int</span>[] arr)</span> &#123;</span><br><span class="line">	quickSort(arr, <span class="number">0</span>, arr.length - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">quickSort</span><span class="params">(<span class="type">int</span>[] arr, <span class="type">int</span> low, <span class="type">int</span> high)</span> &#123;</span><br><span class="line">	<span class="keyword">if</span> (low &gt;= high) &#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">		</span><br><span class="line">	<span class="type">int</span> <span class="variable">pivot</span> <span class="operator">=</span> low + ((high - low) / <span class="number">2</span>);</span><br><span class="line">	<span class="type">int</span> <span class="variable">pivotValue</span> <span class="operator">=</span> arr[pivot];</span><br><span class="line">	</span><br><span class="line">	<span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> low;</span><br><span class="line">	<span class="type">int</span> <span class="variable">right</span> <span class="operator">=</span> high;</span><br><span class="line">	<span class="keyword">while</span> (left &lt;= right) &#123;</span><br><span class="line">		<span class="keyword">while</span> (arr[left] &lt; pivotValue) &#123;</span><br><span class="line">			left++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">while</span> (arr[right] &gt; pivotValue) &#123;</span><br><span class="line">			right--;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (left &lt;= right) &#123;</span><br><span class="line">			<span class="type">int</span> <span class="variable">tmp</span> <span class="operator">=</span> arr[right];</span><br><span class="line">			arr[right] = arr[left];</span><br><span class="line">			arr[left] = tmp;</span><br><span class="line">			left++;</span><br><span class="line">			right++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	quickSort(arr, low, right);</span><br><span class="line">	quickSort(arr, left, high);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java</category>
+        <category>Algorithm</category>
+      </categories>
+  </entry>
+  <entry>
     <title>Data-structures-day1</title>
     <url>/2022/04/08/Data-structures-day1/</url>
     <content><![CDATA[<h3 id="Queue"><a href="#Queue" class="headerlink" title="Queue"></a>Queue</h3><ul>
@@ -56,6 +113,72 @@
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 메소드 사용하여 구현</span><br><span class="line">class Node:</span><br><span class="line">	def __init__(self, data):</span><br><span class="line">		self.data = data</span><br><span class="line">		self.next = None</span><br><span class="line"></span><br><span class="line"># def __init__(self, data, next=None):</span><br><span class="line">#			self.data = data</span><br><span class="line">#			self.next = next</span><br><span class="line"></span><br><span class="line">	def add(data):</span><br><span class="line">		node = head</span><br><span class="line">		# 마지막 노드 찾는 코드</span><br><span class="line">		while node.next:</span><br><span class="line">			node = node.next</span><br><span class="line">		node.next = Node(data)</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 직접 구현</span><br><span class="line">class Node:</span><br><span class="line">	def __init__(self, data, next=None):</span><br><span class="line">		self.data = data</span><br><span class="line">		self.next = next</span><br><span class="line"></span><br><span class="line">class NodeMgmt:</span><br><span class="line">	def __init__(self, data):</span><br><span class="line">		self.head = Node(data)</span><br><span class="line"></span><br><span class="line">	def add(self, data):</span><br><span class="line">		if self.head ==&quot;:</span><br><span class="line">			self.head = Node(data)</span><br><span class="line">		else:</span><br><span class="line">			node = self.head</span><br><span class="line">			while node.next:</span><br><span class="line">				node = node.next</span><br><span class="line">			node.next = Node(data)</span><br><span class="line"></span><br><span class="line">	def desc(self):</span><br><span class="line">		node = self.head</span><br><span class="line">		while node:</span><br><span class="line">			print(node.data)</span><br><span class="line">			node = node.next</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Data-structures</category>
+      </categories>
+      <tags>
+        <tag>TIL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Data-structures-day2</title>
+    <url>/2022/04/08/Data-structures-day2/</url>
+    <content><![CDATA[<h1 id="Linked-List"><a href="#Linked-List" class="headerlink" title="Linked List"></a>Linked List</h1><h3 id="노드-삽입"><a href="#노드-삽입" class="headerlink" title="노드 삽입"></a>노드 삽입</h3><ul>
+<li>삽입할 위치 search (노드1찾기)</li>
+<li>새로운 노드2 생성</li>
+<li>노드2의 포인터에 노드3 주소 저장</li>
+<li>노드1의 포인터에 노드2 주소 저장<br><img src="/./img/insert.png" alt="Insert Node"><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def insert(self, data, search_data):</span><br><span class="line">        if self.head == None:</span><br><span class="line">            print(&quot;노드가 없습니다&quot;)</span><br><span class="line">            return</span><br><span class="line"></span><br><span class="line">        if self.head.data == search_data: # 1</span><br><span class="line">            temp = head</span><br><span class="line">            node = head # 2</span><br><span class="line">            node.data = data # 2</span><br><span class="line">            node.next = temp # 3</span><br><span class="line"></span><br><span class="line">        else:</span><br><span class="line">            node = self.head</span><br><span class="line">            while node.next: # 1</span><br><span class="line">                if node.next.data = search_data: # 1</span><br><span class="line">                    new = Node(data) # 2</span><br><span class="line">                    new.next = node.next.next # 3</span><br><span class="line">                    node.next = new # 4</span><br><span class="line">		    return</span><br><span class="line">                else:</span><br><span class="line">                    node = node.next</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="노드-삭제"><a href="#노드-삭제" class="headerlink" title="노드 삭제"></a>노드 삭제</h3><ul>
+<li>삭제할 위치를 search (노드2 찾기)</li>
+<li>index - 1 위치의 노드1 포인터에 노드3의 주소 저장</li>
+<li>노드2 삭제<br><img src="/./img/remove.png" alt="Delete Node"><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def delete(self.data):</span><br><span class="line">        if self.head == &quot;:</span><br><span class="line">            print(&quot;해당 값을 가진 노드 없습니다&quot;)</span><br><span class="line">            return</span><br><span class="line"></span><br><span class="line">        if self.head.data == data: # 1</span><br><span class="line">            temp = self.head</span><br><span class="line">            self.head = self.head.next</span><br><span class="line">        else:</span><br><span class="line">            node = self.head</span><br><span class="line">            while node.next: # 1</span><br><span class="line">                if node.next.data = data:</span><br><span class="line">                    temp = node.next</span><br><span class="line">                    node.next = node.next.next # 2</span><br><span class="line">                    del temp # 3</span><br><span class="line">		    return</span><br><span class="line">		else:</span><br><span class="line">		    node = node.next</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Double-Linked-List"><a href="#Double-Linked-List" class="headerlink" title="Double Linked List"></a>Double Linked List</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def insert(self.data, search_data):</span><br><span class="line">        if self.head == None:</span><br><span class="line">            self.head = Node(data)</span><br><span class="line">            return True</span><br><span class="line">        else:</span><br><span class="line">            node = self.head</span><br><span class="line">            while node.data != search_data:</span><br><span class="line">                node = node.next</span><br><span class="line">                if node == None:</span><br><span class="line">                    return False</span><br><span class="line">            new = Node(data)</span><br><span class="line">            new.next = node.next</span><br><span class="line">            new.prev = node</span><br><span class="line">            node.next.prev = new</span><br><span class="line">            node.next = new</span><br><span class="line">            return True</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def delete(self.data, search_data):</span><br><span class="line">        if self.head == None:</span><br><span class="line">            print(&quot;노드가 존재하지 않습니다&quot;)</span><br><span class="line">            return False</span><br><span class="line">        else:</span><br><span class="line">            node = self.head</span><br><span class="line">            while node.data != search_data:</span><br><span class="line">                node = node.next</span><br><span class="line">                if node == None:</span><br><span class="line">                    return False</span><br><span class="line">            node.next.next.prev = node</span><br><span class="line">            node.next =  node.next.next</span><br><span class="line">            return True</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="시간-복잡도"><a href="#시간-복잡도" class="headerlink" title="시간 복잡도"></a>시간 복잡도</h1><ul>
+<li>알고리즘 성능 평가는 두가지<ul>
+<li>시간 복잡도 : 실행 속도</li>
+<li>공간 복잡도 : 알고리즘 사용 메모리 크기</li>
+</ul>
+</li>
+<li>시간 복잡도 평가 방법<ul>
+<li>최선 실행 시간 : 최상의 경우실행시간</li>
+<li>평균 실행 시간 : 평균 실행 시간</li>
+<li>최악 실행 시간 : 가장 오래 걸리는 시간을 기준</li>
+</ul>
+</li>
+<li>최악 실행 시간을 사용 -&gt; Big O</li>
+</ul>
+<hr>
+<h1 id="Hash-Table"><a href="#Hash-Table" class="headerlink" title="Hash Table"></a>Hash Table</h1><ul>
+<li>Hash 란 임의 값을 고정 길이로 변환한것</li>
+<li>Key에 데이터(value)를 매핑할 수 있는 데이터 구조</li>
+<li>해쉬 함수를 통해 배열에 키에 대한 데이터를 저장할 수 있는 주소(index)를 계산</li>
+<li>key를 통해 바로 데이터가 저장된 주소(index)를 알 수 있어 저장 및 탐색 속도가 획기적으로 빠르다</li>
+<li>미리 해쉬 함수가 생성할 수 있는 주소에 대한 공간을 배열로 할당, 키에 따른 데이터 저장 및 탐색을 지원 (메모리 공간과 탐색 시간을 맞바꾸는 기법으로도 불림)</li>
+<li>Python에서는 별도 구현 X, 딕셔너리 타입 사용</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def insert(self.data, search_data):</span><br><span class="line">        if self.head == None:</span><br><span class="line">            self.head = Node(data)</span><br><span class="line">            return True</span><br><span class="line">        else:</span><br><span class="line">            node = self.head</span><br><span class="line">            while node.data != search_data:</span><br><span class="line">                node = node.next</span><br><span class="line">                if node == None:</span><br><span class="line">                    return False</span><br><span class="line">            new = Node(data)</span><br><span class="line">            new.next = node.next</span><br><span class="line">            new.prev = node</span><br><span class="line">            node.next.prev = new</span><br><span class="line">            node.next = new</span><br><span class="line">            return True</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def delete(self.data, search_data):</span><br><span class="line">        if self.head == None:</span><br><span class="line">            print(&quot;노드가 존재하지 않습니다&quot;)</span><br><span class="line">            return False</span><br><span class="line">        else:</span><br><span class="line">            node = self.head</span><br><span class="line">            while node.data != search_data:</span><br><span class="line">                node = node.next</span><br><span class="line">                if node == None:</span><br><span class="line">                    return False</span><br><span class="line">            node.next.next.prev = node</span><br><span class="line">            node.next =  node.next.next</span><br><span class="line">            return True</span><br></pre></td></tr></table></figure>
+<h3 id="동작-방식"><a href="#동작-방식" class="headerlink" title="동작 방식"></a>동작 방식</h3><ol>
+<li>Key(1)를 Hash fucntion(2)에 입력하면 주소(index number) 출력</li>
+<li>출력된 주소(index number)를 (3)에서 찾아 필요한 데이터(4) 찾을 수 있다.<br><img src="/./img/Hash_table.png" alt="Hash Table 작동"></li>
+</ol>
+<h6 id="장점"><a href="#장점" class="headerlink" title="장점"></a>장점</h6><ul>
+<li>데이터 R &#x2F; W 속도가 빠르다</li>
+<li>해쉬는 키에 대한 데이터가 있는지 (중복) 확인이 쉽다</li>
+</ul>
+<h6 id="단점"><a href="#단점" class="headerlink" title="단점"></a>단점</h6><ul>
+<li>일반적으로 저장공간이 기존보다 더 많이 필요하다</li>
+<li>여러 키에 해당하는 주소가 동일할 경우 충돌을 해결하기 위한 별도의 자료구조가 필요하다</li>
+</ul>
+<h6 id="사용"><a href="#사용" class="headerlink" title="사용"></a>사용</h6><ul>
+<li>검색이 많이 필요할 때</li>
+<li>저장, 삭제, 읽기가 자주 쓰일 때</li>
+<li>캐쉬 구현시 (중복 확인이 쉬워서)</li>
+</ul>
 ]]></content>
       <categories>
         <category>Data-structures</category>
@@ -129,72 +252,6 @@
 <li>오른쪽 자식 인덱스 &#x3D; 부모 인덱스 * 2 + 1<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Heap:</span><br><span class="line">	def __init__(self, data):</span><br><span class="line">		self.heap_array = list()</span><br><span class="line">		self.heap_array.append(None)</span><br><span class="line">		self.heap_array.append(data)</span><br><span class="line"></span><br><span class="line">	def insert(self, data):</span><br><span class="line">		self.heap_array.append(data)</span><br><span class="line">		in_idx = len(self.heap_array) - 1</span><br><span class="line">		par_idx = in_idx // 2</span><br><span class="line">		while self.heap_array[in_idx] &gt; self.heap_array[par_idx] and in_idx &gt; 1:</span><br><span class="line">			self.heap_array[in_idx], self.heap_array[par_idx] = self.heap_array[par_idx],</span><br><span class="line">																													 self.heap_array[in_idx]</span><br><span class="line">			in_idx = par_idx</span><br><span class="line">			par_idx = in_idx // 2</span><br><span class="line">		return True</span><br><span class="line"></span><br><span class="line">	def move_down(self, idx):</span><br><span class="line">		l_idx = idx * 2</span><br><span class="line">		r_idx = idx * 2 + 1</span><br><span class="line">		</span><br><span class="line">		if l_idx &gt;= len(self.heap_array): # 왼자식 노드도 없을때</span><br><span class="line">			return False</span><br><span class="line">		elif r_idx &gt;= len(self.heap_array): # 오른자식 노드만 없을 때</span><br><span class="line">			if self.heap_array[idx] &lt; self.heap_array[l_idx]:</span><br><span class="line">				return True</span><br><span class="line">			else:</span><br><span class="line">				retyrn False</span><br><span class="line">		else: # 왼쪽 오른쪽 자식 다 있을 때</span><br><span class="line">			if self.heap_array[l_idx] &gt; self.heap_array[r_idx]:</span><br><span class="line">				if self.heap_array[idx] &lt; self.heap_array[l_idx]:</span><br><span class="line">					return True</span><br><span class="line">				else:</span><br><span class="line">					return False</span><br><span class="line">			else:</span><br><span class="line">				if self.heap_array[idx] &lt; self.heap_array[r_idx]:</span><br><span class="line">					return True</span><br><span class="line">				else:</span><br><span class="line">					return False</span><br><span class="line"></span><br><span class="line">	def pop(self, data):</span><br><span class="line">		if len(self.heap_array) &lt;= 1:</span><br><span class="line">			return None</span><br><span class="line">		pop_data = self.heap_array[1]</span><br><span class="line">		self.heap_array[1] = self.heap_array[-1]</span><br><span class="line">		del self.heap_array[-1]</span><br><span class="line">		idx = 1</span><br><span class="line"></span><br><span class="line">		while move_down(idx):</span><br><span class="line">			l_idx = idx * 2</span><br><span class="line">			r_idx = idx * 2 + 1</span><br><span class="line">			</span><br><span class="line">			if r_idx &gt;= len(self.heap_array): # 오른자식 노드만 없을 때</span><br><span class="line">				if self.heap_array[idx] &lt; self.heap_array[l_idx]:</span><br><span class="line">					self.heap_array[idx], self.heap_array[l_idx] = self.heap_array[l_idx], self.heap_array[idx]</span><br><span class="line">					idx = l_idx</span><br><span class="line">			else: # 왼쪽 오른쪽 자식 다 있을 때</span><br><span class="line">				if self.heap_array[l_idx] &gt; self.heap_array[r_idx]:</span><br><span class="line">					if self.heap_array[idx] &lt; self.heap_array[l_idx]:</span><br><span class="line">						self.heap_array[idx], self.heap_array[l_idx] = self.heap_array[l_idx], self.heap_array[idx]</span><br><span class="line">						idx = l_idx</span><br><span class="line">				else:</span><br><span class="line">					if self.heap_array[idx] &lt; self.heap_array[r_idx]:</span><br><span class="line">						self.heap_array[idx], self.heap_array[r_idx] = self.heap_array[r_idx], self.heap_array[idx]</span><br><span class="line">						idx = r_idx</span><br><span class="line">		return pop_data</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
-</ul>
-]]></content>
-      <categories>
-        <category>Data-structures</category>
-      </categories>
-      <tags>
-        <tag>TIL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Data-structures-day2</title>
-    <url>/2022/04/08/Data-structures-day2/</url>
-    <content><![CDATA[<h1 id="Linked-List"><a href="#Linked-List" class="headerlink" title="Linked List"></a>Linked List</h1><h3 id="노드-삽입"><a href="#노드-삽입" class="headerlink" title="노드 삽입"></a>노드 삽입</h3><ul>
-<li>삽입할 위치 search (노드1찾기)</li>
-<li>새로운 노드2 생성</li>
-<li>노드2의 포인터에 노드3 주소 저장</li>
-<li>노드1의 포인터에 노드2 주소 저장<br><img src="/./img/insert.png" alt="Insert Node"><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def insert(self, data, search_data):</span><br><span class="line">        if self.head == None:</span><br><span class="line">            print(&quot;노드가 없습니다&quot;)</span><br><span class="line">            return</span><br><span class="line"></span><br><span class="line">        if self.head.data == search_data: # 1</span><br><span class="line">            temp = head</span><br><span class="line">            node = head # 2</span><br><span class="line">            node.data = data # 2</span><br><span class="line">            node.next = temp # 3</span><br><span class="line"></span><br><span class="line">        else:</span><br><span class="line">            node = self.head</span><br><span class="line">            while node.next: # 1</span><br><span class="line">                if node.next.data = search_data: # 1</span><br><span class="line">                    new = Node(data) # 2</span><br><span class="line">                    new.next = node.next.next # 3</span><br><span class="line">                    node.next = new # 4</span><br><span class="line">		    return</span><br><span class="line">                else:</span><br><span class="line">                    node = node.next</span><br></pre></td></tr></table></figure></li>
-</ul>
-<hr>
-<h3 id="노드-삭제"><a href="#노드-삭제" class="headerlink" title="노드 삭제"></a>노드 삭제</h3><ul>
-<li>삭제할 위치를 search (노드2 찾기)</li>
-<li>index - 1 위치의 노드1 포인터에 노드3의 주소 저장</li>
-<li>노드2 삭제<br><img src="/./img/remove.png" alt="Delete Node"><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def delete(self.data):</span><br><span class="line">        if self.head == &quot;:</span><br><span class="line">            print(&quot;해당 값을 가진 노드 없습니다&quot;)</span><br><span class="line">            return</span><br><span class="line"></span><br><span class="line">        if self.head.data == data: # 1</span><br><span class="line">            temp = self.head</span><br><span class="line">            self.head = self.head.next</span><br><span class="line">        else:</span><br><span class="line">            node = self.head</span><br><span class="line">            while node.next: # 1</span><br><span class="line">                if node.next.data = data:</span><br><span class="line">                    temp = node.next</span><br><span class="line">                    node.next = node.next.next # 2</span><br><span class="line">                    del temp # 3</span><br><span class="line">		    return</span><br><span class="line">		else:</span><br><span class="line">		    node = node.next</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="Double-Linked-List"><a href="#Double-Linked-List" class="headerlink" title="Double Linked List"></a>Double Linked List</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def insert(self.data, search_data):</span><br><span class="line">        if self.head == None:</span><br><span class="line">            self.head = Node(data)</span><br><span class="line">            return True</span><br><span class="line">        else:</span><br><span class="line">            node = self.head</span><br><span class="line">            while node.data != search_data:</span><br><span class="line">                node = node.next</span><br><span class="line">                if node == None:</span><br><span class="line">                    return False</span><br><span class="line">            new = Node(data)</span><br><span class="line">            new.next = node.next</span><br><span class="line">            new.prev = node</span><br><span class="line">            node.next.prev = new</span><br><span class="line">            node.next = new</span><br><span class="line">            return True</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def delete(self.data, search_data):</span><br><span class="line">        if self.head == None:</span><br><span class="line">            print(&quot;노드가 존재하지 않습니다&quot;)</span><br><span class="line">            return False</span><br><span class="line">        else:</span><br><span class="line">            node = self.head</span><br><span class="line">            while node.data != search_data:</span><br><span class="line">                node = node.next</span><br><span class="line">                if node == None:</span><br><span class="line">                    return False</span><br><span class="line">            node.next.next.prev = node</span><br><span class="line">            node.next =  node.next.next</span><br><span class="line">            return True</span><br></pre></td></tr></table></figure>
-<hr>
-<h1 id="시간-복잡도"><a href="#시간-복잡도" class="headerlink" title="시간 복잡도"></a>시간 복잡도</h1><ul>
-<li>알고리즘 성능 평가는 두가지<ul>
-<li>시간 복잡도 : 실행 속도</li>
-<li>공간 복잡도 : 알고리즘 사용 메모리 크기</li>
-</ul>
-</li>
-<li>시간 복잡도 평가 방법<ul>
-<li>최선 실행 시간 : 최상의 경우실행시간</li>
-<li>평균 실행 시간 : 평균 실행 시간</li>
-<li>최악 실행 시간 : 가장 오래 걸리는 시간을 기준</li>
-</ul>
-</li>
-<li>최악 실행 시간을 사용 -&gt; Big O</li>
-</ul>
-<hr>
-<h1 id="Hash-Table"><a href="#Hash-Table" class="headerlink" title="Hash Table"></a>Hash Table</h1><ul>
-<li>Hash 란 임의 값을 고정 길이로 변환한것</li>
-<li>Key에 데이터(value)를 매핑할 수 있는 데이터 구조</li>
-<li>해쉬 함수를 통해 배열에 키에 대한 데이터를 저장할 수 있는 주소(index)를 계산</li>
-<li>key를 통해 바로 데이터가 저장된 주소(index)를 알 수 있어 저장 및 탐색 속도가 획기적으로 빠르다</li>
-<li>미리 해쉬 함수가 생성할 수 있는 주소에 대한 공간을 배열로 할당, 키에 따른 데이터 저장 및 탐색을 지원 (메모리 공간과 탐색 시간을 맞바꾸는 기법으로도 불림)</li>
-<li>Python에서는 별도 구현 X, 딕셔너리 타입 사용</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def insert(self.data, search_data):</span><br><span class="line">        if self.head == None:</span><br><span class="line">            self.head = Node(data)</span><br><span class="line">            return True</span><br><span class="line">        else:</span><br><span class="line">            node = self.head</span><br><span class="line">            while node.data != search_data:</span><br><span class="line">                node = node.next</span><br><span class="line">                if node == None:</span><br><span class="line">                    return False</span><br><span class="line">            new = Node(data)</span><br><span class="line">            new.next = node.next</span><br><span class="line">            new.prev = node</span><br><span class="line">            node.next.prev = new</span><br><span class="line">            node.next = new</span><br><span class="line">            return True</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def delete(self.data, search_data):</span><br><span class="line">        if self.head == None:</span><br><span class="line">            print(&quot;노드가 존재하지 않습니다&quot;)</span><br><span class="line">            return False</span><br><span class="line">        else:</span><br><span class="line">            node = self.head</span><br><span class="line">            while node.data != search_data:</span><br><span class="line">                node = node.next</span><br><span class="line">                if node == None:</span><br><span class="line">                    return False</span><br><span class="line">            node.next.next.prev = node</span><br><span class="line">            node.next =  node.next.next</span><br><span class="line">            return True</span><br></pre></td></tr></table></figure>
-<h3 id="동작-방식"><a href="#동작-방식" class="headerlink" title="동작 방식"></a>동작 방식</h3><ol>
-<li>Key(1)를 Hash fucntion(2)에 입력하면 주소(index number) 출력</li>
-<li>출력된 주소(index number)를 (3)에서 찾아 필요한 데이터(4) 찾을 수 있다.<br><img src="/./img/Hash_table.png" alt="Hash Table 작동"></li>
-</ol>
-<h6 id="장점"><a href="#장점" class="headerlink" title="장점"></a>장점</h6><ul>
-<li>데이터 R &#x2F; W 속도가 빠르다</li>
-<li>해쉬는 키에 대한 데이터가 있는지 (중복) 확인이 쉽다</li>
-</ul>
-<h6 id="단점"><a href="#단점" class="headerlink" title="단점"></a>단점</h6><ul>
-<li>일반적으로 저장공간이 기존보다 더 많이 필요하다</li>
-<li>여러 키에 해당하는 주소가 동일할 경우 충돌을 해결하기 위한 별도의 자료구조가 필요하다</li>
-</ul>
-<h6 id="사용"><a href="#사용" class="headerlink" title="사용"></a>사용</h6><ul>
-<li>검색이 많이 필요할 때</li>
-<li>저장, 삭제, 읽기가 자주 쓰일 때</li>
-<li>캐쉬 구현시 (중복 확인이 쉬워서)</li>
 </ul>
 ]]></content>
       <categories>
@@ -287,85 +344,34 @@
       </categories>
   </entry>
   <entry>
-    <title>GitBlog</title>
-    <url>/2022/04/01/GitBlog/</url>
-    <content><![CDATA[<h3 id="Github-Blog"><a href="#Github-Blog" class="headerlink" title="Github Blog"></a>Github Blog</h3><p>repo : username.github.io 만들면 서버를 제공하는 페이지 제공<br>꾸미기 위해 Node.js &amp; npm hexo-cli -g 다운로드</p>
-<h1 id="Init"><a href="#Init" class="headerlink" title="Init"></a>Init</h1><ol>
-<li><p>Hexo blog</p>
-<ol>
-<li>hexo init folder name</li>
-<li>vi config.yml : #Site 에서 title, subtitle, des, author 작성</li>
-</ol>
-</li>
-<li><p>Hexo blog theme (next)</p>
-<ol>
-<li>git clone {URL} : 원하는 theme의 repo 찾아서 다운, themes 디렉토리에 다운됬는지 확인</li>
-<li>config.yml에서 #Extensions에서 theme 에 다운된 theme이름 작성</li>
-<li>themes&#x2F;theme-name 디렉토리에서 config.yml 들어가서 #Schemes에서 Muse 주석처리, Gemini 주석제거</li>
-</ol>
-</li>
-<li><p>Hexo blog Deployment</p>
-<ol>
-<li>npm install hexo-deployer-git –save</li>
-<li>config.yml 에서 #Deployment에서 수정 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">type: git</span><br><span class="line">repo : git blog주소</span><br><span class="line">branch: main</span><br></pre></td></tr></table></figure></li>
-</ol>
-</li>
-<li><p>Create Menu</p>
-<ol>
-<li>themes&#x2F;theme-name의 config.yml 파일에서 menu: 에서 tags와 categories의 주석처리 제거 (tags, categories 생성 예정)</li>
-<li>hexo new post 를 이용하여 categories, tage 페이지를 각각 생성, 각 index.md에서 date 밑에 type: “페이지이름” comments: false 추가</li>
-<li>post 작성시 상단 title, date 아래에 categories, tags 항목 작성하면 됨</li>
-</ol>
-</li>
-<li><p>Add search function</p>
-<ol>
-<li>npm install hexo-generator-searchdb</li>
-<li>config.yml 제일 아래쪽에 다음 코드 추가 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Local Search </span><br><span class="line"># search </span><br><span class="line">search:</span><br><span class="line">    path: search.xml</span><br><span class="line">    field: post</span><br><span class="line">    content: true</span><br><span class="line">    format: html</span><br></pre></td></tr></table></figure></li>
-<li>theme-name의 config.yml에서 Local Search(약 740L) 에서 enable 값을 true, trigger 값을 manual로 수정</li>
-</ol>
-</li>
-</ol>
-<h3 id="New-post-amp-deploy"><a href="#New-post-amp-deploy" class="headerlink" title="New post &amp; deploy"></a>New post &amp; deploy</h3><ol>
-<li>hexo new post name</li>
-<li>hexo clean &amp;&amp; hexo generate</li>
-<li>hexo server (localhost update)</li>
-<li>hexo clean &amp;&amp; hexo deploy (github blog update)</li>
-</ol>
-]]></content>
-      <categories>
-        <category>git</category>
-      </categories>
-      <tags>
-        <tag>TIL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Git</title>
-    <url>/2022/04/01/Git/</url>
-    <content><![CDATA[<h1 id="Git-버전관리시스템"><a href="#Git-버전관리시스템" class="headerlink" title="Git : 버전관리시스템"></a>Git : 버전관리시스템</h1><ul>
-<li>특징<ul>
-<li>직관적, 빠르고 단순</li>
-<li>분산형 저장소 지원</li>
-<li>비선형 개발 가능</li>
+    <title>css-day1</title>
+    <url>/2022/04/13/css-day1/</url>
+    <content><![CDATA[<h3 id="기본-문법"><a href="#기본-문법" class="headerlink" title="기본 문법"></a>기본 문법</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">선택자(div) &#123;</span><br><span class="line">	color : /*글자 색*/</span><br><span class="line">	font-size : /*글자 크기*/</span><br><span class="line">	witdh : /*가로 너비*/</span><br><span class="line">	height: /*세로 너비*/</span><br><span class="line">	margin : /*바깥 여백*/</span><br><span class="line">	padding : /*안쪽 여백 상하좌우*/</span><br><span class="line">	position : /*부모 요소 기준*/</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="작성-방법"><a href="#작성-방법" class="headerlink" title="작성 방법"></a>작성 방법</h3><ul>
+<li>인라인 작성 방식<ul>
+<li>HTML의 태그에 직접 작성하는 방법으로 선택자 필요 X</li>
+<li>ex. <code>&lt;div style=”color : red;”&gt;직접 작성&lt;/div&gt;</code></li>
+<li>같은 div가 여러개 있을 때 일일이 div마다 작성해야하는 단점이 있어 유지&#x2F;보수에 단점이 생긴다.</li>
 </ul>
 </li>
-<li>장점<ul>
-<li>하나의 파일에 n개의 버전 가능</li>
-<li>수정 내용은 commit단위로 관리, 배포 가능, 원하는 시점으로 checkout 가능</li>
-<li>기능 추가는 branch로 개발하여 테스트 가능, 성공적으로 개발되면 merge해서 반영</li>
-<li>인터넷 없이도 개발 가능</li>
+<li>HTML 내장 방식<ul>
+<li>head 태그 안쪽에 style 태그를 통해 설정<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;head&gt;</span><br><span class="line">	&lt;style&gt;</span><br><span class="line">		div &#123;</span><br><span class="line">			color: red;</span><br><span class="line">		&#125;</span><br><span class="line">	&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">/*head에 설정하면 body 안에 div들이 모두 변경*/</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
-<li>구조<ul>
-<li>Blob : 수정사항, 코드 내용</li>
-<li>Tree : Blob이나 subtree의 메타데이터(디렉토리 위치, 속성, 이름 등)</li>
-<li>Commit : 실제파일?</li>
+<li>HTML 외부에서 불러오기<ul>
+<li>head 태그 안쪽에 link 태그를 통해 외부에서 문서를 가져오기</li>
+<li><code>&lt;link rel=”stylesheet” href=”경로.css”&gt;</code></li>
 </ul>
 </li>
+</ul>
+<h3 id="선택자"><a href="#선택자" class="headerlink" title="선택자"></a>선택자</h3><ul>
+<li>tag로만 찾는것은 한계가 있기 때문에 class를 만들어 class 선택자로 찾기</li>
+<li>ex. <h1 class=”title”>제목</h1> —&gt; css에서 h1 변경하려면 .title로 선택자 사용</li>
 </ul>
 ]]></content>
       <categories>
-        <category>git</category>
+        <category>CSS</category>
       </categories>
       <tags>
         <tag>TIL</tag>
@@ -373,7 +379,7 @@
   </entry>
   <entry>
     <title>Git_revert</title>
-    <url>/2022/04/02/Git-revert/</url>
+    <url>/2022/04/02/git/Git-revert/</url>
     <content><![CDATA[<h3 id="Git-revert"><a href="#Git-revert" class="headerlink" title="Git revert"></a>Git revert</h3><ul>
 <li>Rename<ul>
 <li>파일의 이름을 바꿀때 사용</li>
@@ -425,8 +431,93 @@
       </tags>
   </entry>
   <entry>
+    <title>Git</title>
+    <url>/2022/04/01/git/Git/</url>
+    <content><![CDATA[<h1 id="Git-버전관리시스템"><a href="#Git-버전관리시스템" class="headerlink" title="Git : 버전관리시스템"></a>Git : 버전관리시스템</h1><ul>
+<li>특징<ul>
+<li>직관적, 빠르고 단순</li>
+<li>분산형 저장소 지원</li>
+<li>비선형 개발 가능</li>
+</ul>
+</li>
+<li>장점<ul>
+<li>하나의 파일에 n개의 버전 가능</li>
+<li>수정 내용은 commit단위로 관리, 배포 가능, 원하는 시점으로 checkout 가능</li>
+<li>기능 추가는 branch로 개발하여 테스트 가능, 성공적으로 개발되면 merge해서 반영</li>
+<li>인터넷 없이도 개발 가능</li>
+</ul>
+</li>
+<li>구조<ul>
+<li>Blob : 수정사항, 코드 내용</li>
+<li>Tree : Blob이나 subtree의 메타데이터(디렉토리 위치, 속성, 이름 등)</li>
+<li>Commit : 실제파일?</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>TIL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>GitBlog</title>
+    <url>/2022/04/01/git/GitBlog/</url>
+    <content><![CDATA[<h3 id="Github-Blog"><a href="#Github-Blog" class="headerlink" title="Github Blog"></a>Github Blog</h3><p>repo : username.github.io 만들면 서버를 제공하는 페이지 제공<br>꾸미기 위해 Node.js &amp; npm hexo-cli -g 다운로드</p>
+<h1 id="Init"><a href="#Init" class="headerlink" title="Init"></a>Init</h1><ol>
+<li><p>Hexo blog</p>
+<ol>
+<li>hexo init folder name</li>
+<li>vi config.yml : #Site 에서 title, subtitle, des, author 작성</li>
+</ol>
+</li>
+<li><p>Hexo blog theme (next)</p>
+<ol>
+<li>git clone {URL} : 원하는 theme의 repo 찾아서 다운, themes 디렉토리에 다운됬는지 확인</li>
+<li>config.yml에서 #Extensions에서 theme 에 다운된 theme이름 작성</li>
+<li>themes&#x2F;theme-name 디렉토리에서 config.yml 들어가서 #Schemes에서 Muse 주석처리, Gemini 주석제거</li>
+</ol>
+</li>
+<li><p>Hexo blog Deployment</p>
+<ol>
+<li>npm install hexo-deployer-git –save</li>
+<li>config.yml 에서 #Deployment에서 수정 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">type: git</span><br><span class="line">repo : git blog주소</span><br><span class="line">branch: main</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>Create Menu</p>
+<ol>
+<li>themes&#x2F;theme-name의 config.yml 파일에서 menu: 에서 tags와 categories의 주석처리 제거 (tags, categories 생성 예정)</li>
+<li>hexo new post 를 이용하여 categories, tage 페이지를 각각 생성, 각 index.md에서 date 밑에 type: “페이지이름” comments: false 추가</li>
+<li>post 작성시 상단 title, date 아래에 categories, tags 항목 작성하면 됨</li>
+</ol>
+</li>
+<li><p>Add search function</p>
+<ol>
+<li>npm install hexo-generator-searchdb</li>
+<li>config.yml 제일 아래쪽에 다음 코드 추가 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Local Search </span><br><span class="line"># search </span><br><span class="line">search:</span><br><span class="line">    path: search.xml</span><br><span class="line">    field: post</span><br><span class="line">    content: true</span><br><span class="line">    format: html</span><br></pre></td></tr></table></figure></li>
+<li>theme-name의 config.yml에서 Local Search(약 740L) 에서 enable 값을 true, trigger 값을 manual로 수정</li>
+</ol>
+</li>
+</ol>
+<h3 id="New-post-amp-deploy"><a href="#New-post-amp-deploy" class="headerlink" title="New post &amp; deploy"></a>New post &amp; deploy</h3><ol>
+<li>hexo new post name</li>
+<li>hexo clean &amp;&amp; hexo generate</li>
+<li>hexo server (localhost update)</li>
+<li>hexo clean &amp;&amp; hexo deploy (github blog update)</li>
+</ol>
+]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>TIL</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Gitflow</title>
-    <url>/2022/04/01/Gitflow/</url>
+    <url>/2022/04/01/git/Gitflow/</url>
     <content><![CDATA[<h1 id="Day-3"><a href="#Day-3" class="headerlink" title="Day - 3"></a>Day - 3</h1><h3 id="README-md"><a href="#README-md" class="headerlink" title="README.md"></a>README.md</h3><ul>
 <li>프로젝트와 Repository를 설명하는 책의 표지같은 문서</li>
 <li>나와 동료, 이 Repo의 사용자를 위한 문서</li>
@@ -471,7 +562,7 @@
   </entry>
   <entry>
     <title>Gitflow2</title>
-    <url>/2022/04/01/Gitflow2/</url>
+    <url>/2022/04/01/git/Gitflow2/</url>
     <content><![CDATA[<h1 id="Using-git-flow-with-external-programs"><a href="#Using-git-flow-with-external-programs" class="headerlink" title="Using git flow with external programs"></a>Using git flow with external programs</h1><ol>
 <li>git flow init</li>
 <li>git flow feature start name</li>
@@ -489,7 +580,7 @@
   </entry>
   <entry>
     <title>Github</title>
-    <url>/2022/04/01/Github/</url>
+    <url>/2022/04/01/git/Github/</url>
     <content><![CDATA[<h3 id="How-to-use-github"><a href="#How-to-use-github" class="headerlink" title="How to use github?"></a>How to use github?</h3><ol>
 <li>원격저장소(github) 에서 repo 생성</li>
 <li>repo의 URL을 복사하고 git bash로 돌아와 git clone URL 명령 입력</li>
@@ -519,40 +610,6 @@
 ]]></content>
       <categories>
         <category>git</category>
-      </categories>
-      <tags>
-        <tag>TIL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>css-day1</title>
-    <url>/2022/04/13/css-day1/</url>
-    <content><![CDATA[<h3 id="기본-문법"><a href="#기본-문법" class="headerlink" title="기본 문법"></a>기본 문법</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">선택자(div) &#123;</span><br><span class="line">	color : /*글자 색*/</span><br><span class="line">	font-size : /*글자 크기*/</span><br><span class="line">	witdh : /*가로 너비*/</span><br><span class="line">	height: /*세로 너비*/</span><br><span class="line">	margin : /*바깥 여백*/</span><br><span class="line">	padding : /*안쪽 여백 상하좌우*/</span><br><span class="line">	position : /*부모 요소 기준*/</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="작성-방법"><a href="#작성-방법" class="headerlink" title="작성 방법"></a>작성 방법</h3><ul>
-<li>인라인 작성 방식<ul>
-<li>HTML의 태그에 직접 작성하는 방법으로 선택자 필요 X</li>
-<li>ex. <code>&lt;div style=”color : red;”&gt;직접 작성&lt;/div&gt;</code></li>
-<li>같은 div가 여러개 있을 때 일일이 div마다 작성해야하는 단점이 있어 유지&#x2F;보수에 단점이 생긴다.</li>
-</ul>
-</li>
-<li>HTML 내장 방식<ul>
-<li>head 태그 안쪽에 style 태그를 통해 설정<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;head&gt;</span><br><span class="line">	&lt;style&gt;</span><br><span class="line">		div &#123;</span><br><span class="line">			color: red;</span><br><span class="line">		&#125;</span><br><span class="line">	&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">/*head에 설정하면 body 안에 div들이 모두 변경*/</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li>HTML 외부에서 불러오기<ul>
-<li>head 태그 안쪽에 link 태그를 통해 외부에서 문서를 가져오기</li>
-<li><code>&lt;link rel=”stylesheet” href=”경로.css”&gt;</code></li>
-</ul>
-</li>
-</ul>
-<h3 id="선택자"><a href="#선택자" class="headerlink" title="선택자"></a>선택자</h3><ul>
-<li>tag로만 찾는것은 한계가 있기 때문에 class를 만들어 class 선택자로 찾기</li>
-<li>ex. <h1 class=”title”>제목</h1> —&gt; css에서 h1 변경하려면 .title로 선택자 사용</li>
-</ul>
-]]></content>
-      <categories>
-        <category>CSS</category>
       </categories>
       <tags>
         <tag>TIL</tag>
@@ -688,61 +745,6 @@
       </categories>
   </entry>
   <entry>
-    <title>Java-day2</title>
-    <url>/2022/04/05/Java/Java-day2/</url>
-    <content><![CDATA[<h2 id="객체-지향-프로그래밍"><a href="#객체-지향-프로그래밍" class="headerlink" title="객체 지향 프로그래밍"></a>객체 지향 프로그래밍</h2><h3 id="객체"><a href="#객체" class="headerlink" title="객체"></a>객체</h3><ul>
-<li>의사나 행위가 미치는 대상</li>
-<li>구체적, 추상적 데이터 단위</li>
-</ul>
-<h3 id="객체-지향-프로그램과-절차-지향-프로그래밍"><a href="#객체-지향-프로그램과-절차-지향-프로그래밍" class="headerlink" title="객체 지향 프로그램과 절차 지향 프로그래밍"></a>객체 지향 프로그램과 절차 지향 프로그래밍</h3><p>아침에 일어나 학교를 가는 과정이 있을 때</p>
-<ol>
-<li>절차 지향 프로그래밍 : 시간이나 사건의 흐름에 따른 프로그래밍 (C가 대표적)</li>
-<li>객체 지향 프로그래밍 : (C++, C#, Python, Js ETC.)<br><a href="https://www.notion.so/Day-7-a645cf70f91644fe868a7f77a3bd7235#e6390f83672a4766b236c4f1072c292c">Look at this</a></li>
-</ol>
-<h3 id="객체-지향-프로그램-구현"><a href="#객체-지향-프로그램-구현" class="headerlink" title="객체 지향 프로그램 구현"></a>객체 지향 프로그램 구현</h3><ul>
-<li>객체 정의</li>
-<li>각 객체의 속성은 멤버 변수로, 기능은 메소드로 구현</li>
-<li>각 개체 기능간 소통(message)을 통해 객체간 상호작용</li>
-</ul>
-<hr>
-<h2 id="함수와-메소드"><a href="#함수와-메소드" class="headerlink" title="함수와 메소드"></a>함수와 메소드</h2><h3 id="함수"><a href="#함수" class="headerlink" title="함수"></a>함수</h3><ul>
-<li>하나의 기능을 수행하는 일련의 코드</li>
-<li>구현(정의)된 함수는 호출하여 사용, 호출 함수는 메모리와 제어를 할당받고  기능이 끝나면 제어와 메모리 반환</li>
-<li>flow : main이 작동할때 스택에 main의 메모리 할당, 메소드 호출시 스택에서 main의 위에 메소드를 위한 메모리 할당, 메소드 종료 시 스택에서 메소드의 메모리 삭제</li>
-</ul>
-<h3 id="메소드"><a href="#메소드" class="headerlink" title="메소드"></a>메소드</h3><ul>
-<li>객체의 기능 구현을 위한 클래스 내부에 구현되는 함수</li>
-<li>메소드를 구현함으로 객체의 기능 구현</li>
-<li>메소드의 이름은 그 객체를 사용하는 client에 맞게 작성</li>
-</ul>
-<h3 id="Class"><a href="#Class" class="headerlink" title="Class"></a>Class</h3><ul>
-<li>student class (객체의 틀)를 생성하고 studentTest class에서 사용하려면 Student name &#x3D; new Student(); 같이 인스턴스를 생성해야됨</li>
-<li>name.methodName(); 같은 방법으로 student class의 메소드도 사용 가능</li>
-<li>클래스 하나를 기반으로 여러 인스턴스 생성 가능 (바로 위를 예시로 들면 학생은 한명이 아니라 여러명이기 때문에)</li>
-<li>student class는 객체의 틀만 제공했기 때문에 인스턴스 생성 후 멤버 변수는 따로 입력</li>
-</ul>
-<hr>
-<h2 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h2><h3 id="Array-1"><a href="#Array-1" class="headerlink" title="Array"></a>Array</h3><ul>
-<li>dataType[] arrayName &#x3D; new dataType[n]; n크기의 배열 생성 ([] 하나 더 붙이면 2차원 배열)</li>
-<li>dataType[] arrayName &#x3D; {a, b, c, d, e}; 배열 생성과 동시에 초기화 가능</li>
-<li>이 때 arrayName에는 배열의 첫번째 메모리 주소값을 저장 (&#x3D; 참조변수)</li>
-<li>enhanced for 사용 가능 for (dataType var : arrayName) </li>
-<li>arrayName.length는 배열의 크기 나타냄</li>
-</ul>
-<h3 id="명령-행-매개변수"><a href="#명령-행-매개변수" class="headerlink" title="명령 행 매개변수"></a>명령 행 매개변수</h3><ul>
-<li>프로그램 실행할 때 외부로부터 전달받는 데이터</li>
-<li>main(String[] args) -&gt; Eclipse 에서 실행할 때 따로 값을 줄 수 있음</li>
-<li>형변환을 통해 다양하게 사용 가능</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>TIL</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Java-day10</title>
     <url>/2022/04/19/Java/Java-day10/</url>
     <content><![CDATA[<h2 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h2><ul>
@@ -854,6 +856,61 @@
       </tags>
   </entry>
   <entry>
+    <title>Java-day2</title>
+    <url>/2022/04/05/Java/Java-day2/</url>
+    <content><![CDATA[<h2 id="객체-지향-프로그래밍"><a href="#객체-지향-프로그래밍" class="headerlink" title="객체 지향 프로그래밍"></a>객체 지향 프로그래밍</h2><h3 id="객체"><a href="#객체" class="headerlink" title="객체"></a>객체</h3><ul>
+<li>의사나 행위가 미치는 대상</li>
+<li>구체적, 추상적 데이터 단위</li>
+</ul>
+<h3 id="객체-지향-프로그램과-절차-지향-프로그래밍"><a href="#객체-지향-프로그램과-절차-지향-프로그래밍" class="headerlink" title="객체 지향 프로그램과 절차 지향 프로그래밍"></a>객체 지향 프로그램과 절차 지향 프로그래밍</h3><p>아침에 일어나 학교를 가는 과정이 있을 때</p>
+<ol>
+<li>절차 지향 프로그래밍 : 시간이나 사건의 흐름에 따른 프로그래밍 (C가 대표적)</li>
+<li>객체 지향 프로그래밍 : (C++, C#, Python, Js ETC.)<br><a href="https://www.notion.so/Day-7-a645cf70f91644fe868a7f77a3bd7235#e6390f83672a4766b236c4f1072c292c">Look at this</a></li>
+</ol>
+<h3 id="객체-지향-프로그램-구현"><a href="#객체-지향-프로그램-구현" class="headerlink" title="객체 지향 프로그램 구현"></a>객체 지향 프로그램 구현</h3><ul>
+<li>객체 정의</li>
+<li>각 객체의 속성은 멤버 변수로, 기능은 메소드로 구현</li>
+<li>각 개체 기능간 소통(message)을 통해 객체간 상호작용</li>
+</ul>
+<hr>
+<h2 id="함수와-메소드"><a href="#함수와-메소드" class="headerlink" title="함수와 메소드"></a>함수와 메소드</h2><h3 id="함수"><a href="#함수" class="headerlink" title="함수"></a>함수</h3><ul>
+<li>하나의 기능을 수행하는 일련의 코드</li>
+<li>구현(정의)된 함수는 호출하여 사용, 호출 함수는 메모리와 제어를 할당받고  기능이 끝나면 제어와 메모리 반환</li>
+<li>flow : main이 작동할때 스택에 main의 메모리 할당, 메소드 호출시 스택에서 main의 위에 메소드를 위한 메모리 할당, 메소드 종료 시 스택에서 메소드의 메모리 삭제</li>
+</ul>
+<h3 id="메소드"><a href="#메소드" class="headerlink" title="메소드"></a>메소드</h3><ul>
+<li>객체의 기능 구현을 위한 클래스 내부에 구현되는 함수</li>
+<li>메소드를 구현함으로 객체의 기능 구현</li>
+<li>메소드의 이름은 그 객체를 사용하는 client에 맞게 작성</li>
+</ul>
+<h3 id="Class"><a href="#Class" class="headerlink" title="Class"></a>Class</h3><ul>
+<li>student class (객체의 틀)를 생성하고 studentTest class에서 사용하려면 Student name &#x3D; new Student(); 같이 인스턴스를 생성해야됨</li>
+<li>name.methodName(); 같은 방법으로 student class의 메소드도 사용 가능</li>
+<li>클래스 하나를 기반으로 여러 인스턴스 생성 가능 (바로 위를 예시로 들면 학생은 한명이 아니라 여러명이기 때문에)</li>
+<li>student class는 객체의 틀만 제공했기 때문에 인스턴스 생성 후 멤버 변수는 따로 입력</li>
+</ul>
+<hr>
+<h2 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h2><h3 id="Array-1"><a href="#Array-1" class="headerlink" title="Array"></a>Array</h3><ul>
+<li>dataType[] arrayName &#x3D; new dataType[n]; n크기의 배열 생성 ([] 하나 더 붙이면 2차원 배열)</li>
+<li>dataType[] arrayName &#x3D; {a, b, c, d, e}; 배열 생성과 동시에 초기화 가능</li>
+<li>이 때 arrayName에는 배열의 첫번째 메모리 주소값을 저장 (&#x3D; 참조변수)</li>
+<li>enhanced for 사용 가능 for (dataType var : arrayName) </li>
+<li>arrayName.length는 배열의 크기 나타냄</li>
+</ul>
+<h3 id="명령-행-매개변수"><a href="#명령-행-매개변수" class="headerlink" title="명령 행 매개변수"></a>명령 행 매개변수</h3><ul>
+<li>프로그램 실행할 때 외부로부터 전달받는 데이터</li>
+<li>main(String[] args) -&gt; Eclipse 에서 실행할 때 따로 값을 줄 수 있음</li>
+<li>형변환을 통해 다양하게 사용 가능</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>TIL</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java-day3</title>
     <url>/2022/04/06/Java/Java-day3/</url>
     <content><![CDATA[<h3 id="인스턴스-생성과-힙-메모리"><a href="#인스턴스-생성과-힙-메모리" class="headerlink" title="인스턴스 생성과 힙 메모리"></a>인스턴스 생성과 힙 메모리</h3><h6 id="인스턴스-instance"><a href="#인스턴스-instance" class="headerlink" title="인스턴스 (instance)"></a>인스턴스 (instance)</h6><ul>
@@ -945,6 +1002,60 @@
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class MakeReport &#123;</span><br><span class="line"></span><br><span class="line">	StringBuffer buffer = new StringBuffer();</span><br><span class="line"></span><br><span class="line">	private String line = &quot;===========================================\n&quot;;</span><br><span class="line">	private String title = &quot;  이름\t   주소 \t\t  전화번호  \n&quot;;</span><br><span class="line">	private void makeHeader()</span><br><span class="line">	&#123;</span><br><span class="line">		buffer.append(line);</span><br><span class="line">		buffer.append(title);</span><br><span class="line">		buffer.append(line);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	private void generateBody()</span><br><span class="line">	&#123;</span><br><span class="line">		buffer.append(&quot;James \t&quot;);</span><br><span class="line">		buffer.append(&quot;Seoul Korea \t&quot;);</span><br><span class="line">		buffer.append(&quot;010-2222-3333\n&quot;);</span><br><span class="line"></span><br><span class="line">		buffer.append(&quot;Tomas \t&quot;);</span><br><span class="line">		buffer.append(&quot;NewYork US \t&quot;);</span><br><span class="line">		buffer.append(&quot;010-7777-0987\n&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	private void makeFooter()</span><br><span class="line">	&#123;</span><br><span class="line"></span><br><span class="line">		buffer.append(line);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public String getReport()</span><br><span class="line">	&#123;</span><br><span class="line">		makeHeader();</span><br><span class="line">		generateBody();</span><br><span class="line">		makeFooter();</span><br><span class="line">		return buffer.toString();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class TestReprt &#123;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line">		MakeReport report = new MakeReport();</span><br><span class="line">		String builder = report.getReport();</span><br><span class="line"></span><br><span class="line">		System.out.println(builder);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>TIL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java-day6</title>
+    <url>/2022/04/12/Java/Java-day6/</url>
+    <content><![CDATA[<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><ul>
+<li>상속 구조에서 최상위 부모 클래스로만 사용</li>
+<li>추상 메소드는 시그니처만 있고 구체적 로직이 없다. ({} ←이게 없다.)</li>
+<li>예를들어 멤버변수와 메소드가 똑같은 SamsungTV 클래스와 LGTV클래스가 존재하고 main에서 SamsungTV클래스를 사용하다가 LGTV 클래스를 사용하려면 많은 코드를 사용해야 한다. </li>
+<li>이 때 다형성을 적용(상속, 메소드 오버라이딩, 타입 변환 필요)하면 소스(코드) 수정을 최소화하면서 프로그램 수정이 가능<ol>
+<li>SamsungTV, LGTV와 멤버변수가 동일, 추상 메소드를 선언한 추상 클래스 TV 생성</li>
+<li>TV클래스를 SamsungTV, LGTV클래스에 각각 상속하고, 메소드 오버라이딩</li>
+<li>main 에서 사용할 때 삼성tv라면 TV 거실 &#x3D; new SamsungTV();</li>
+<li>거실에 Samsung TV를 사용하다가 LGTV로 바꿧을 때 참조변수의 SamsungTV 객체를 LGTV로 수정하면 다른부분 수정이 필요없이 기존 사용하던 켜기, 끄기, 켜기예약 모든 메소드를 사용 가능하다.<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">	// 추상 클래스</span><br><span class="line">public abstract class TV &#123;</span><br><span class="line">	int i;</span><br><span class="line">	int j;</span><br><span class="line"></span><br><span class="line">	TV(int i, int j) &#123;</span><br><span class="line">		this.i = i;</span><br><span class="line">		this.j = j;</span><br><span class="line">	&#125;</span><br><span class="line">// 추상 메소드</span><br><span class="line">	abstract void 켜기();</span><br><span class="line">	abstract void 끄기();</span><br><span class="line">	abstract void 켜기예약();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ul>
+<hr>
+<h2 id="Interface"><a href="#Interface" class="headerlink" title="Interface"></a>Interface</h2><h3 id="Create"><a href="#Create" class="headerlink" title="Create"></a>Create</h3><ul>
+<li>interface name {}으로 작성하며 상수, 추상 메소드만 가지는 특수 클래스</li>
+<li>상수는 멤버변수와 구분하기 위해 모두 대문자로 작성 및 단어와 단어를 _ 로 연결</li>
+<li>interface에서 상수 앞에는 static final이 컴파일하며 자동으로 추가된다.</li>
+<li>interface에서 추상 메소드 앞에 abstract를 생략해도 컴파일 시점에 자동 추가</li>
+</ul>
+<h3 id="Implements"><a href="#Implements" class="headerlink" title="Implements"></a>Implements</h3><ul>
+<li>추상 클래스처럼 상속 구조상 최상위 부모 클래스로만 사용, interface는 상속할 때 extends가 아닌 implements(구현하다) 사용 —&gt; class Name implements Interface {}</li>
+<li>한 클래스에 여러개의 interface를 상속할 수 있다. —&gt; 인터페이스가 상수만 허용하기 때문에 가능 (두 인터페이스에서 중복되는 상수라도 static이 붙어있기 때문에 이름과 결합하여 사용해서 문제가 없다) [class Name implements Interface1, Interface2 {}]</li>
+<li>Interface는 부모 Interface를 상속받을 수 있다. —&gt; 이때는 extends를 사용한다. (다중도 가능)</li>
+<li>Abstract와 Interface의 다른점은 Abstract는 논리적으로 같다, 포함한다는 관계인데 그러한 관계가 아닌  논리적으로 좀 다른 관계를 하나로 묶어서 사용하기 위해서는 최상위 부모로 논리적으로 같지 않아도 객체들을 모두 포함할 수 있는 Interface를 사용해야 한다.</li>
+</ul>
+<h2 id="Exception"><a href="#Exception" class="headerlink" title="Exception"></a>Exception</h2><h3 id="Exception-1"><a href="#Exception-1" class="headerlink" title="Exception"></a>Exception</h3><ul>
+<li>예외는 발생할 수도있고 안할 수도 있다 (2개의 정수를 입력받는 프로그램에 문자를 입력하거나 입력하지 않는 행위 등등이 모두 예외)</li>
+<li>JVM에서는 예외가 발생되면 해당 예외 클래스의 객체를 생성하여 실행중인 프로그램에 던진다(throw), 이 때 던져진 예외객체를 잡아서(catch) 처리해야 하는데 예외를 잡지 않으면 프로그램이 비정상적으로 종료.</li>
+<li>예외 객체를 처리하는 가장 기본적인 방법은 try ~ catch문 사용<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">	try &#123;</span><br><span class="line">		// 일단 오류가 나더라도 실행</span><br><span class="line">		example();</span><br><span class="line">		// Exception 에는 문제적 상황을 미리 정의해둔 클래스가 있다.</span><br><span class="line">	&#125; catch(Exception e) &#123;</span><br><span class="line">		// 예외 처리</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Multiple-catch"><a href="#Multiple-catch" class="headerlink" title="Multiple catch"></a>Multiple catch</h3><ul>
+<li>try 블록에서 2가지 예외를 예상하고 처리했는데 예상치 못한 다른 예외가 발생했을 때 두 가지 방법으로 처리가 가능하다.<ol>
+<li>새롭게 발견된 예외를 처리할 해당 예외를 catch문에 추가</li>
+<li>모든 Exception 클래스의 최상위 부모인 Exception 타입의 catch문 맨 마지막에 추가 (catch(Exception e)) —&gt; 항상 catch문 마지막에 위치해야 한다<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">try &#123;</span><br><span class="line"></span><br><span class="line">&#125; catch (Case1 e) &#123;</span><br><span class="line">	println(&quot;Case1 문제 발생함&quot;)</span><br><span class="line">&#125; catch (Case2 e) &#123;</span><br><span class="line">	println(&quot;Case2 문제 발생함&quot;)</span><br><span class="line">&#125; // catch (Case3 e) &#123;</span><br><span class="line">//	println(&quot;Case3 문제 발생함&quot;)</span><br><span class="line">//&#125; (1)</span><br><span class="line"></span><br><span class="line">//catch (Exception e) &#123;</span><br><span class="line">//	Println(&quot;예상치 못한 문제 발생&quot;)</span><br><span class="line">//&#125; (2)</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ul>
+<h3 id="Finally"><a href="#Finally" class="headerlink" title="Finally"></a>Finally</h3><ul>
+<li>try-catch 문 마지막에 finally {} 추가하면 예외가 발생 하던 안하던 무조건 실행</li>
+</ul>
+<h3 id="throws"><a href="#throws" class="headerlink" title="throws"></a>throws</h3><ul>
+<li>throws를 이용하여 특정 메소드에서 발생된 예외를 메소드를 호출한 쪽으로 던질 수 있다.<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void main(String[] args) &#123;</span><br><span class="line">	try &#123;</span><br><span class="line">		int a = 9;</span><br><span class="line">		int b = 0;</span><br><span class="line">	&#125; catch (ArithmeticException e) &#123;</span><br><span class="line">		println(&quot;2번째 숫자는 0이 아닌 수 입력하세요&quot;)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">// 메소드 안에서 발생한 예외 객체를 main으로 던졌다.</span><br><span class="line">private static void testMethod(int a, int b) throws ArithmeticException &#123;</span><br><span class="line">	println(a / b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
 ]]></content>
       <categories>
         <category>Java</category>
@@ -1243,60 +1354,6 @@
 <li>key 목록이나 Value 목록만 별도로 추출하여 사용 가능</li>
 <li>keySet(); 메소드는 키 목록만 추출, values(); 메소드는 벨류목록만 추출</li>
 <li>HashTable과 개념과 사용방법이 동일</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>TIL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java-day6</title>
-    <url>/2022/04/12/Java/Java-day6/</url>
-    <content><![CDATA[<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><ul>
-<li>상속 구조에서 최상위 부모 클래스로만 사용</li>
-<li>추상 메소드는 시그니처만 있고 구체적 로직이 없다. ({} ←이게 없다.)</li>
-<li>예를들어 멤버변수와 메소드가 똑같은 SamsungTV 클래스와 LGTV클래스가 존재하고 main에서 SamsungTV클래스를 사용하다가 LGTV 클래스를 사용하려면 많은 코드를 사용해야 한다. </li>
-<li>이 때 다형성을 적용(상속, 메소드 오버라이딩, 타입 변환 필요)하면 소스(코드) 수정을 최소화하면서 프로그램 수정이 가능<ol>
-<li>SamsungTV, LGTV와 멤버변수가 동일, 추상 메소드를 선언한 추상 클래스 TV 생성</li>
-<li>TV클래스를 SamsungTV, LGTV클래스에 각각 상속하고, 메소드 오버라이딩</li>
-<li>main 에서 사용할 때 삼성tv라면 TV 거실 &#x3D; new SamsungTV();</li>
-<li>거실에 Samsung TV를 사용하다가 LGTV로 바꿧을 때 참조변수의 SamsungTV 객체를 LGTV로 수정하면 다른부분 수정이 필요없이 기존 사용하던 켜기, 끄기, 켜기예약 모든 메소드를 사용 가능하다.<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">	// 추상 클래스</span><br><span class="line">public abstract class TV &#123;</span><br><span class="line">	int i;</span><br><span class="line">	int j;</span><br><span class="line"></span><br><span class="line">	TV(int i, int j) &#123;</span><br><span class="line">		this.i = i;</span><br><span class="line">		this.j = j;</span><br><span class="line">	&#125;</span><br><span class="line">// 추상 메소드</span><br><span class="line">	abstract void 켜기();</span><br><span class="line">	abstract void 끄기();</span><br><span class="line">	abstract void 켜기예약();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-</li>
-</ul>
-<hr>
-<h2 id="Interface"><a href="#Interface" class="headerlink" title="Interface"></a>Interface</h2><h3 id="Create"><a href="#Create" class="headerlink" title="Create"></a>Create</h3><ul>
-<li>interface name {}으로 작성하며 상수, 추상 메소드만 가지는 특수 클래스</li>
-<li>상수는 멤버변수와 구분하기 위해 모두 대문자로 작성 및 단어와 단어를 _ 로 연결</li>
-<li>interface에서 상수 앞에는 static final이 컴파일하며 자동으로 추가된다.</li>
-<li>interface에서 추상 메소드 앞에 abstract를 생략해도 컴파일 시점에 자동 추가</li>
-</ul>
-<h3 id="Implements"><a href="#Implements" class="headerlink" title="Implements"></a>Implements</h3><ul>
-<li>추상 클래스처럼 상속 구조상 최상위 부모 클래스로만 사용, interface는 상속할 때 extends가 아닌 implements(구현하다) 사용 —&gt; class Name implements Interface {}</li>
-<li>한 클래스에 여러개의 interface를 상속할 수 있다. —&gt; 인터페이스가 상수만 허용하기 때문에 가능 (두 인터페이스에서 중복되는 상수라도 static이 붙어있기 때문에 이름과 결합하여 사용해서 문제가 없다) [class Name implements Interface1, Interface2 {}]</li>
-<li>Interface는 부모 Interface를 상속받을 수 있다. —&gt; 이때는 extends를 사용한다. (다중도 가능)</li>
-<li>Abstract와 Interface의 다른점은 Abstract는 논리적으로 같다, 포함한다는 관계인데 그러한 관계가 아닌  논리적으로 좀 다른 관계를 하나로 묶어서 사용하기 위해서는 최상위 부모로 논리적으로 같지 않아도 객체들을 모두 포함할 수 있는 Interface를 사용해야 한다.</li>
-</ul>
-<h2 id="Exception"><a href="#Exception" class="headerlink" title="Exception"></a>Exception</h2><h3 id="Exception-1"><a href="#Exception-1" class="headerlink" title="Exception"></a>Exception</h3><ul>
-<li>예외는 발생할 수도있고 안할 수도 있다 (2개의 정수를 입력받는 프로그램에 문자를 입력하거나 입력하지 않는 행위 등등이 모두 예외)</li>
-<li>JVM에서는 예외가 발생되면 해당 예외 클래스의 객체를 생성하여 실행중인 프로그램에 던진다(throw), 이 때 던져진 예외객체를 잡아서(catch) 처리해야 하는데 예외를 잡지 않으면 프로그램이 비정상적으로 종료.</li>
-<li>예외 객체를 처리하는 가장 기본적인 방법은 try ~ catch문 사용<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">	try &#123;</span><br><span class="line">		// 일단 오류가 나더라도 실행</span><br><span class="line">		example();</span><br><span class="line">		// Exception 에는 문제적 상황을 미리 정의해둔 클래스가 있다.</span><br><span class="line">	&#125; catch(Exception e) &#123;</span><br><span class="line">		// 예외 처리</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="Multiple-catch"><a href="#Multiple-catch" class="headerlink" title="Multiple catch"></a>Multiple catch</h3><ul>
-<li>try 블록에서 2가지 예외를 예상하고 처리했는데 예상치 못한 다른 예외가 발생했을 때 두 가지 방법으로 처리가 가능하다.<ol>
-<li>새롭게 발견된 예외를 처리할 해당 예외를 catch문에 추가</li>
-<li>모든 Exception 클래스의 최상위 부모인 Exception 타입의 catch문 맨 마지막에 추가 (catch(Exception e)) —&gt; 항상 catch문 마지막에 위치해야 한다<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">try &#123;</span><br><span class="line"></span><br><span class="line">&#125; catch (Case1 e) &#123;</span><br><span class="line">	println(&quot;Case1 문제 발생함&quot;)</span><br><span class="line">&#125; catch (Case2 e) &#123;</span><br><span class="line">	println(&quot;Case2 문제 발생함&quot;)</span><br><span class="line">&#125; // catch (Case3 e) &#123;</span><br><span class="line">//	println(&quot;Case3 문제 발생함&quot;)</span><br><span class="line">//&#125; (1)</span><br><span class="line"></span><br><span class="line">//catch (Exception e) &#123;</span><br><span class="line">//	Println(&quot;예상치 못한 문제 발생&quot;)</span><br><span class="line">//&#125; (2)</span><br></pre></td></tr></table></figure></li>
-</ol>
-</li>
-</ul>
-<h3 id="Finally"><a href="#Finally" class="headerlink" title="Finally"></a>Finally</h3><ul>
-<li>try-catch 문 마지막에 finally {} 추가하면 예외가 발생 하던 안하던 무조건 실행</li>
-</ul>
-<h3 id="throws"><a href="#throws" class="headerlink" title="throws"></a>throws</h3><ul>
-<li>throws를 이용하여 특정 메소드에서 발생된 예외를 메소드를 호출한 쪽으로 던질 수 있다.<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void main(String[] args) &#123;</span><br><span class="line">	try &#123;</span><br><span class="line">		int a = 9;</span><br><span class="line">		int b = 0;</span><br><span class="line">	&#125; catch (ArithmeticException e) &#123;</span><br><span class="line">		println(&quot;2번째 숫자는 0이 아닌 수 입력하세요&quot;)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">// 메소드 안에서 발생한 예외 객체를 main으로 던졌다.</span><br><span class="line">private static void testMethod(int a, int b) throws ArithmeticException &#123;</span><br><span class="line">	println(a / b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 ]]></content>
       <categories>
